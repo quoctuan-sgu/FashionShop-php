@@ -4,19 +4,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>Signup</title>
 
-    <link rel="stylesheet" href="css/login.css">
+    <link rel="stylesheet" href="css/sign.css">
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css" id="bootstrap-css">
 </head>
 
 <body>
-    <div class="container login-container">
+    <div class="container-fluid sign-container">
         <div class="row justify-content-center">
-            <div class="col-md-5 login-form-2">
-                <h3>Đăng nhập</h3>
-                <form>
+            <div class="col-md-4 sign-form-2">
+                <h3>ĐĂNG KÝ</h3>
+
+                <form action="index.php" method="POST">
                     <div class="form-group">
                         <input type="text" class="form-control" placeholder="Your Email *" value="" />
                     </div>
@@ -24,10 +25,10 @@
                         <input type="password" class="form-control" placeholder="Your Password *" value="" />
                     </div>
                     <div class="form-group">
-                        <a href="#" class="signup" value="signup">Đăng ký</a>
+                        <a href="signin.php" class="signin" value="signin">Đăng nhập</a>
                     </div>
                     <div class="row justify-content-center">
-                        <input type="submit" class="btnSubmit" value="Đăng nhập" />
+                        <input type="submit" class="btnSubmit" value="Đăng ký" />
                     </div>
                 </form>
             </div>
