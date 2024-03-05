@@ -8,6 +8,10 @@ html {
     height: 100%;
 }
 
+.sign-container form {
+    padding: 10%;
+}
+
 .sign-form-2 {
     margin: 8%;
     padding: 5%;
@@ -26,8 +30,23 @@ html {
     color: #ffffff;
 }
 
-.sign-container form {
-    padding: 10%;
+.sign-form-2 .btnSubmit {
+    font-weight: 600;
+    color: #222222;
+    background-color: #fff;
+}
+
+.sign-form-2 .btnSubmit:hover {
+    background-color: rgb(255, 180, 255);
+}
+
+.sign-form-2 a {
+    color: rgb(255, 255, 255);
+    text-decoration: underline;
+}
+
+.sign-form-2 a:hover {
+    color: rgb(255, 180, 255);
 }
 
 .btnSubmit {
@@ -36,22 +55,4 @@ html {
     padding: 1.5%;
     border: none;
     cursor: pointer;
-}
-
-.sign-form-2 .btnSubmit {
-    font-weight: 600;
-    color: #000000;
-    background-color: #fff;
-}
-
-.sign-form-2 .btnSubmit:hover {
-    background-color: #ffb9f7;
-}
-
-.sign-form-2 a {
-    color: rgb(255, 255, 255);
-}
-
-.sign-form-2 a:hover {
-    color: rgb(142, 255, 255);
 }
