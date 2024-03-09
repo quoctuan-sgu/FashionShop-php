@@ -2,7 +2,6 @@
 <html lang="en">
 
 <head>
-    <title>Product</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!--===============================================================================================-->
@@ -35,6 +34,32 @@
     <link rel="stylesheet" type="text/css" href="css/util.css">
     <link rel="stylesheet" type="text/css" href="css/main.css">
     <!--===============================================================================================-->
+    <title>Product</title>
+    <script>
+        // Lấy đường dẫn hiện tại
+        var currentLocation = window.location.pathname;
+
+        // Thay đổi nội dung title
+        if (currentLocation.includes("index.php")) {
+            document.title = "Trang chủ";
+        } else if (currentLocation.includes("about.php")) {
+            document.title = "About";
+        } else if (currentLocation.includes("blog.php")) {
+            document.title = "Blog";
+        } else if (currentLocation.includes("cart.php")) {
+            document.title = "Giỏ hàng";
+        } else if (currentLocation.includes("contact.php")) {
+            document.title = "Contact";
+        } else if (currentLocation.includes("product-detail.php")) {
+            document.title = "Chi tiết";
+        } else if (currentLocation.includes("product.php")) {
+            document.title = "Sản phẩm";
+        } else if (currentLocation.includes("signin.php")) {
+            document.title = "Đăng nhập";
+        } else if (currentLocation.includes("signup.php")) {
+            document.title = "Đăng ký";
+        }
+    </script>
 </head>
 
 <body class="animsition">
