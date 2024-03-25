@@ -1,5 +1,4 @@
-<!-- Header -->
-<?php include("inc/header.php") ?>
+
 
 <!-- Cart -->
 <div class="wrap-header-cart js-panel-cart">
@@ -1010,6 +1009,3 @@
 	</div>
 </div>
 
-
-<!-- Footer -->
-<?php include("inc/footer.php") ?>

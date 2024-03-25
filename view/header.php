@@ -76,9 +76,9 @@
                     </div>
 
                     <div class="right-top-bar flex-w h-full">
-                        <a href="/signin.php" class="flex-c-m trans-04 p-lr-25">Đăng nhập</a>
+                        <a href="index.php?ac=login" class="flex-c-m trans-04 p-lr-25">Đăng nhập</a>
 
-                        <a href="#" class="flex-c-m trans-04 p-lr-25">Đơn hàng</a>
+                        <a href="index.php?ac=order" class="flex-c-m trans-04 p-lr-25">Đơn hàng</a>
                     </div>
                 </div>
             </div>
@@ -100,23 +100,23 @@
                             </li>
 
                             <li>
-                                <a href="cart.php">Cart</a>
+                                <a href="index.php?ac=cart">Cart</a>
                             </li>
 
                             <li class="label1" data-label1="hot">
-                                <a href="product.php">Shop</a>
+                                <a href="index.php?ac=product">Shop</a>
                             </li>
 
                             <li>
-                                <a href="blog.php">Blog</a>
+                                <a href="index.php?ac=blog">Blog</a>
                             </li>
 
                             <li>
-                                <a href="about.php">About</a>
+                                <a href="index.php?ac=about">About</a>
                             </li>
 
                             <li>
-                                <a href="contact.php">Contact</a>
+                                <a href="index.php?ac=contact">Contact</a>
                             </li>
                         </ul>
 
@@ -158,7 +158,7 @@
         <div class="wrap-header-mobile">
             <!-- Logo moblie -->
             <div class="logo-mobile">
-                <a href="index.php"><img src="images/icons/logo-01.png" alt="IMG-LOGO"></a>
+                <a href="../index.php"><img src="images/icons/logo-01.png" alt="IMG-LOGO"></a>
             </div>
 
             <!-- Icon header -->
@@ -188,11 +188,11 @@
 
                 <li>
                     <div class="right-top-bar flex-w h-full">
-                        <a href="#" class="flex-c-m p-lr-10 trans-04">
+                        <a href="index.php?ac=login" class="flex-c-m p-lr-10 trans-04">
                             Đăng nhập
                         </a>
 
-                        <a href="#" class="flex-c-m p-lr-10 trans-04">
+                        <a href="index.php?ac=order" class="flex-c-m p-lr-10 trans-04">
                             Đơn hàng
                         </a>
                     </div>

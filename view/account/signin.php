@@ -25,7 +25,7 @@
                         <input type="password" class="form-control" placeholder="Your Password *" value="" />
                     </div>
                     <div class="form-group">
-                        <a href="signup.php" class="signup" value="signup">Đăng ký</a>
+                        <a href="index.php?ac=signup" class="signup" value="signup">Đăng ký</a>
                     </div>
                     <div class="row justify-content-center">
                         <input type="submit" class="btnSubmit" value="Đăng nhập" />
