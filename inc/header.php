@@ -83,6 +83,7 @@
                 </div>
             </div>
 
+            <!-- Navbar -->
             <div class="wrap-menu-desktop">
                 <nav class="limiter-menu-desktop container">
 
@@ -120,16 +121,26 @@
                         </ul>
 
                         <script>
-                            // Lấy đường dẫn hiện tại
+                            // Get current path
                             var currentLocation = window.location.pathname;
-                            // Lấy tất cả các thẻ <a> trong menu
-                            var menuItems = document.querySelectorAll('.main-menu li a');
 
-                            menuItems.forEach(function(item) {
+                            // Get tag
+                            var main_menu = document.querySelectorAll('.main-menu li a');
+                            var wrap_menu_desktop = document.querySelector('.wrap-menu-desktop');
+                            var header = document.querySelector('header');
+
+                            // Active - Menu desktop
+                            main_menu.forEach(function(item) {
                                 if (currentLocation.includes(item.getAttribute('href'))) {
                                     item.parentElement.classList.add('active-menu');
                                 }
                             });
+
+                            // Active - Header
+                            if (currentLocation.includes("cart.php") || currentLocation.includes("product.php") || currentLocation.includes("product-detail.php")) {
+                                header.classList.add('header-v4');
+                                wrap_menu_desktop.classList.add('how-shadow1');
+                            }
                         </script>
                     </div>
 
