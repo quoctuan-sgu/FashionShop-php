@@ -1,7 +1,7 @@
 <!-- Header -->
 <?php include "view/header.php";
 	  include "model/pdo.php";
-	  include "view/slider.php"
+	  
 ?>
 
 
@@ -34,11 +34,13 @@
 				break;
 
 			default:
+				include "view/slider.php";
 				include "view/home.php";
 			
 		}
 	}
 	else {
+		include "view/slider.php";
 		include "view/home.php";
 	}
 
