@@ -1,23 +1,35 @@
 <?php
+// check SESSION
+if (isset($_SESSION['user'])) {
+    extract($_SESSION['user']);
 
-    // include ở đây nhé
-    include "../model/pdo.php";
-    include "header.php";
-
-
-
-    // Controller ở đây nhé
-    if(isset($_GET['ac'])) {
-        $ac = $$_GET['ac'];
-        switch($ac) {
-            // case ở đây rồi include giao diện vào đây nha. NHớ break
-        }
+    if ($role_id == 1) {
+        header("Location: ../index.php");
     }
-    else {
-        // nếu không tồn tại => load trang home admin
-        include "home.php";
-
-    }
-    // footer
-    include "footer.php";
+} else {
+    header("Location: ../index.php");
+}
 ?>
+
+
+<?php
+include "header.php";
+include "../model/pdo.php";
+
+
+
+// Controller
+if (isset($_GET['ac'])) {
+    $ac = $$_GET['ac'];
+
+    switch ($ac) {
+        case '':
+            break;
+    }
+} else {
+    include "home.php";
+}
+
+
+
+include "footer.php";

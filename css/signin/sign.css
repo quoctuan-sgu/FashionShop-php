@@ -1,0 +1,60 @@
+.sign-container form {
+    margin: 6% 14% 6% 14%;
+}
+
+.sign-form {
+    background: rgba(25, 25, 25, 0.5);
+    box-shadow: 0 4px 8px 0 rgb(255, 155, 255);
+    border: 2px solid rgb(255, 155, 255);
+    border-radius: 20px;
+    font-weight: 600;
+}
+
+.sign-form h2 {
+    margin-top: 6%;
+    text-align: center;
+    color: #ffffff;
+}
+
+.sign-form h5 {
+    text-align: center;
+    color: rgb(255, 55, 155);
+    margin-bottom: 4%;
+}
+
+.sign-form .btnSubmit {
+    font-weight: 600;
+    color: #222222;
+    background-color: #fff;
+}
+
+.sign-form .btnSubmit:hover {
+    background-color: rgb(255, 155, 255);
+}
+
+.sign-form input {
+    border: 2px solid rgb(255, 155, 255);
+}
+
+.sign-form a {
+    color: rgb(255, 255, 255);
+    text-decoration: underline;
+}
+
+.sign-form a:hover {
+    color: rgb(255, 155, 255);
+}
+
+.btnSubmit {
+    width: 30%;
+    border-radius: 1rem;
+    padding: 1.5%;
+    border: none;
+    cursor: pointer;
+}
+
+.error-message {
+    color: rgb(255, 55, 155);
+    font-size: 14px;
+    margin-top: 5px;
+}

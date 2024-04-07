@@ -33,33 +33,9 @@
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="css/util.css">
     <link rel="stylesheet" type="text/css" href="css/main.css">
+    <link rel="stylesheet" type="text/css" href="css/signin/sign.css">
     <!--===============================================================================================-->
-    <title>Product</title>
-    <script>
-        // Lấy đường dẫn hiện tại
-        var currentLocation = window.location.pathname;
-
-        // Thay đổi nội dung title
-        if (currentLocation.includes("index.php")) {
-            document.title = "Trang chủ";
-        } else if (currentLocation.includes("about.php")) {
-            document.title = "About";
-        } else if (currentLocation.includes("blog.php")) {
-            document.title = "Blog";
-        } else if (currentLocation.includes("cart.php")) {
-            document.title = "Giỏ hàng";
-        } else if (currentLocation.includes("contact.php")) {
-            document.title = "Contact";
-        } else if (currentLocation.includes("product-detail.php")) {
-            document.title = "Chi tiết";
-        } else if (currentLocation.includes("product.php")) {
-            document.title = "Sản phẩm";
-        } else if (currentLocation.includes("signin.php")) {
-            document.title = "Đăng nhập";
-        } else if (currentLocation.includes("signup.php")) {
-            document.title = "Đăng ký";
-        }
-    </script>
+    <title>Home</title>
 </head>
 
 <body class="animsition">
@@ -72,14 +48,39 @@
             <div class="top-bar">
                 <div class="content-topbar flex-sb-m h-full container">
                     <div class="left-top-bar">
-                        Free shipping cho đơn hàng trên 500.000đ
+                        Free ship cho đơn hàng trên 200.000đ
                     </div>
 
-                    <div class="right-top-bar flex-w h-full">
-                        <a href="index.php?ac=login" class="flex-c-m trans-04 p-lr-25">Đăng nhập</a>
+                    <?php // check SESSION
+                    if (isset($_SESSION['user'])) {
+                        extract($_SESSION['user']); ?>
 
-                        <a href="index.php?ac=order" class="flex-c-m trans-04 p-lr-25">Đơn hàng</a>
-                    </div>
+                        <div class="right-top-bar flex-w h-full ml-auto">
+                            <a href="#" class="flex-c-m trans-04 p-lr-25">Hello <?= $user_name ?></a>
+                        </div>
+                        <div class="right-top-bar flex-w h-full">
+                            <a href="#" class="flex-c-m trans-04 p-lr-25">Đơn hàng</a>
+                        </div>
+                        <div class="right-top-bar flex-w h-full">
+                            <a href="index.php?ac=signout" class="flex-c-m trans-04 p-lr-25">Đăng xuất</a>
+                        </div>
+
+                        <?php // check Role -> admin
+                        if ($role_id == 2) { ?>
+                            <div class="right-top-bar flex-w h-full">
+                                <a href="/admin/index.php" class="flex-c-m trans-04 p-lr-25">Trang Admin</a>
+                            </div>
+                        <?php
+                        } ?>
+
+                    <?php
+                    } else { ?>
+                        <div class="right-top-bar flex-w h-full">
+                            <a href="index.php?ac=signin" class="flex-c-m trans-04 p-lr-25">Đăng nhập</a>
+                        </div>
+                    <?php
+                    } ?>
+
                 </div>
             </div>
 
@@ -119,30 +120,6 @@
                                 <a href="index.php?ac=contact">Contact</a>
                             </li>
                         </ul>
-
-                        <script>
-                            var currentLocation = window.location.search;
-
-                            // Active - Menu desktop
-                            document.querySelectorAll('.main-menu li a').forEach(function(item) {
-                                var href = item.getAttribute('href');
-                                var urlObject = new URL(href, window.location.href);
-                                var queryPart = urlObject.search;
-
-                                if (currentLocation === queryPart) {
-                                    item.parentElement.classList.add('active-menu');
-                                }
-                            });
-
-                            // Active - Header
-                            var wrap_menu_desktop = document.querySelector('.wrap-menu-desktop');
-                            var header = document.querySelector('header');
-
-                            if (currentLocation === "?ac=product" || currentLocation === "?ac=cart" || currentLocation === "?ac=product-detail") {
-                                header.classList.add('header-v4');
-                                wrap_menu_desktop.classList.add('how-shadow1');
-                            }
-                        </script>
                     </div>
 
                     <!-- Icon header -->
@@ -183,7 +160,7 @@
             <ul class="topbar-mobile">
                 <li>
                     <div class="left-top-bar">
-                        Free shipping cho đơn hàng trên 500.000đ
+                        Free ship cho đơn hàng trên 200.000đ
                     </div>
                 </li>
 
@@ -191,10 +168,6 @@
                     <div class="right-top-bar flex-w h-full">
                         <a href="index.php?ac=login" class="flex-c-m p-lr-10 trans-04">
                             Đăng nhập
-                        </a>
-
-                        <a href="index.php?ac=order" class="flex-c-m p-lr-10 trans-04">
-                            Đơn hàng
                         </a>
                     </div>
                 </li>
@@ -226,4 +199,59 @@
                 </li>
             </ul>
         </div>
+
+        <script>
+            // Get path
+            var currentLocation = window.location.search;
+
+            // Active - Menu desktop
+            document.querySelectorAll('.main-menu li a').forEach(function(item) {
+                var href = item.getAttribute('href');
+                var urlObject = new URL(href, window.location.href);
+                var queryPart = urlObject.search;
+
+                if (currentLocation === queryPart) {
+                    item.parentElement.classList.add('active-menu');
+                }
+            });
+
+            // Active - Header
+            var wrap_menu_desktop = document.querySelector('.wrap-menu-desktop');
+            var header = document.querySelector('header');
+
+            if (currentLocation === "?ac=product" || currentLocation === "?ac=cart" || currentLocation === "?ac=signin" ||
+                currentLocation === "?ac=signup" || currentLocation === "?ac=product-detail") {
+                header.classList.add('header-v4');
+                wrap_menu_desktop.classList.add('how-shadow1');
+            }
+
+            // Active - Title
+            if (currentLocation.includes("?ac=about")) {
+                document.title = "About Us";
+            } else if (currentLocation.includes("?ac=blog")) {
+                document.title = "Blog";
+            } else if (currentLocation.includes("?ac=cart")) {
+                document.title = "Giỏ Hàng";
+            } else if (currentLocation.includes("?ac=contact")) {
+                document.title = "Contact";
+            } else if (currentLocation.includes("?ac=product-detail")) {
+                document.title = "Chi tiết";
+            } else if (currentLocation.includes("?ac=product")) {
+                document.title = "Cửa hàng";
+            } else if (currentLocation.includes("?ac=signin")) {
+                document.title = "Đăng nhập";
+            } else if (currentLocation.includes("?ac=signup")) {
+                document.title = "Đăng ký";
+            }
+
+            // Link css
+            if (currentLocation.includes("?ac=signin") || currentLocation.includes("?ac=signup")) {
+                document.head.appendChild(Object.assign(document.createElement("link"), {
+                    rel: "stylesheet",
+                    type: "text/css",
+                    href: "css/signin/background.css"
+                }));
+            }
+        </script>
+
     </header>

@@ -1,3 +1,1 @@
-<?php
-    // giao diện home admin
-?>
+<h1>Admin Page</h1>

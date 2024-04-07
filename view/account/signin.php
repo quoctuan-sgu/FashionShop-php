@@ -1,46 +1,30 @@
-<!DOCTYPE html>
-<html lang="en">
+<div class="container-fluid sign-container">
+    <div class="row justify-content-center">
+        <div class="col-md-4 sign-form" style="margin: 10% 4% 12% 4%;">
+            <h2>ĐĂNG NHẬP</h2>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Signin</title>
+            <form action="index.php?ac=signin" method="POST">
 
-    <link rel="stylesheet" href="css/sign.css">
-    <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css" id="bootstrap-css">
-</head>
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Email *" name="email" />
+                </div>
 
-<body>
-    <div class="container-fluid sign-container">
-        <div class="row justify-content-center">
-            <div class="col-md-4 sign-form-2">
-                <h3>ĐĂNG NHẬP</h3>
+                <div class="form-group">
+                    <input type="password" class="form-control" placeholder="Password *" name="password" />
+                </div>
 
-                <form action="index.php" method="POST">
-                    <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Your Email *" value="" />
-                    </div>
-                    <div class="form-group">
-                        <input type="password" class="form-control" placeholder="Your Password *" value="" />
-                    </div>
-                    <div class="form-group">
-                        <a href="index.php?ac=signup" class="signup" value="signup">Đăng ký</a>
-                    </div>
-                    <div class="row justify-content-center">
-                        <input type="submit" class="btnSubmit" value="Đăng nhập" />
-                    </div>
-                </form>
-            </div>
+                <div class="row justify-content-end">
+                    <a href="index.php?ac=signup">Đăng ký</a>
+                </div>
+
+                <div class="row justify-content-center">
+                    <input type="submit" class="btnSubmit" value="Đăng nhập" name="signin" />
+                </div>
+            </form>
+
+            <?php if (isset($notice)) { ?>
+                <h5><?= $notice; ?></h5>
+            <?php } ?>
         </div>
     </div>
-
-    <!--===============================================================================================-->
-    <script src="vendor/jquery/jquery-3.2.1.min.js"></script>
-    <!--===============================================================================================-->
-    <script src="vendor/bootstrap/js/popper.js"></script>
-    <!--===============================================================================================-->
-    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
-</body>
-
-</html>
+</div>
