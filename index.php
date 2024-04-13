@@ -6,6 +6,7 @@ session_start();
 include "view/header.php";
 include "model/pdo.php";
 include "model/account.php";
+include "model/product.php";
 ?>
 
 
@@ -21,6 +22,9 @@ if (isset($_GET['ac']) && $_GET['ac'] != "") {
 			break;
 		case 'product':
 			include "view/product.php";
+			break;
+		case 'productDetail':
+			include "view/product-detail.php";
 			break;
 		case 'blog':
 			include "view/blog.php";

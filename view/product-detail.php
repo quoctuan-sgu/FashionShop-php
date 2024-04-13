@@ -1,5 +1,11 @@
 
-
+<?php 
+if(isset( $_GET['id'] ) && !empty($_GET['id'])){
+	$currentProductDetailId=$_GET['id'];
+}
+$currentProduct=getProductByProductId( $currentProductDetailId );
+echo "<script>console.log('Debug Objects: " . $currentProduct['product_id'] . "' );</script>";
+?>
 <!-- Cart -->
 <div class="wrap-header-cart js-panel-cart">
 	<div class="s-full js-hide-cart"></div>
@@ -23,6 +29,7 @@
 					</div>
 
 					<div class="header-cart-item-txt p-t-8">
+						
 						<a href="#" class="header-cart-item-name m-b-18 hov-cl1 trans-04">
 							White Shirt Pleat
 						</a>
@@ -117,17 +124,20 @@
 						<div class="wrap-slick3-arrows flex-sb-m flex-w"></div>
 
 						<div class="slick3 gallery-lb">
-							<div class="item-slick3" data-thumb="images/product-detail-01.jpg">
-								<div class="wrap-pic-w pos-relative">
-									<img src="images/product-detail-01.jpg" alt="IMG-PRODUCT">
+							<?php
+								echo'
+									<div class="item-slick3" data-thumb="data:image/jpeg;base64,'.base64_encode($currentProduct['product_image']).'">
+										<div class="wrap-pic-w pos-relative">
+										<img src="data:image/jpeg;base64,'.base64_encode($currentProduct['product_image']).'" alt="IMG-PRODUCT">
 
-									<a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="images/product-detail-01.jpg">
-										<i class="fa fa-expand"></i>
-									</a>
-								</div>
-							</div>
+											<a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="images/product-detail-01.jpg">
+												<i class="fa fa-expand"></i>
+											</a>
+										</div>
+									</div>';
+							?>
 
-							<div class="item-slick3" data-thumb="images/product-detail-02.jpg">
+							<!-- <div class="item-slick3" data-thumb="images/product-detail-02.jpg">
 								<div class="wrap-pic-w pos-relative">
 									<img src="images/product-detail-02.jpg" alt="IMG-PRODUCT">
 
@@ -145,7 +155,7 @@
 										<i class="fa fa-expand"></i>
 									</a>
 								</div>
-							</div>
+							</div> -->
 						</div>
 					</div>
 				</div>
@@ -153,17 +163,24 @@
 
 			<div class="col-md-6 col-lg-5 p-b-30">
 				<div class="p-r-50 p-t-5 p-lr-0-lg">
+					<?php
+					echo '
 					<h4 class="mtext-105 cl2 js-name-detail p-b-14">
-						Lightweight Jacket
-					</h4>
-
+						'.$currentProduct['product_name'].'
+					</h4>'
+					?>
+					<?php
+					echo'
 					<span class="mtext-106 cl2">
-						$58.79
-					</span>
-
+						'.$currentProduct['product_price'].'$
+					</span>'
+					?>
+					<?php
+					echo'
 					<p class="stext-102 cl3 p-t-23">
-						Nulla eget sem vitae eros pharetra viverra. Nam vitae luctus ligula. Mauris consequat ornare feugiat.
-					</p>
+						'.$currentProduct['product_description'].'
+					</p>'
+					?>
 
 					<!--  -->
 					<div class="p-t-33">
@@ -176,10 +193,15 @@
 								<div class="rs1-select2 bor8 bg0">
 									<select class="js-select2" name="time">
 										<option>Choose an option</option>
-										<option>Size S</option>
+										<?php
+										echo'
+											<option>'.$currentProduct['product_size'].'</option>
+										';
+										?>
+										<!-- <option>Size S</option>
 										<option>Size M</option>
 										<option>Size L</option>
-										<option>Size XL</option>
+										<option>Size XL</option> -->
 									</select>
 									<div class="dropDownSelect2"></div>
 								</div>
@@ -195,10 +217,13 @@
 								<div class="rs1-select2 bor8 bg0">
 									<select class="js-select2" name="time">
 										<option>Choose an option</option>
-										<option>Red</option>
+										<?php
+											echo '<option>'.$currentProduct['product_color'].'</option>';
+										?>
+										<!-- <option>Red</option>
 										<option>Blue</option>
 										<option>White</option>
-										<option>Grey</option>
+										<option>Grey</option> -->
 									</select>
 									<div class="dropDownSelect2"></div>
 								</div>
@@ -273,9 +298,12 @@
 					<!-- - -->
 					<div class="tab-pane fade show active" id="description" role="tabpanel">
 						<div class="how-pos2 p-lr-15-md">
-							<p class="stext-102 cl6">
+							<!-- <p class="stext-102 cl6">
 								Aenean sit amet gravida nisi. Nam fermentum est felis, quis feugiat nunc fringilla sit amet. Ut in blandit ipsum. Quisque luctus dui at ante aliquet, in hendrerit lectus interdum. Morbi elementum sapien rhoncus pretium maximus. Nulla lectus enim, cursus et elementum sed, sodales vitae eros. Ut ex quam, porta consequat interdum in, faucibus eu velit. Quisque rhoncus ex ac libero varius molestie. Aenean tempor sit amet orci nec iaculis. Cras sit amet nulla libero. Curabitur dignissim, nunc nec laoreet consequat, purus nunc porta lacus, vel efficitur tellus augue in ipsum. Cras in arcu sed metus rutrum iaculis. Nulla non tempor erat. Duis in egestas nunc.
-							</p>
+							</p> -->
+							<?php 
+								echo '<p class="stext-102 cl6">'.$currentProduct['product_description'].'</p>';
+							?>
 						</div>
 					</div>
 
@@ -320,7 +348,10 @@
 										</span>
 
 										<span class="stext-102 cl6 size-206">
-											Black, Blue, Grey, Green, Red, White
+											<!-- Black, Blue, Grey, Green, Red, White -->
+											<?php 
+												echo $currentProduct['product_color'];
+											?>
 										</span>
 									</li>
 
@@ -330,7 +361,10 @@
 										</span>
 
 										<span class="stext-102 cl6 size-206">
-											XL, L, M, S
+											<!-- XL, L, M, S -->
+											<?php
+											echo $currentProduct['product_size']; 
+											?>
 										</span>
 									</li>
 								</ul>
