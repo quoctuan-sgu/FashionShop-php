@@ -69,7 +69,9 @@ function filterProductByColor($color){
     $listProudct=pdo_query($sql);
     return $listProudct;
 }
-function constructQuery($color = null, $category = null, $searchKeywork = null,$pageIdx=null, $pageSize=null) {
+function constructQuery($color = null, 
+                    $category = null, $searchKeywork = null,
+                    $minPrice=null,$maxPrice=null) {
     $sql = "SELECT * FROM product WHERE 1";
 
     // Add conditions based on the provided arguments
@@ -85,21 +87,27 @@ function constructQuery($color = null, $category = null, $searchKeywork = null,$
     if ($searchKeywork !== null && $searchKeywork!='') {
         $sql .= " and product_name like '%".$searchKeywork."%'";
     }
-    if($pageIdx!==null && $pageSize!=''){
-        if($pageIdx==1){
-            $sql.=' limit '.($pageIdx-1).','.$pageSize;
-        }
-        else{
-            $sql.=' limit '.($pageIdx-1)+$pageSize.','.$pageSize;
-        }
-
+    
+    if($minPrice!==null && $maxPrice!==null && $minPrice!='' && $maxPrice!='' ){
+        $sql.=' and product_price between '.$minPrice.' and '.$maxPrice.'';
+        echo "<script>console.log('Debug Objects: " . $sql . "' );</script>";
     }
-    echo "<script>console.log('Debug Objects: " . $sql . "' );</script>";
+    // if($pageIdx!==null && $pageSize!=''){
+    //     if($pageIdx==1){
+    //         $sql.=' limit '.($pageIdx-1).','.$pageSize;
+    //     }
+    //     else{
+    //         $sql.=' limit '.($pageIdx-1)+$pageSize.','.$pageSize;
+    //     }
+
+    // }
+    
 
     return $sql;
 }
-function filterBy($color = null, $category = null, $searchKeywork = null,$pageIdx=null, $pageSize=null){
-    $sql=constructQuery($color, $category, $searchKeywork,$pageIdx,$pageSize);
+function filterBy($color = null, $category = null, $searchKeywork = null
+,$minPrice=null,$maxPrice=null){
+    $sql=constructQuery($color, $category, $searchKeywork,$minPrice,$maxPrice);
     $listProduct=pdo_query($sql);
     return $listProduct;
 }

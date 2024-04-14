@@ -16,29 +16,20 @@
 		$currentSort=0;
 		$currentProductDetailId=0;
 		//
-		$minPrice=0;
-		$maxPrice=100;
+		$minPrice='';
+		$maxPrice='';
 		//
 
 		$availabelColors=getUniqueProductColors($listProduct);
 
-		// if(isset($_POST['search-product']) && !empty($_POST['search-product'])) {
-		// 	$searchKeyWord=$_POST['search-product'];
-		// 	$searchText = $_POST['search-product'];
-		// 	$listProduct=searchFunction($searchText);
-		// 	$totalPage=totalPage($listProduct,$pageSize);
-		// 	if(isset($_GET['categoryid'])&&!empty($_GET['categoryid'])){
-		// 		$filteredProducts = [];
-		// 		foreach($listProduct as $product){
-					
-		// 			if($product['category_id']==$_GET['categoryid']){
-		// 				$filteredProducts[]=$product;
-		// 			}
-		// 		}
-		// 		$listProduct=$filteredProducts;
-		// 	}
-		// }
-		if(isset($_GET['searchProduct']) && !empty($_GET['searchProduct'])){
+		if(isset($_POST['searchProduct']) && !empty($_POST['searchProduct'])) {
+			$searchKeyWord=$_POST['searchProduct'];
+			$TEMP_URL.="&searchProduct=".$searchKeyWord;
+		}
+		if(isset($_GET['searchProduct']) && !empty($_GET['searchProduct'])) {
+			if(isset($_POST['searchProduct'])){
+				$_GET['searchProduct']=$_POST['searchProduct'];
+			}
 			$searchKeyWord=$_GET['searchProduct'];
 		}
 
@@ -58,8 +49,7 @@
 		if(isset($_GET['minprice']) && !empty($_GET['minprice'])){
 			$minPrice=$_GET['minprice'];
 			$maxPrice=$_GET['maxprice'];
-			//$maxPrice=$_GET['maxPrice'];
-			echo "<script>console.log('zxczxc: " .$maxPrice . "' );</script>";	
+			echo "<script>console.log('zxczxc: ".$minPrice." zxc ".$maxPrice."' );</script>";	
 		}
 		if(isset($_GET['page']) && !empty($_GET['page'])){
 			$currentPageIdx=$_GET['page'];
@@ -72,7 +62,7 @@
 			$currentSort=$_GET['orderby'];
 			$TEMP_URL.='&orderby='.$currentSort;
 		}
-		$listProduct=filterBy($currentSelectedColor,$currentCategoryId,$searchKeyWord);
+		$listProduct=filterBy($currentSelectedColor,$currentCategoryId,$searchKeyWord,$minPrice,$maxPrice);
 		echo "<script>console.log('SearchKey=	: " . $searchKeyWord . "' );</script>";
 		$totalPage=totalPage($listProduct,$pageSize);
 		$listProduct=array_slice($listProduct,($currentPageIdx-1)*$pageSize,$pageSize);
@@ -220,7 +210,7 @@
 			<!-- Search product -->
 			<div class="dis-none panel-search w-full p-t-10 p-b-15">
 				<div class="bor8 dis-flex p-l-15">
-					<form method="GET">
+					<form method="post" action="#">
 						<button type="submit" class="size-113 flex-c-m fs-16 cl2 hov-cl1 trans-04">
 							<i class="zmdi zmdi-search"></i>
 						</button>
@@ -296,36 +286,46 @@
 
 							<li class="p-b-6">	
 								<?php 
-								$filterPriceLink=$TEMP_URL.'&minprice=0&maxprice=50';
+								$filterPriceLink=$TEMP_URL.'&minprice=1&maxprice=50';
 								echo'	<a href="'.$filterPriceLink.'" class="filter-link stext-106 trans-04">
-										$0.00 - $50.00
+										$1.00 - $50.00
 									</a>' ;
 								?>
 							</li>
 
 							<li class="p-b-6">
-								<a href="#" class="filter-link stext-106 trans-04">
-									$50.00 - $100.00
-								</a>
+
+								<?php 
+								$filterPriceLink=$TEMP_URL.'&minprice=50&maxprice=100';
+								echo'	<a href="'.$filterPriceLink.'" class="filter-link stext-106 trans-04">
+										$50.00 - $100.00
+									</a>' ;
+								?>
 							</li>
 
 							<li class="p-b-6">
-								<a href="#" class="filter-link stext-106 trans-04">
-									$100.00 - $150.00
-								</a>
+								<?php 
+								$filterPriceLink=$TEMP_URL.'&minprice=100&maxprice=150';
+								echo'	<a href="'.$filterPriceLink.'" class="filter-link stext-106 trans-04">
+										$100.00 - $150.00
+									</a>' ;
+								?>
 							</li>
 
 							<li class="p-b-6">
-								<a href="#" class="filter-link stext-106 trans-04">
-									$150.00 - $200.00
-								</a>
+								<?php 
+								$filterPriceLink=$TEMP_URL.'&minprice=150&maxprice=200';
+								echo'	<a href="'.$filterPriceLink.'" class="filter-link stext-106 trans-04">
+										$150.00 - $200.00
+									</a>' ;
+								?>
 							</li>
 
-							<li class="p-b-6">
+							<!-- <li class="p-b-6">
 								<a href="#" class="filter-link stext-106 trans-04">
 									$200.00+
 								</a>
-							</li>
+							</li> -->
 						</ul>
 					</div>
 
@@ -462,7 +462,7 @@
 			if($currentSort==2){
 				echo'<span class="badge badge-pill badge-secondary m-b-10">Price hight to low</span>&nbsp;';
 			}
-			if(isset($minPrice)){
+			if(!empty($minPrice)){
 				echo'<span class="badge badge-pill badge-secondary m-b-10">Price range: '.$minPrice.'-'.$maxPrice.'$</span>&nbsp;';
 			}
 		
