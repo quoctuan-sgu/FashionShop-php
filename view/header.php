@@ -1,3 +1,5 @@
+<?php $current_page = isset($_GET['ac']) ? $_GET['ac'] : 'index'; ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -33,59 +35,84 @@
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="css/util.css">
     <link rel="stylesheet" type="text/css" href="css/main.css">
-    <link rel="stylesheet" type="text/css" href="css/signin/sign.css">
     <!--===============================================================================================-->
-    <title>Home</title>
+    <link rel="stylesheet" type="text/css" href="css/signin/style.css">
+    
+    <?php if ($current_page == 'signup' || $current_page == 'signin') echo '<link rel="stylesheet" type="text/css" href="css/signin/background.css">'; ?>
+
+    <?php
+    $titles = array(
+        'index' => 'Home',
+        'about' => 'About Us',
+        'blog' => 'Blog',
+        'cart' => 'Giỏ Hàng',
+        'contact' => 'Liên lạc',
+        'productDetail' => 'Chi tiết',
+        'product' => 'Shop',
+        'signin' => 'Đăng nhập',
+        'signup' => 'Đăng ký'
+    );
+
+    $title = isset($titles[$current_page]) ? $titles[$current_page] : '';
+    ?>
+
+    <title> <?php echo $title ?> </title>
 </head>
 
 <body class="animsition">
-
     <!-- Header -->
-    <header>
+    <header
+        class=" <?php if ($current_page == 'product' || $current_page == 'cart' || $current_page == 'signup' || $current_page == 'signin' || $current_page == 'productDetail') echo 'header-v4'; ?> ">
         <!-- Header desktop -->
         <div class="container-menu-desktop">
             <!-- Topbar -->
             <div class="top-bar">
                 <div class="content-topbar flex-sb-m h-full container">
                     <div class="left-top-bar">
-                        Free ship cho đơn hàng trên 200.000đ
+                        Free ship cho đơn hàng trên 500.000đ
                     </div>
 
                     <?php // check SESSION
                     if (isset($_SESSION['user'])) {
                         extract($_SESSION['user']); ?>
 
-                        <div class="right-top-bar flex-w h-full ml-auto">
-                            <a href="#" class="flex-c-m trans-04 p-lr-25">Hello <?= $user_name ?></a>
-                        </div>
-                        <div class="right-top-bar flex-w h-full">
-                            <a href="#" class="flex-c-m trans-04 p-lr-25">Đơn hàng</a>
-                        </div>
-                        <div class="right-top-bar flex-w h-full">
-                            <a href="index.php?ac=signout" class="flex-c-m trans-04 p-lr-25">Đăng xuất</a>
-                        </div>
+                    <div class="right-top-bar flex-w h-full ml-auto">
+                        <a href="#" class="flex-c-m trans-04 p-lr-25">Đơn hàng</a>
+                    </div>
 
-                        <?php // check Role -> admin
-                        if ($role_id == 2) { ?>
-                            <div class="right-top-bar flex-w h-full">
-                                <a href="/admin/index.php" class="flex-c-m trans-04 p-lr-25">Trang Admin</a>
-                            </div>
-                        <?php
-                        } ?>
+                    <!-- check Role -> admin -->
+                    <?php if ($role_id == 2) { ?>
 
-                    <?php
-                    } else { ?>
-                        <div class="right-top-bar flex-w h-full">
-                            <a href="index.php?ac=signin" class="flex-c-m trans-04 p-lr-25">Đăng nhập</a>
-                        </div>
-                    <?php
-                    } ?>
+                    <div class="right-top-bar flex-w h-full">
+                        <a href="/admin/index.php" class="flex-c-m trans-04 p-lr-25">Trang Admin</a>
+                    </div>
+
+                    <?php } ?>
+
+                    <div class="right-top-bar flex-w h-full">
+                        <a href="index.php?ac=signout" class="flex-c-m trans-04 p-lr-25">Đăng xuất</a>
+                    </div>
+
+                    <div class="right-top-bar flex-w h-full">
+                        <p href="#" class="flex-c-m trans-04 p-lr-25" style="color: pink;">
+                            <?= $user_name ?> &nbsp; <i class="fa fa-heart" style="color:red"></i>
+                        </p>
+                    </div>
+
+                    <?php } else { ?>
+
+                    <div class="right-top-bar flex-w h-full">
+                        <a href="index.php?ac=signin" class="flex-c-m trans-04 p-lr-25">Đăng nhập</a>
+                    </div>
+
+                    <?php } ?>
 
                 </div>
             </div>
 
             <!-- Navbar -->
-            <div class="wrap-menu-desktop">
+            <div
+                class="wrap-menu-desktop <?php if ($current_page == 'product' || $current_page == 'cart' || $current_page == 'signup' || $current_page == 'signin' || $current_page == 'productDetail') echo 'how-shadow1'; ?> ">
                 <nav class="limiter-menu-desktop container">
 
                     <!-- Logo desktop -->
@@ -96,27 +123,28 @@
                     <!-- Menu desktop -->
                     <div class="menu-desktop">
                         <ul class="main-menu">
-                            <li>
-                                <a href="index.php">Home</a>
+                            <li class=" <?php if ($current_page == 'index') echo 'active-menu'; ?> ">
+                                <a href=" index.php">Home</a>
                             </li>
 
-                            <li>
+                            <li class=" <?php if ($current_page == 'cart') echo 'active-menu'; ?> ">
                                 <a href="index.php?ac=cart">Cart</a>
                             </li>
 
-                            <li class="label1" data-label1="hot">
+                            <li class="label1 <?php if ($current_page == 'product') echo 'active-menu'; ?> "
+                                data-label1="sale">
                                 <a href="index.php?ac=product">Shop</a>
                             </li>
 
-                            <li>
+                            <li class=" <?php if ($current_page == 'blog') echo 'active-menu'; ?> ">
                                 <a href="index.php?ac=blog">Blog</a>
                             </li>
 
-                            <li>
+                            <li class=" <?php if ($current_page == 'about') echo 'active-menu'; ?> ">
                                 <a href="index.php?ac=about">About</a>
                             </li>
 
-                            <li>
+                            <li class=" <?php if ($current_page == 'contact') echo 'active-menu'; ?> ">
                                 <a href="index.php?ac=contact">Contact</a>
                             </li>
                         </ul>
@@ -124,7 +152,8 @@
 
                     <!-- Icon header -->
                     <div class="wrap-icon-header flex-w flex-r-m">
-                        <div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart" data-notify="99">
+                        <div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart"
+                            data-notify="99">
                             <i class="zmdi zmdi-shopping-cart"></i>
                         </div>
                     </div>
@@ -141,7 +170,8 @@
 
             <!-- Icon header -->
             <div class="wrap-icon-header flex-w flex-r-m m-r-15">
-                <div class="icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti js-show-cart" data-notify="2">
+                <div class="icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti js-show-cart"
+                    data-notify="2">
                     <i class="zmdi zmdi-shopping-cart"></i>
                 </div>
             </div>
@@ -199,59 +229,4 @@
                 </li>
             </ul>
         </div>
-
-        <script>
-            // Get path
-            var currentLocation = window.location.search;
-
-            // Active - Menu desktop
-            document.querySelectorAll('.main-menu li a').forEach(function(item) {
-                var href = item.getAttribute('href');
-                var urlObject = new URL(href, window.location.href);
-                var queryPart = urlObject.search;
-
-                if (currentLocation === queryPart) {
-                    item.parentElement.classList.add('active-menu');
-                }
-            });
-
-            // Active - Header
-            var wrap_menu_desktop = document.querySelector('.wrap-menu-desktop');
-            var header = document.querySelector('header');
-
-            if (currentLocation === "?ac=product" || currentLocation === "?ac=cart" || currentLocation === "?ac=signin" ||
-                currentLocation === "?ac=signup" || currentLocation === "?ac=product-detail") {
-                header.classList.add('header-v4');
-                wrap_menu_desktop.classList.add('how-shadow1');
-            }
-
-            // Active - Title
-            if (currentLocation.includes("?ac=about")) {
-                document.title = "About Us";
-            } else if (currentLocation.includes("?ac=blog")) {
-                document.title = "Blog";
-            } else if (currentLocation.includes("?ac=cart")) {
-                document.title = "Giỏ Hàng";
-            } else if (currentLocation.includes("?ac=contact")) {
-                document.title = "Contact";
-            } else if (currentLocation.includes("?ac=product-detail")) {
-                document.title = "Chi tiết";
-            } else if (currentLocation.includes("?ac=product")) {
-                document.title = "Cửa hàng";
-            } else if (currentLocation.includes("?ac=signin")) {
-                document.title = "Đăng nhập";
-            } else if (currentLocation.includes("?ac=signup")) {
-                document.title = "Đăng ký";
-            }
-
-            // Link css
-            if (currentLocation.includes("?ac=signin") || currentLocation.includes("?ac=signup")) {
-                document.head.appendChild(Object.assign(document.createElement("link"), {
-                    rel: "stylesheet",
-                    type: "text/css",
-                    href: "css/signin/background.css"
-                }));
-            }
-        </script>
-
     </header>

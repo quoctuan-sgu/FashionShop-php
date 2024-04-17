@@ -100,7 +100,7 @@
 
             <div class="col-sm-6 col-lg-3 p-b-50">
                 <h4 class="stext-301 cl0 p-b-30">
-                    Nhận tin
+                    Nhận tin tức
                 </h4>
 
                 <form>
@@ -112,7 +112,7 @@
 
                     <div class="p-t-18">
                         <button class="flex-c-m stext-101 cl0 size-103 bg1 bor1 hov-btn2 p-lr-15 trans-04">
-                            Gửi
+                            SENT
                         </button>
                     </div>
                 </form>
@@ -146,7 +146,7 @@
                 Copyright &copy;
                 <script>document.write(new Date().getFullYear());</script>
                 All rights reserved | Made with <i class="fa fa-heart-o" aria-hidden="true"></i>
-                by <a href="https://colorlib.com" target="_blank">Quốc Tuấn SGU</a>
+                by <a href="https://colorlib.com" target="_blank"> Quoc Tuan SGU </a> <i class="fa fa-heart" style="color:red"></i>
             </p>
         </div>
     </div>

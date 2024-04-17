@@ -2,7 +2,6 @@
 <?php
 ob_start();
 session_start();
-
 include "view/header.php";
 include "model/pdo.php";
 include "model/account.php";
@@ -57,7 +56,6 @@ if (isset($_GET['ac']) && $_GET['ac'] != "") {
 			session_unset();
 			session_destroy();
 			header("Location: index.php");
-
 			exit();
 			break;
 
@@ -90,6 +88,5 @@ if (isset($_GET['ac']) && $_GET['ac'] != "") {
 <!-- Footer -->
 <?php
 include "view/footer.php";
-
 ob_end_flush();
 ?>
