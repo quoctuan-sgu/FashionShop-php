@@ -1,4 +1,5 @@
 <?php
+ob_start();
 session_start();
 
 // check SESSION
@@ -21,13 +22,16 @@ include "../model/pdo.php";
 
 
 // Controller
-if (isset($_GET['ac'])) {
-    $ac = $$_GET['ac'];
+if (isset($_GET['ac']) && $_GET['ac'] != "") {
+	$ac = $_GET['ac'];
 
     switch ($ac) {
-        case '?':
-            include "home.php";
-            break;
+        case 'signout':
+			session_unset();
+			session_destroy();
+			header("Location: ../index.php");
+			exit();
+			break;
 
         default:
             include "home.php";
@@ -39,3 +43,4 @@ if (isset($_GET['ac'])) {
 
 
 include "footer.php";
+ob_end_flush();
