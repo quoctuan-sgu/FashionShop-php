@@ -188,6 +188,10 @@
             $('.panel-filter').slideUp(400);
         }    
     });
+    $('.js-show-advanced-search').on('click',function(){
+        $(this).toggleClass('show-advanced-search');
+        $('.panel-advanced-search').slideToggle(400);
+    });
 
 
 

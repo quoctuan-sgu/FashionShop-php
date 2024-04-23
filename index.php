@@ -6,6 +6,7 @@ include "view/header.php";
 include "model/pdo.php";
 include "model/account.php";
 include "model/product.php";
+include "model/productdetail.php";
 ?>
 
 

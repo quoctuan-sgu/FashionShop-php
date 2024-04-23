@@ -64,6 +64,16 @@ function getUniqueProductColors($listProduct) {
 
     return $uniqueColors;
 }
+function getUniqueProductSize($listProduct){
+    $uniqueSize=[];
+    foreach($listProduct as $product){
+        if(!in_array($product['product_size'],$uniqueSize)){
+            $uniqueSize[]=$product['product_size'];
+        }
+    }
+    return $uniqueSize;
+
+}
 function filterProductByColor($color){
     $sql= "select * from product where product.product_color='".$color."'";
     $listProudct=pdo_query($sql);
@@ -110,6 +120,77 @@ function filterBy($color = null, $category = null, $searchKeywork = null
     $sql=constructQuery($color, $category, $searchKeywork,$minPrice,$maxPrice);
     $listProduct=pdo_query($sql);
     return $listProduct;
+}
+
+function advanceSearch($searchKeywork=null,$categoryFilter=null,$colorFilter=null,$sizeFilter=null,$priceFilter=null){
+   $sql="select * from product where 1 ";
+    if($searchKeywork!==null && $searchKeywork!=''){
+         $sql.=" and product_name like '%".$searchKeywork."%'";
+    }
+    if(!empty($categoryFilter)){
+        $count=count($categoryFilter);
+        $idx=0;
+        $sql.=" and (";
+        foreach($categoryFilter as $category){
+            $idx++;
+            if($idx==$count){
+                $sql.=" category_id=".$category;
+            }
+            else{
+                $sql.=" category_id=".$category." or";
+            }
+        }
+        $sql.=")";
+    }
+    if(!empty($colorFilter)){
+        $count=count($colorFilter);
+        $idx=0;
+        $sql.=" and (";
+        foreach($colorFilter as $color){
+            $idx++;
+            if($idx==$count){
+                $sql.=" product_color='".$color."'";
+            }
+            else{
+                $sql.=" product_color='".$color."' or";
+            }
+        }
+        $sql.=")";
+    }
+    if(!empty($sizeFilter)){
+        $count=count($sizeFilter);
+        $idx=0;
+        $sql.=" and (";
+        foreach($sizeFilter as $size){
+            $idx++;
+            if($idx==$count){
+                $sql.=" product_size='".$size."'";
+            }
+            else{
+                $sql.=" product_size='".$size."' or";
+            }
+        }
+        $sql.=")";
+    }
+    if(!empty($priceFilter)){
+        $count=count($priceFilter);
+        $idx=0;
+        $sql.=" and (";
+        foreach($priceFilter as $price){
+            $idx++;
+            if($idx==$count){
+                $sql.="( product_price ".$price.")";
+            }
+            else{
+                $sql.="(product_price ".$price.") or";
+            }
+        }
+        $sql.=")";
+    }
+    echo '<script>console.log("'.$sql.'")</script>';
+    $listProduct=pdo_query($sql);
+    return $listProduct;
+
 }
 function getProductByProductId($id){
     $sql='select * from product where product_id='.$id;

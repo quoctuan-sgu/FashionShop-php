@@ -1,10 +1,17 @@
 
 <?php 
+
 if(isset( $_GET['id'] ) && !empty($_GET['id'])){
+	
 	$currentProductDetailId=$_GET['id'];
+	$currentProduct=getProductByProductId( $currentProductDetailId );
+	$listProductDetail=getProductDetailByProductId($currentProductDetailId);
+	$categoryId=getCategoryIdByProductId($currentProductDetailId);
+	$categoryName=getCategoryNameById($categoryId);
 }
-$currentProduct=getProductByProductId( $currentProductDetailId );
-echo "<script>console.log('Debug Objects: " . $currentProduct['product_id'] . "' );</script>";
+
+
+
 ?>
 <!-- Cart -->
 <div class="wrap-header-cart js-panel-cart">
@@ -100,14 +107,22 @@ echo "<script>console.log('Debug Objects: " . $currentProduct['product_id'] . "'
 			Home
 			<i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
 		</a>
-
-		<a href="product.html" class="stext-109 cl8 hov-cl1 trans-04">
-			Men
+		<?php 
+		
+		echo '
+		
+		<a href="index.php?ac=product&categoryid='.$categoryId.'" class="stext-109 cl8 hov-cl1 trans-04">' ?>
+			<?php 
+				echo $categoryName
+			
+			?>
 			<i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
 		</a>
 
 		<span class="stext-109 cl4">
-			Lightweight Jacket
+			<?php 
+				echo''.$currentProduct['product_name'].' '
+			?>
 		</span>
 	</div>
 </div>
@@ -191,19 +206,22 @@ echo "<script>console.log('Debug Objects: " . $currentProduct['product_id'] . "'
 
 							<div class="size-204 respon6-next">
 								<div class="rs1-select2 bor8 bg0">
-									<select class="js-select2" name="time">
-										<option>Choose an option</option>
-										<?php
-										echo'
-											<option>'.$currentProduct['product_size'].'</option>
-										';
-										?>
+									<select class="js-select2" name="time" id="sizeselect">
+										<!-- <option>Choose an option</option> -->
+										 <?php
+										// foreach($listProductDetail as $productDetail){
+										// 	extract($productDetail);
+										// 	echo '<option>'. strtoupper($size).'</option>';
+										// }
+										echo '<option>Size '.$currentProduct['product_size'].'</option>';
+										?> 
 										<!-- <option>Size S</option>
 										<option>Size M</option>
 										<option>Size L</option>
 										<option>Size XL</option> -->
 									</select>
-									<div class="dropDownSelect2"></div>
+								
+									<div class="dropDownSelect2"></div>	
 								</div>
 							</div>
 						</div>
@@ -215,17 +233,23 @@ echo "<script>console.log('Debug Objects: " . $currentProduct['product_id'] . "'
 
 							<div class="size-204 respon6-next">
 								<div class="rs1-select2 bor8 bg0">
-									<select class="js-select2" name="time">
-										<option>Choose an option</option>
-										<?php
-											echo '<option>'.$currentProduct['product_color'].'</option>';
-										?>
-										<!-- <option>Red</option>
-										<option>Blue</option>
-										<option>White</option>
-										<option>Grey</option> -->
-									</select>
-									<div class="dropDownSelect2"></div>
+								
+										<select class="js-select2" name="time">
+											<!-- <option>Choose an option</option> -->
+											<?php
+											// foreach($listProductDetail as $productDetail){
+											// 		extract($productDetail);
+											// 		echo '<option>'. strtoupper($color).'</option>';
+											// }
+												echo '<option>'.$currentProduct['product_color'].'</option>';
+											?>
+											<!-- <option>Red</option>
+											<option>Blue</option>
+											<option>White</option>
+											<option>Grey</option> -->
+										</select>
+										<div class="dropDownSelect2"></div>
+									
 								</div>
 							</div>
 						</div>
@@ -465,7 +489,7 @@ echo "<script>console.log('Debug Objects: " . $currentProduct['product_id'] . "'
 		</span>
 
 		<span class="stext-107 cl6 p-lr-25">
-			Categories: Jacket, Men
+			Categories: <?php echo $categoryName ?>
 		</span>
 	</div>
 </section>
@@ -476,7 +500,7 @@ echo "<script>console.log('Debug Objects: " . $currentProduct['product_id'] . "'
 	<div class="container">
 		<div class="p-b-45">
 			<h3 class="ltext-106 cl5 txt-center">
-				Related Products
+				Other Products
 			</h3>
 		</div>
 

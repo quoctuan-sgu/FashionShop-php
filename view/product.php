@@ -19,13 +19,82 @@
 		$minPrice='';
 		$maxPrice='';
 		//
+		//advance search
+		$advanceCategoryFilter=[];
+		$advanceColorFilter=[];
+		$advanceSizeFilter=[];
+		$advancePriceFilter=[];
+		//
 
 		$availabelColors=getUniqueProductColors($listProduct);
+		$availableSizes=getUniqueProductSize($listProduct);
+		if(isset($_GET['all_product'])){
+			unset($_SESSION['searchKeyWord']);
+			unset($_SESSION['advanceCategoryFilter']);
+			unset($_SESSION['advanceColorFilter']);
+			unset($_SESSION['advanceSizeFilter']);
+			unset($_SESSION['advancePriceFilter']);
+		}
+		
 
 		if(isset($_POST['searchProduct']) && !empty($_POST['searchProduct'])) {
 			$searchKeyWord=$_POST['searchProduct'];
-			$TEMP_URL.="&searchProduct=".$searchKeyWord;
+			$_SESSION['searchKeyWord'] = $searchKeyWord;
+			//$TEMP_URL.="&searchProduct=".$searchKeyWord;
 		}
+		elseif (isset($_SESSION['searchKeyWord'])) {
+			$searchKeyWord = $_SESSION['searchKeyWord'];
+		}
+		if (isset($_POST['categoryfilter'])) {
+			$categoryFilter = $_POST['categoryfilter'];
+			$advanceCategoryFilter=$categoryFilter;
+			$_SESSION['advanceCategoryFilter'] = $categoryFilter;
+			foreach($advanceCategoryFilter as $category){
+				echo "<script>console.log('test checkbox category: " .$category . "' );</script>";
+			}
+			// Do something with $price1
+		}
+		elseif (isset($_SESSION['advanceCategoryFilter'])) {
+			$advanceCategoryFilter = $_SESSION['advanceCategoryFilter'];
+		}
+		if (isset($_POST['colorfilter'])) {
+			$colorFilter = $_POST['colorfilter'];
+			$advanceColorFilter=$colorFilter;
+			$_SESSION['advanceColorFilter'] = $colorFilter;
+			foreach($advanceColorFilter as $color){
+				echo "<script>console.log('test checkbox color: " .$color . "' );</script>";
+			}
+			// Do something with $price1
+		}
+		elseif (isset($_SESSION['advanceColorFilter'])) {
+			$advanceColorFilter = $_SESSION['advanceColorFilter'];
+		}
+		if (isset($_POST['sizefilter'])) {
+			$sizeFilter = $_POST['sizefilter'];
+			$advanceSizeFilter=$sizeFilter;
+			$_SESSION['advanceSizeFilter'] = $sizeFilter;
+			foreach($advanceSizeFilter as $size){
+				echo "<script>console.log('test checkbox size: " .$size . "' );</script>";
+			}
+			// Do something with $price1
+		}
+		elseif (isset($_SESSION['advanceSizeFilter'])) {
+			$advanceSizeFilter = $_SESSION['advanceSizeFilter'];
+		}
+		if (isset($_POST['pricefilter'])) {
+			$priceFilter = $_POST['pricefilter'];
+			$advancePriceFilter=$priceFilter;
+			$_SESSION['advancePriceFilter'] = $priceFilter;
+			foreach($advancePriceFilter as $price){
+				echo "<script>console.log('test checkbox price: " .$price . "' );</script>";
+			}
+			// Do something with $price1
+		}
+		elseif (isset($_SESSION['advancePriceFilter'])) {
+			$advancePriceFilter = $_SESSION['advancePriceFilter'];
+		}
+
+		
 		if(isset($_GET['searchProduct']) && !empty($_GET['searchProduct'])) {
 			if(isset($_POST['searchProduct'])){
 				$_GET['searchProduct']=$_POST['searchProduct'];
@@ -34,37 +103,56 @@
 		}
 
 		if(isset($_GET['categoryid']) && !empty($_GET['categoryid'])){
-			
-			if(str_contains($TEMP_URL,"categoryid")){
-				str_replace(("categoryid=".$currentCategoryId),("categoryid=".$_GET['categoryid']),$TEMP_URL);
-				$currentCategoryId=$_GET['categoryid'];
+			$currentCategoryId=$_GET['categoryid'];
+			$advanceCategoryFilter[]=$currentCategoryId;
+			// if(str_contains($TEMP_URL,"categoryid")){
+			// 	str_replace(("categoryid=".$currentCategoryId),("categoryid=".$_GET['categoryid']),$TEMP_URL);
+				
+			// }
+			// else{
+			// 	$currentCategoryId=$_GET['categoryid'];
+			// 	$TEMP_URL.='&categoryid='.$currentCategoryId;
+			// }
+			if (strpos($TEMP_URL, "&categoryid=") !== false) {
+				// Replace existing category ID with new_category_id
+				$TEMP_URL = preg_replace('/&categoryid=[^&]*/', '&categoryid=' . $currentCategoryId, $TEMP_URL);
 			}
 			else{
-				$currentCategoryId=$_GET['categoryid'];
 				$TEMP_URL.='&categoryid='.$currentCategoryId;
 			}
-			echo "<script>console.log('zxczxc: " .$currentCategoryId . "' );</script>";
+			echo "<script>console.log('zxczxc: " .$TEMP_URL . "' );</script>";
 		}
 		
 		if(isset($_GET['minprice']) && !empty($_GET['minprice'])){
 			$minPrice=$_GET['minprice'];
-			$maxPrice=$_GET['maxprice'];
-			echo "<script>console.log('zxczxc: ".$minPrice." zxc ".$maxPrice."' );</script>";	
+			$maxPrice=$_GET['maxprice'];	
 		}
 		if(isset($_GET['page']) && !empty($_GET['page'])){
 			$currentPageIdx=$_GET['page'];
 		}
 		if(isset($_GET['color']) && !empty($_GET['color'])){
 			$currentSelectedColor=$_GET['color'];
-			$TEMP_URL.='&color='.$currentSelectedColor;
+			$advanceColorFilter[]=$currentSelectedColor;
+			//$TEMP_URL.='&color='.$currentSelectedColor;
+			if (strpos($TEMP_URL, "&color=") !== false) {
+				// Replace existing category ID with new_category_id
+				$TEMP_URL = preg_replace('/&color=[^&]*/', '&color=' . $_GET['color'], $TEMP_URL);
+			}
+			else{
+				$TEMP_URL.='&color='.$currentSelectedColor;
+			}
 		}
 		if(isset($_GET['orderby']) && !empty($_GET['orderby'])){
 			$currentSort=$_GET['orderby'];
 			$TEMP_URL.='&orderby='.$currentSort;
 		}
-		$listProduct=filterBy($currentSelectedColor,$currentCategoryId,$searchKeyWord,$minPrice,$maxPrice);
+		// if($BASE_URL!=$TEMP_URL){
+		// 	$listProduct=filterBy($currentSelectedColor,$currentCategoryId,$searchKeyWord,$minPrice,$maxPrice);
+		// }
 		echo "<script>console.log('SearchKey=	: " . $searchKeyWord . "' );</script>";
+		$listProduct=advanceSearch($searchKeyWord,$advanceCategoryFilter,$advanceColorFilter,$advanceSizeFilter,$advancePriceFilter);
 		$totalPage=totalPage($listProduct,$pageSize);
+		$totalProduct=count($listProduct);
 		$listProduct=array_slice($listProduct,($currentPageIdx-1)*$pageSize,$pageSize);
 		if($currentSort==1){
 			$prices = array_column($listProduct, 'product_price');
@@ -74,6 +162,30 @@
 			$prices = array_column($listProduct, 'product_price');
 			array_multisort($prices, SORT_DESC, $listProduct); 
 		}
+		
+	##
+	// Start the session
+// session_start();
+
+// // Example filter parameters with default values as null
+// $filters = array(
+//   'category' => null,
+//   'color' => null,
+//   'minprice' => null,
+//   'maxprice' => null
+// );
+
+// // Save filters to the session
+// $_SESSION['filters'] = $filters;
+// // Retrieve the saved filters from the session
+// $filters = isset($_SESSION['filters']) ? $_SESSION['filters'] : array();
+
+// // Access the filter parameters
+// $category = $filters['category'];   // null if not set
+// $color = $filters['color'];         // null if not set
+// $minprice = $filters['minprice'];   // null if not set
+// $maxprice = $filters['maxprice'];   // null if not set
+
 ?>
 <!-- Cart -->
 <div class="wrap-header-cart js-panel-cart">
@@ -170,13 +282,23 @@
 			<div class="flex-w flex-l-m filter-tope-group m-tb-10">
 				<button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter="*">
 					<?php 
-						echo"<a href=".$BASE_URL."> All Products</a>";
+						echo"<a href=".$BASE_URL."&all_product=true"."> All Products</a>";
 					?>
 				</button>
 				<?php
 					foreach($listCategories as $category) {
 						extract($category);
-						$categoryLink=$TEMP_URL."&categoryid=".$category_id;
+						
+						$categoryLink="";
+						if (strpos($TEMP_URL, "&categoryid=") !== false && empty($currentCategoryId)) {
+							// Replace existing category ID with new_category_id
+							$TEMP_URL = preg_replace('/&categoryid=[^&]*/', '&categoryid=' . $category_id, $TEMP_URL);
+							$categoryLink=$TEMP_URL;
+						}
+						else{
+							$categoryLink=$TEMP_URL."&categoryid=".$category_id;
+						}
+						echo "<script>console.log('categoryLink: " .$categoryLink . "' );</script>";
 						if($currentCategoryId==$category_id){
 							echo'
 								<a href="'.$categoryLink.'" class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 how-active1" data-filter=".'.$category_name.'">
@@ -209,14 +331,91 @@
 
 			<!-- Search product -->
 			<div class="dis-none panel-search w-full p-t-10 p-b-15">
-				<div class="bor8 dis-flex p-l-15">
-					<form method="post" action="#">
+				<form method="post" action="#">
+					<div class="bor8 dis-flex p-l-15">
 						<button type="submit" class="size-113 flex-c-m fs-16 cl2 hov-cl1 trans-04">
 							<i class="zmdi zmdi-search"></i>
 						</button>
 						<input class="mtext-107 cl2 size-114 plh2 p-r-15" type="text" name="searchProduct" placeholder="Search">
+					</div>
+				
+				<!-- 
+					Test
+				-->
+					<div class="flex-c-m stext-106 cl6 size-105 bor4 pointer hov-btn3 trans-04 m-tb-4 js-show-advanced-search">
+						<i class="icon-search cl2 m-r-6 fs-15 trans-04 zmdi zmdi-search"></i>
+						<i class="icon-close-search cl2 m-r-6 fs-15 trans-04 zmdi zmdi-close dis-none"></i>
+						Advanced Search
+    				</div>
+					<!-- Advanced Search Panel -->
+					<div class="dis-none panel-advanced-search w-full p-t-10 p-b-15">
+						<div class="row">
+							<div class="col m-l-1">
+								<h3>Category</h3>
+								<?php 
+									foreach($listCategories as $category) {
+										extract($category);
+										echo'<div class="form-check">
+												<input class="form-check-input m-l-1" type="checkbox" id="category'.$category_id.'" name="categoryfilter[]" value="'.$category_id.'">'
+												.'<label class="form-check-label" for="category'.$category_id.'">'.$category_name.'</label>'
+											.'</div>';
+									}
+								?>
+
+								<!-- Add more categories as needed -->
+							</div>
+							<div class="col">
+								<h3>Color</h3>
+								<?php 
+									foreach($availabelColors as $color) {
+										echo'<div class="form-check">
+												<input class="form-check-input" type="checkbox" id="color'.$color.'" name="colorfilter[]" value="'.$color.'">'
+												.'<label class="form-check" for="color'.$color.'">'.$color.'</label>'
+											.'</div>';
+									}
+								?>
+								<!-- Add more colors as needed -->
+							</div>
+							<div class="col">
+								<h3>Size</h3>
+								<div class="filter-option">
+									<?php
+									foreach($availableSizes as $size) {
+										echo'<div class="form-check">
+												<input class="form-check-input " type="checkbox" id="size'.$size.'" name="sizefilter[]" value="'.$size.'">
+												<label class="form-check" for="size'.$size.'">'.$size.'</label>
+											</div>';
+									}
+									?>
+								</div>
+								<!-- Add more sizes as needed -->
+							</div>
+							<div class="col">
+								<h3>Price Range</h3>
+								<div class="form-check">
+									<input class="form-check-input m-l-1" type="checkbox" id="price1" name="pricefilter[]" value="between 0 and 50 ">
+									<label class="form-check-label" for="price1">0 - 50 $</label>
+								</div>
+								<div class="form-check">
+									<input class="form-check-input m-l-1" type="checkbox" id="price2" name="pricefilter[]" value="between 50 and 100 ">
+									<label class="form-check-label" for="price2">50 - 100 $</label>
+								</div>
+								<div class="form-check">
+									<input class="form-check-input m-l-1" type="checkbox" id="price3" name="pricefilter[]" value="between 100 and 150 ">
+									<label class="form-check-label" for="price3">100 - 150 $</label>
+								</div>
+								<div class="form-check">
+									<input class="form-check-input m-l-1" type="checkbox" id="price4" name="pricefilter[]" value="between 150 and 200 ">
+									<label class="form-check-label" for="price4">150 - 200 $</label>
+								</div>
+
+								<!-- Add more price ranges as needed -->
+							</div>
+						</div>
+						
+					
+					</div>
 					</form>
-				</div>
 			</div>
 
 			<!-- Filter -->
@@ -448,23 +647,51 @@
 			}
 		?>
 		<?php
-			echo'Filter: ';
+		
+			$flag=0;
 			if($currentCategoryId!=''){
+				$flag=1;
+				$ClearCategoryLink=$TEMP_URL;
+				$ClearCategoryLink = preg_replace('/&categoryid=[^&]*/', '', $ClearCategoryLink);
 				$categoryName=getCategoryNameById($currentCategoryId);
-				echo'<span class="badge badge-pill badge-secondary m-b-10">'.$categoryName.'</span>&nbsp;';
+				echo '<a href="'.$ClearCategoryLink.'">';
+				echo'<span class="badge badge-pill badge-secondary m-b-10">'.$categoryName.'  <sup style="font-size:9px">x</sup></span>&nbsp;';
+				echo '</a>';
 			}
 			if($currentSelectedColor!=''){
-				echo'<span class="badge badge-pill badge-secondary m-b-10">'.$currentSelectedColor.'</span>&nbsp;';
+				$flag=1;
+				$ClearColor=$TEMP_URL;
+				$ClearColor = preg_replace('/&color=[^&]*/', '', $ClearColor);
+				echo '<a href="'.$ClearColor.'">';
+				echo'<span class="badge badge-pill badge-secondary m-b-10">'.$currentSelectedColor.'  <sup style="font-size:9px">x</sup></span>&nbsp;';
+				echo '</a>';
 			}
 			if($currentSort==1){
-				echo'<span class="badge badge-pill badge-secondary m-b-10">Price low to high</span>&nbsp;';
+				$flag=1;
+				$ClearSort=$TEMP_URL;
+				$ClearSort = preg_replace('/&orderby=[^&]*/', '', $ClearSort);
+				echo '<a href="'.$ClearSort.'">';
+				echo'<span class="badge badge-pill badge-secondary m-b-10">Price low to high  <sup style="font-size:9px">x</sup></span>&nbsp;';
+				echo '</a>';
 			}
 			if($currentSort==2){
-				echo'<span class="badge badge-pill badge-secondary m-b-10">Price hight to low</span>&nbsp;';
+				$flag=1;
+				$ClearSort=$TEMP_URL;
+				$ClearSort = preg_replace('/&orderby=[^&]*/', '', $ClearSort);
+				echo '<a href="'.$ClearSort.'">';
+				echo'<span class="badge badge-pill badge-secondary m-b-10">Price hight to low <sup style="font-size:9px">x</sup></span>&nbsp;';
+				echo '</a>';
 			}
-			if(!empty($minPrice)){
-				echo'<span class="badge badge-pill badge-secondary m-b-10">Price range: '.$minPrice.'-'.$maxPrice.'$</span>&nbsp;';
+			if(!empty($minPrice) &&!empty($maxPrice)){
+				$flag=1;
+				$clearPrice=$TEMP_URL;
+				$clearPrice = preg_replace('/&minprice=[^&]*/', '', $clearPrice);
+				$clearPrice = preg_replace('/&maxprice=[^&]*/', '', $clearPrice);
+				echo '<a href="'.$clearPrice.'">';
+				echo'<span class="badge badge-pill badge-secondary m-b-10">Price range: '.$minPrice.'-'.$maxPrice.' $ <sup style="font-size:9px">x</sup> </span>&nbsp;';
+				echo '</a>';
 			}
+			if($flag==1){echo'<a href="'.$BASE_URL.'">Clear filter</a>';}
 		
 		?>
 
@@ -472,38 +699,38 @@
 			<?php
 				if(count($listProduct)> 0){
 					foreach($listProduct as $product){
-					extract($product);
-					echo'<div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item women">
-							<!-- Block2 -->
-							<div class="block2">
-								<div class="block2-pic hov-img0">
-									<img src="data:image/jpeg;base64,'.base64_encode($product_image).'" alt="IMG-PRODUCT">
-				
-									<a href="#" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
-										Quick View
-									</a>
-								</div>
-				
-								<div class="block2-txt flex-w flex-t p-t-14">
-									<div class="block2-txt-child1 flex-col-l ">
-										<a href="index.php?ac=productDetail&id='.$product_id.'" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
-											'.$product_name.'
-										</a>
-				
-										<span class="stext-105 cl3">
-											'.$product_price.'$
-										</span>
-									</div>
-				
-									<div class="block2-txt-child2 flex-r p-t-3">
-										<a href="#" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
-											<img class="icon-heart1 dis-block trans-04" src="images/icons/icon-heart-01.png" alt="ICON">
-											<img class="icon-heart2 dis-block trans-04 ab-t-l" src="images/icons/icon-heart-02.png" alt="ICON">
+						extract($product);
+						echo'<div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item women">
+								<!-- Block2 -->
+								<div class="block2">
+									<div class="block2-pic hov-img0">
+										<img src="data:image/jpeg;base64,'.base64_encode($product_image).'" alt="IMG-PRODUCT">
+					
+										<a href="#" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
+											Quick View
 										</a>
 									</div>
+					
+									<div class="block2-txt flex-w flex-t p-t-14">
+										<div class="block2-txt-child1 flex-col-l ">
+											<a href="index.php?ac=productDetail&id='.$product_id.'" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
+												'.$product_name.'
+											</a>
+					
+											<span class="stext-105 cl3">
+												'.$product_price.'$
+											</span>
+										</div>
+					
+										<div class="block2-txt-child2 flex-r p-t-3">
+											<a href="#" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
+												<img class="icon-heart1 dis-block trans-04" src="images/icons/icon-heart-01.png" alt="ICON">
+												<img class="icon-heart2 dis-block trans-04 ab-t-l" src="images/icons/icon-heart-02.png" alt="ICON">
+											</a>
+										</div>
+									</div>
 								</div>
-							</div>
-						</div>';
+							</div>';
 					}
 				}
 				else{
@@ -521,6 +748,7 @@
 				<ul class="pagination">
 					<!-- <li class="page-item"><a class="page-link" href="#">Previous</a></li> -->
 					<?php
+					echo'<div class="m-r-10 m-t-15">Trên tổng '.$totalProduct.' sản phẩm</div>';
 						if($totalPage>1){
 							for( $i= 1; $i<=$totalPage;$i++){
 								$pageLink=$TEMP_URL.'&page='.$i;
