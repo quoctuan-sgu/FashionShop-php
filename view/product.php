@@ -93,6 +93,9 @@
 		elseif (isset($_SESSION['advancePriceFilter'])) {
 			$advancePriceFilter = $_SESSION['advancePriceFilter'];
 		}
+		if(isset($_POST['sort'])){
+			$currentSort=$_POST['sort'];
+		}
 
 		
 		if(isset($_GET['searchProduct']) && !empty($_GET['searchProduct'])) {
@@ -153,7 +156,7 @@
 		$listProduct=advanceSearch($searchKeyWord,$advanceCategoryFilter,$advanceColorFilter,$advanceSizeFilter,$advancePriceFilter);
 		$totalPage=totalPage($listProduct,$pageSize);
 		$totalProduct=count($listProduct);
-		$listProduct=array_slice($listProduct,($currentPageIdx-1)*$pageSize,$pageSize);
+		
 		if($currentSort==1){
 			$prices = array_column($listProduct, 'product_price');
 			array_multisort($prices, SORT_ASC, $listProduct);
@@ -162,7 +165,7 @@
 			$prices = array_column($listProduct, 'product_price');
 			array_multisort($prices, SORT_DESC, $listProduct); 
 		}
-		
+		$listProduct=array_slice($listProduct,($currentPageIdx-1)*$pageSize,$pageSize);
 	##
 	// Start the session
 // session_start();
@@ -355,8 +358,9 @@
 								<?php 
 									foreach($listCategories as $category) {
 										extract($category);
+										$checked = in_array($category_id, $advanceCategoryFilter) ? 'checked' : '';
 										echo'<div class="form-check">
-												<input class="form-check-input m-l-1" type="checkbox" id="category'.$category_id.'" name="categoryfilter[]" value="'.$category_id.'">'
+												<input class="form-check-input m-l-1" type="checkbox" id="category'.$category_id.'" name="categoryfilter[]" value="'.$category_id.'" '.$checked.'>'
 												.'<label class="form-check-label" for="category'.$category_id.'">'.$category_name.'</label>'
 											.'</div>';
 									}
@@ -364,12 +368,14 @@
 
 								<!-- Add more categories as needed -->
 							</div>
+
 							<div class="col">
 								<h3>Color</h3>
 								<?php 
 									foreach($availabelColors as $color) {
+										$checked = in_array($color, $advanceColorFilter) ? 'checked' : '';
 										echo'<div class="form-check">
-												<input class="form-check-input" type="checkbox" id="color'.$color.'" name="colorfilter[]" value="'.$color.'">'
+												<input class="form-check-input" type="checkbox" id="color'.$color.'" name="colorfilter[]" value="'.$color.'" '.$checked.'>'
 												.'<label class="form-check" for="color'.$color.'">'.$color.'</label>'
 											.'</div>';
 									}
@@ -381,8 +387,9 @@
 								<div class="filter-option">
 									<?php
 									foreach($availableSizes as $size) {
+										$checked = in_array($size, $advanceSizeFilter) ? 'checked' : '';
 										echo'<div class="form-check">
-												<input class="form-check-input " type="checkbox" id="size'.$size.'" name="sizefilter[]" value="'.$size.'">
+												<input class="form-check-input " type="checkbox" id="size'.$size.'" name="sizefilter[]" value="'.$size.'" '.$checked.'>
 												<label class="form-check" for="size'.$size.'">'.$size.'</label>
 											</div>';
 									}
@@ -392,25 +399,45 @@
 							</div>
 							<div class="col">
 								<h3>Price Range</h3>
-								<div class="form-check">
-									<input class="form-check-input m-l-1" type="checkbox" id="price1" name="pricefilter[]" value="between 0 and 50 ">
-									<label class="form-check-label" for="price1">0 - 50 $</label>
+								<?php 
+								for ($i = 1; $i <= 4; $i++) {
+									$checked = in_array("between ".(($i-1)*50)." and ".$i*50, $advancePriceFilter) ? 'checked' : '';
+									echo'<div class="form-check">
+									<input class="form-check-input m-l-1" type="checkbox" id="price'.$i.'" name="pricefilter[]" value="between '.(($i-1)*50).' and '.($i*50).'" '.$checked.'>
+									<label class="form-check-label" for="price'.$i.'">'.(($i-1)*50).' - '.($i*50).' $</label>
 								</div>
-								<div class="form-check">
-									<input class="form-check-input m-l-1" type="checkbox" id="price2" name="pricefilter[]" value="between 50 and 100 ">
-									<label class="form-check-label" for="price2">50 - 100 $</label>
-								</div>
-								<div class="form-check">
-									<input class="form-check-input m-l-1" type="checkbox" id="price3" name="pricefilter[]" value="between 100 and 150 ">
-									<label class="form-check-label" for="price3">100 - 150 $</label>
-								</div>
-								<div class="form-check">
-									<input class="form-check-input m-l-1" type="checkbox" id="price4" name="pricefilter[]" value="between 150 and 200 ">
-									<label class="form-check-label" for="price4">150 - 200 $</label>
-								</div>
+										';
+								}
+								?>
 
 								<!-- Add more price ranges as needed -->
 							</div>
+							<div class="col">
+								<h3>Sort By</h3>
+								<!-- <div class="form-check">
+									<input class="form-check-input" type="radio" id="sort1" name="sort" value="1">
+									<label class="form-check-label" for="sort1">Price: Low to High</label>
+								</div>
+								<div class="form-check">
+									<input class="form-check-input" type="radio" id="sort2" name="sort" value="2">
+									<label class="form-check-label" for="sort2">Price: High to Low</label>
+								</div> -->
+								<?php 
+								for ($i = 1; $i <= 2; $i++) {
+									$checked = $i == $currentSort ? 'checked' : '';
+									$label = $i == 1 ? 'Price: Low to High' : 'Price: High to Low';
+									echo'<div class="form-check">
+											<input class="form-check-input" type="radio" id="sort'.$i.'" name="sort" value="'.$i.'" '.$checked.'>
+											<label class="form-check-label" for="sort'.$i.'">'.$label.'</label>
+										</div>';
+								}
+								
+								?>
+								<button class="flex-c-m stext-101 cl0 size-103 bg1 bor1  p-lr-15 trans-04" type="submit">
+                            		Search
+                        		</button>
+							</div>
+							
 						</div>
 						
 					
@@ -646,7 +673,7 @@
 					echo '<h2 class="fw-bold mb-3">Search key: <span>'.$searchKeyWord.'</span></h2>';
 			}
 		?>
-		<?php
+		<!-- <?php
 		
 			$flag=0;
 			if($currentCategoryId!=''){
@@ -693,7 +720,7 @@
 			}
 			if($flag==1){echo'<a href="'.$BASE_URL.'">Clear filter</a>';}
 		
-		?>
+		?> -->
 
 		<div class="row isotope-grid">
 			<?php
@@ -734,7 +761,7 @@
 					}
 				}
 				else{
-					echo '<h1>No product match description</h1>';
+					echo '<h1>No product match your description</h1>';
 				}
 			?>
 		</div>

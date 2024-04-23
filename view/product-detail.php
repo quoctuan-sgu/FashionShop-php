@@ -5,7 +5,7 @@ if(isset( $_GET['id'] ) && !empty($_GET['id'])){
 	
 	$currentProductDetailId=$_GET['id'];
 	$currentProduct=getProductByProductId( $currentProductDetailId );
-	$listProductDetail=getProductDetailByProductId($currentProductDetailId);
+	// $listProductDetail=getProductDetailByProductId($currentProductDetailId);
 	$categoryId=getCategoryIdByProductId($currentProductDetailId);
 	$categoryName=getCategoryNameById($categoryId);
 }
