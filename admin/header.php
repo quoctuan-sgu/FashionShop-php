@@ -13,7 +13,8 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
-    <link rel="stylesheet" type="text/css" href="/css/admin/style.css">
+    <!-- <link rel="stylesheet" type="text/css" href="/css/admin/style.css"> -->
+    <link rel="stylesheet" type="text/css" href="../css/admin/style.css">
 </head>
 
 <body>
@@ -36,7 +37,7 @@
 
                 <div class="sidebar-header">
                     <div class="user-pic">
-                        <img class="img-responsive img-rounded" src="/images/tran-hao-nam.jpg" alt="User picture">
+                        <img class="img-responsive img-rounded" src="../images/tran-hao-nam.jpg" alt="User picture">
                     </div>
                     <div class="user-info">
                         <span class="user-name">

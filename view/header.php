@@ -84,7 +84,8 @@
                     <?php if ($role_id == 2) { ?>
 
                     <div class="right-top-bar flex-w h-full ml-auto">
-                        <a href="/admin/index.php" class="flex-c-m trans-04 p-lr-25">
+                        <!-- <a href="/admin/index.php" class="flex-c-m trans-04 p-lr-25"> -->
+                        <a href="admin/index.php" class="flex-c-m trans-04 p-lr-25">
                             Admin &nbsp; 
                             <i class="fas fa-user-shield"></i>
                         </a>
