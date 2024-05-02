@@ -8,8 +8,17 @@
 -->
 <?php
  function loadSanPham_Product(){
-    $sql="select * from product order by product_name";
+    $sql="select * from product where hidden=0 order by product_name";
     return pdo_query($sql);
+}
+function loadSanPham_OrderByProductId(){
+    $sql="select * from product where hidden=0 order by product_id";
+    return pdo_query($sql);
+}
+function addProduct($product_name,$product_price,$product_color,$product_category,$product_image,$product_description,$product_size){
+    $sql="insert into product(product_name,product_price,product_color,category_id,product_image,product_description,product_size) values('".$product_name."','".$product_price."','".$product_color."','".$product_category."','".$product_image."','".$product_description."','".$product_size."')";
+    pdo_execute($sql);
+    echo '<script>console.log("'.$sql.'")</script>';
 }
  function searchFunction($searchText) {
     $sql= "select * from product where 1";
@@ -23,7 +32,7 @@ function loadAllCategory(){
     return $listCategories;
 }
 function loadProductByCategory($categoryId){
-    $sql= 'select * from product where product.category_id='.$categoryId;
+    $sql= 'select * from product where hidden=0 and product.category_id='.$categoryId;
     $listProduct=pdo_query($sql);
     return $listProduct;
 }
@@ -47,7 +56,7 @@ function totalPage($listProduct,$pageSize){
     return $totalPage;
 }
 function loadProductByColor($color){
-    $sql= 'select * from product where product.product_color='.$color;
+    $sql= 'select * from product where hidden=0 and product.product_color='.$color;
     $listProduct=pdo_query($sql);
     return $listProduct;
 }
@@ -82,7 +91,7 @@ function filterProductByColor($color){
 function constructQuery($color = null, 
                     $category = null, $searchKeywork = null,
                     $minPrice=null,$maxPrice=null) {
-    $sql = "SELECT * FROM product WHERE 1";
+    $sql = "SELECT * FROM product WHERE 1 and hidden=0 ";
 
     // Add conditions based on the provided arguments
     if ($color !== null && $color!=='') {
@@ -123,7 +132,7 @@ function filterBy($color = null, $category = null, $searchKeywork = null
 }
 
 function advanceSearch($searchKeywork=null,$categoryFilter=null,$colorFilter=null,$sizeFilter=null,$priceFilter=null){
-   $sql="select * from product where 1 ";
+   $sql="select * from product where 1 and hidden=0 ";
     if($searchKeywork!==null && $searchKeywork!=''){
          $sql.=" and product_name like '%".$searchKeywork."%'";
     }
@@ -202,5 +211,14 @@ function getCategoryNameById($id){
     $sql='select category_name from categories where category_id='.$id;
     $categoryName=pdo_query_value($sql);
     return $categoryName;
+}
+function hideProduct($id){
+    $sql = "UPDATE product SET hidden = 1 WHERE product_id = $id";
+    pdo_execute($sql);
+}
+function editProduct($product_id,$product_name,$product_price,$product_color,$product_category,$product_image,$product_description,$product_size){
+    $sql="update product set category_id='".$product_category."', product_name='".$product_name."',product_size='".$product_size."',product_price='".$product_price."',product_description='".$product_description."',product_color='".$product_color."' ,product_image='".$product_image."' where product_id='".$product_id."'";
+    echo '<script>console.log("'.$sql.'")</script>';
+    pdo_execute($sql);
 }
 ?>

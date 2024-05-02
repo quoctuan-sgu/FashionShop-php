@@ -1,5 +1,6 @@
 
 <?php
+	
 		$listProduct=loadSanPham_Product();
 						
 		$listCategories=loadAllCategory();
@@ -34,6 +35,44 @@
 			unset($_SESSION['advanceColorFilter']);
 			unset($_SESSION['advanceSizeFilter']);
 			unset($_SESSION['advancePriceFilter']);
+			unset($_SESSION['sort']);
+		}
+		if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+			// List of all the form fields
+			$fields = ['searchKeyWord', 'advanceCategoryFilter', 'advanceColorFilter', 'advanceSizeFilter', 'advancePriceFilter', 'sort'];
+		
+			// Flag to check if all fields are empty
+			$allEmpty = true;
+		
+			foreach ($fields as $field) {
+				if (!empty($_POST[$field])) {
+					echo'<script>console.log("not empty filter: '.$field.'")</script>';
+					//$allEmpty = false;
+					//break;
+					continue;
+				}
+				else{
+					echo'<script>console.log("alive sesion: '.$field.'")</script>';
+					unset($_SESSION[$field]);
+				}
+			}
+		
+			if ($allEmpty) {
+				echo'all empty';
+				// All fields are empty
+				// Reset the session filter here
+			} else {
+				echo' At least one field is not empty';
+				// Process the form data here
+			}
+		}
+		
+		if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+			// Print out the contents of the $_POST array
+			echo '<pre>';
+			print_r($_SESSION);
+			echo '</pre>';
+			
 		}
 		
 
@@ -42,7 +81,7 @@
 			$_SESSION['searchKeyWord'] = $searchKeyWord;
 			//$TEMP_URL.="&searchProduct=".$searchKeyWord;
 		}
-		elseif (isset($_SESSION['searchKeyWord'])) {
+		else if (isset($_SESSION['searchKeyWord'])) {
 			$searchKeyWord = $_SESSION['searchKeyWord'];
 		}
 		if (isset($_POST['categoryfilter'])) {
@@ -54,7 +93,7 @@
 			}
 			// Do something with $price1
 		}
-		elseif (isset($_SESSION['advanceCategoryFilter'])) {
+		else if (isset($_SESSION['advanceCategoryFilter'])) {
 			$advanceCategoryFilter = $_SESSION['advanceCategoryFilter'];
 		}
 		if (isset($_POST['colorfilter'])) {
@@ -66,7 +105,7 @@
 			}
 			// Do something with $price1
 		}
-		elseif (isset($_SESSION['advanceColorFilter'])) {
+		else if (isset($_SESSION['advanceColorFilter'])) {
 			$advanceColorFilter = $_SESSION['advanceColorFilter'];
 		}
 		if (isset($_POST['sizefilter'])) {
@@ -78,7 +117,7 @@
 			}
 			// Do something with $price1
 		}
-		elseif (isset($_SESSION['advanceSizeFilter'])) {
+		else if (isset($_SESSION['advanceSizeFilter'])) {
 			$advanceSizeFilter = $_SESSION['advanceSizeFilter'];
 		}
 		if (isset($_POST['pricefilter'])) {
@@ -90,11 +129,16 @@
 			}
 			// Do something with $price1
 		}
-		elseif (isset($_SESSION['advancePriceFilter'])) {
+		else if (isset($_SESSION['advancePriceFilter'])) {
 			$advancePriceFilter = $_SESSION['advancePriceFilter'];
 		}
 		if(isset($_POST['sort'])){
 			$currentSort=$_POST['sort'];
+			$_SESSION['sort'] = $currentSort;
+
+		}
+		else if(isset($_SESSION['sort'])){
+			$currentSort=$_SESSION['sort'];
 		}
 
 		
@@ -130,8 +174,11 @@
 			$minPrice=$_GET['minprice'];
 			$maxPrice=$_GET['maxprice'];	
 		}
-		if(isset($_GET['page']) && !empty($_GET['page'])){
-			$currentPageIdx=$_GET['page'];
+		if(isset($_POST['page']) && !empty($_POST['page'])){
+			$currentPageIdx=$_POST['page'];
+			if (isset($_SESSION['advanceSizeFilter'])){
+				echo'<script>console.log("log at page: '.$_SESSION['advanceSizeFilter'].'")</script>';
+			}
 		}
 		if(isset($_GET['color']) && !empty($_GET['color'])){
 			$currentSelectedColor=$_GET['color'];
@@ -152,7 +199,7 @@
 		// if($BASE_URL!=$TEMP_URL){
 		// 	$listProduct=filterBy($currentSelectedColor,$currentCategoryId,$searchKeyWord,$minPrice,$maxPrice);
 		// }
-		echo "<script>console.log('SearchKey=	: " . $searchKeyWord . "' );</script>";
+		echo "<script>console.log('current sort=	: " . $currentSort . "' );</script>";
 		$listProduct=advanceSearch($searchKeyWord,$advanceCategoryFilter,$advanceColorFilter,$advanceSizeFilter,$advancePriceFilter);
 		$totalPage=totalPage($listProduct,$pageSize);
 		$totalProduct=count($listProduct);
@@ -164,6 +211,14 @@
 		else if($currentSort==2){
 			$prices = array_column($listProduct, 'product_price');
 			array_multisort($prices, SORT_DESC, $listProduct); 
+		}
+		else if($currentSort==3){
+			$ids = array_column($listProduct, 'product_id');
+			array_multisort($ids, SORT_DESC, $listProduct);
+		}
+		else if($currentSort==4){
+			$ids = array_column($listProduct, 'product_id');
+			array_multisort($ids, SORT_ASC, $listProduct);
 		}
 		$listProduct=array_slice($listProduct,($currentPageIdx-1)*$pageSize,$pageSize);
 	##
@@ -423,9 +478,21 @@
 									<label class="form-check-label" for="sort2">Price: High to Low</label>
 								</div> -->
 								<?php 
-								for ($i = 1; $i <= 2; $i++) {
+								for ($i = 1; $i <= 4; $i++) {
 									$checked = $i == $currentSort ? 'checked' : '';
-									$label = $i == 1 ? 'Price: Low to High' : 'Price: High to Low';
+									if($i==1){
+										$label='Price: Low to High';
+									}
+									else if($i==2){
+										$label='Price: High to Low';
+									}
+									else if($i==3){
+										$label='Newest';
+									}
+									else if($i==4){
+										$label='Oldest';
+									}
+									//$label = $i == 1 ? 'Price: Low to High' : 'Price: High to Low';
 									echo'<div class="form-check">
 											<input class="form-check-input" type="radio" id="sort'.$i.'" name="sort" value="'.$i.'" '.$checked.'>
 											<label class="form-check-label" for="sort'.$i.'">'.$label.'</label>
@@ -776,12 +843,19 @@
 					<!-- <li class="page-item"><a class="page-link" href="#">Previous</a></li> -->
 					<?php
 					echo'<div class="m-r-10 m-t-15">Trên tổng '.$totalProduct.' sản phẩm</div>';
-						if($totalPage>1){
-							for( $i= 1; $i<=$totalPage;$i++){
-								$pageLink=$TEMP_URL.'&page='.$i;
-								echo '<li class="page-item"><a class="page-link" href="'.$pageLink.'">'.$i.'</a></li>';
+						// if($totalPage>1){
+						// 	for( $i= 1; $i<=$totalPage;$i++){
+						// 		$pageLink=$TEMP_URL.'&page='.$i;
+						// 		echo '<li class="page-item"><a class="page-link" value="'.$i.'" type="submit">'.$i.'</a></li>';
+						// 	}
+						// }
+						echo '<form method="POST" id="paginationForm" class="row m-l-5">';
+						if($totalPage > 1){
+							for($i = 1; $i <= $totalPage; $i++){
+								echo '<li class="page-item"><button class=" page-link" type="submit" name="page" value="'.$i.'">'.$i.'</button></li>';
 							}
 						}
+						echo '</form>';
 					?>
     				<!-- <li class="page-item"><a class="page-link" href="#">Next</a></li> -->
   				</ul>

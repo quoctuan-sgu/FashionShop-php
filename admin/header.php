@@ -94,6 +94,9 @@
                                     <li>
                                         <a href="#">Dashboard 3</a>
                                     </li>
+                                    <li>
+                                        <a href="index.php?ac=product">Product management</a>
+                                    </li>
                                 </ul>
                             </div>
                         </li>

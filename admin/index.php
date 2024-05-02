@@ -18,6 +18,7 @@ if (isset($_SESSION['user'])) {
 
 include "header.php";
 include "../model/pdo.php";
+include "../model/product.php";
 
 
 
@@ -26,6 +27,18 @@ if (isset($_GET['ac']) && $_GET['ac'] != "") {
 	$ac = $_GET['ac'];
 
     switch ($ac) {
+        case 'product':
+            $action = isset($_GET['act']) ? $_GET['act'] : 'list';
+                if($action == 'add') {
+                    include 'product/add.php';
+                } elseif($action == 'edit') {
+                    include 'product/edit.php';
+                } elseif($action == 'delete') {
+                    include 'product/delete.php';
+                } else {
+                    include 'product/list.php';
+                }
+            break;
         case 'signout':
 			session_unset();
 			session_destroy();
