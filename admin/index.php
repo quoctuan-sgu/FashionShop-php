@@ -19,6 +19,7 @@ if (isset($_SESSION['user'])) {
 include "header.php";
 include "../model/pdo.php";
 include "../model/product.php";
+include "statistical/tempmodel.php";
 
 
 
@@ -38,6 +39,13 @@ if (isset($_GET['ac']) && $_GET['ac'] != "") {
                 } else {
                     include 'product/list.php';
                 }
+            break;
+        case 'orderstatistic':
+            include 'statistical/orderstatictis.php';
+
+            break;
+        case 'orderdetail':
+            include 'statistical/orderdetailstatictis.php';
             break;
         case 'signout':
 			session_unset();

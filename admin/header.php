@@ -100,6 +100,31 @@
                                 </ul>
                             </div>
                         </li>
+                        
+
+                        <li class="sidebar-dropdown">
+                            <a href="#">
+                                <i class="fa fa-tachometer-alt"></i>
+                                <span>Statistical</span>
+                                <span class="badge badge-pill badge-warning">New</span>
+                            </a>
+
+                            <div class="sidebar-submenu">
+                                <ul>
+                                    <li>
+                                        <a href="#">customer statistic
+                                            <span class="badge badge-pill badge-success">Pro</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="index.php?ac=orderstatistic">Order Statistic</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+
+
+
 
                         <li class="sidebar-dropdown">
                             <a href="#">

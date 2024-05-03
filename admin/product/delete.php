@@ -1,5 +1,7 @@
 <?php 
+
     if(isset($_GET['id'])){
+        
         $product_id=$_GET['id'];
         $product=getProductByProductId($product_id);
     }
