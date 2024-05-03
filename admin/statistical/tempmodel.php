@@ -8,6 +8,7 @@
         return pdo_query_value($sql);
     }
     function getOrderDetailByOrderId($id){
+        echo '<sript>console.log("order id '.$id.'")</script>';
         $sql="SELECT * FROM `orderdetail` WHERE  order_id=".$id;
         return pdo_query($sql);
     }
@@ -25,6 +26,10 @@
     }
     function getProductPriceByProductId($id){
         $sql="select product_price from product where product_id=".$id;
+        return pdo_query_value($sql);
+    }
+    function getProductImageByProductId($id){
+        $sql="select product_image from product where product_id=".$id;
         return pdo_query_value($sql);
     }
 ?>
