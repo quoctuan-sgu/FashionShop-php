@@ -47,6 +47,9 @@ if (isset($_GET['ac']) && $_GET['ac'] != "") {
         case 'orderdetail':
             include 'statistical/orderdetailstatictis.php';
             break;
+        case 'topcustomer':
+            include 'statistical/customerstatictis.php';
+            break;
         case 'signout':
 			session_unset();
 			session_destroy();

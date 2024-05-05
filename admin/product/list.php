@@ -1,10 +1,22 @@
 <?php 
     $pageSize=3;
     $pageIndex=1;
-    if(isset($_POST['page'])){
-        $pageIndex=$_POST['page'];
+    $searchTerm="";
+    if(isset($_GET['page'])){
+        $pageIndex=$_GET['page'];
     }
-    $products =loadSanPham_OrderByProductId();
+    if(isset($_GET['search'])){
+        $searchTerm=$_GET['search'];
+        $products=searchProductByName($_GET['search']);
+    }
+    if(isset($_POST['search'])){
+        $searchTerm=$_POST['search'];
+        $_GET['search']=$_POST['search'];
+        $products=searchProductByName($_POST['search']);
+    }
+    if(!isset($_GET['search']) && !isset($_POST['search'])){
+        $products =loadSanPham_OrderByProductId();
+    }
     $totalPage=ceil(count($products)/$pageSize);
     $products=array_slice($products,($pageIndex-1)*$pageSize,$pageSize);
     
@@ -14,7 +26,14 @@
     <div class="container-fluid">
         <div>
             <h2>Product Management</h2>
-            <a href="index.php?ac=product&act=add"> <i class="fa fa-plus"></i>Add new product</a>
+            <a href="index.php?ac=product&act=add"> <i class="fa fa-plus mr-1"></i>Add new product</a>
+        </div>
+        <div class="form-group mt-1 ml-3">
+            <form method="POST" class="row m-l-5">
+                <input type="text" class="form-control col-2 mr-2" name="search" placeholder="Search">
+                <button type="submit" class="btn btn-primary col-2">Search by product name</button>
+            </form> 
+
         </div>
         <table class="table table-hover">
             <tr class="table-header">
@@ -53,13 +72,19 @@
         <div class="mt-5">
             <ul class="pagination justify-content-center">
                 <?php
-                    echo '<form method="POST" id="paginationForm" class="row m-l-5">';
+                    echo '<div id="paginationForm" class="row m-l-5">';
                         if($totalPage > 1){
                             for($i = 1; $i <= $totalPage; $i++){
-                                echo '<li class="page-item"><button class=" page-link" type="submit" name="page" value="'.$i.'">'.$i.'</button></li>';
+                                if(($searchTerm)==""){
+                                    echo '<li class="page-item"><a href="index.php?ac=product&page='.$i.'" class=" page-link" name="page">'.$i.'</a></li>';
+                                }
+                                else{
+                                    echo '<li class="page-item"><a href="index.php?ac=product&page='.$i.'&search='.$searchTerm.'" class=" page-link" name="page">'.$i.'</a></li>';
+                                }
+                               
                             }
                         }
-                    echo '</form>';
+                    echo '</div>';
                 ?>
             </ul>
         </div>

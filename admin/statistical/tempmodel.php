@@ -32,4 +32,23 @@
         $sql="select product_image from product where product_id=".$id;
         return pdo_query_value($sql);
     }
+    function top5MostProfitUserFromdateToDate($fromDate,$toDate){
+        $sql="SELECT user_id, SUM(total) as total FROM `order` WHERE order_created_date BETWEEN '".$fromDate."' AND '".$toDate."' GROUP BY user_id ORDER BY total DESC LIMIT 5";
+        return pdo_query($sql);
+    }
+    function getOrderByUserId($id){
+        $sql="SELECT * FROM `order` WHERE user_id=".$id;
+        return pdo_query($sql);
+    }
+    function totalRevenueOfOrders($orders){
+        $total=0;
+        foreach($orders as $order){
+            $total+=$order['total'];
+        }
+        return $total;
+    }
+    function searchProductByName($name){
+        $sql="SELECT * FROM product WHERE product_name LIKE '%".$name."%'";
+        return pdo_query($sql);
+    }
 ?>

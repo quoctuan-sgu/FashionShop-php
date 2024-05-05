@@ -112,13 +112,13 @@
                             <div class="sidebar-submenu">
                                 <ul>
                                     <li>
-                                        <a href="#">customer statistic
+                                        <a href="index.php?ac=topcustomer">customer statistic
                                             <span class="badge badge-pill badge-success">Pro</span>
                                         </a>
                                     </li>
-                                    <li>
+                                    <!-- <li>
                                         <a href="index.php?ac=orderstatistic">Order Statistic</a>
-                                    </li>
+                                    </li> -->
                                 </ul>
                             </div>
                         </li>
