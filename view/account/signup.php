@@ -1,12 +1,11 @@
 <div class="container-fluid sign-container">
     <div class="row justify-content-center">
-        <div class="col-md-4 sign-form" style="margin: 6% 4% 8% 4%;">
-            <h2>ĐĂNG KÝ</h2>
+        <div class="col-md-4 sign-form" style="margin: 4% 0 7% 0;">
+            <h2>SIGNUP</h2>
 
-            <form action="index.php?ac=signup" method="POST">
-
+            <form action="index.php?ac=signup" method="POST" onsubmit="return validateForm()">
                 <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Email *" name="email" />
+                    <input type="email" class="form-control" placeholder="Email *" name="email" />
                     <div class="error-message" id="email-error"></div>
                 </div>
 
@@ -21,27 +20,36 @@
                 </div>
 
                 <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Phone Number *" name="phone" />
+                    <input type="number" class="form-control" placeholder="Phone Number *" name="phone" />
                     <div class="error-message" id="phone-error"></div>
                 </div>
 
-                <div class="row justify-content-end">
-                    <a href="index.php?ac=signin">Đăng nhập</a>
-                </div>
-
                 <div class="row justify-content-center">
-                    <input type="submit" class="btnSubmit" value="Đăng ký" name="signup" onclick="return validationForm();" />
+                    <input type="submit" class="btnSubmit" value="Signup" name="signup" />
                 </div>
             </form>
 
-            <?php if (isset($notice)) { ?>
-                <h5><?= $notice; ?></h5>
-            <?php } ?>
+            <?php if (isset($notice)) {
+                if ($notice === "Đăng ký thành công.") { ?>
+                    <h5 style="color: green">
+                        <i class="far fa-check-circle"></i> <?= $notice; ?>
+                    </h5>
+                <?php } else { ?>
+                    <h5 style="color: rgb(255, 55, 155);">
+                        <i class="far fa-times-circle"></i> <?= $notice; ?>
+                    </h5>
+            <?php }
+            } ?>
+
+            <div class="d-flex justify-content-center links">
+                Already have an account an account?&nbsp;
+                <a href="index.php?ac=signin">Signin</a>
+            </div>
         </div>
     </div>
 
     <script>
-        function validationForm() {
+        function validateForm() {
             var email = document.querySelector('input[name="email"]').value;
             var password = document.querySelector('input[name="password"]').value;
             var username = document.querySelector('input[name="username"]').value;
@@ -52,23 +60,27 @@
             var usernameError = document.getElementById('username-error');
             var phoneError = document.getElementById('phone-error');
 
-            if (/\s/.test(email) || email === '') {
-                emailError.textContent = 'Email không hợp lệ!';
-                return false;
+            var check = true;
+
+            if (email === '') {
+                emailError.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Email không hợp lệ.';
+                check = false;
             } else {
                 emailError.textContent = '';
             }
 
+            // \s => check exist space ' '
             if (/\s/.test(password) || password === '') {
-                passwordError.textContent = 'Mật khẩu không hợp lệ!';
-                return false;
+                passwordError.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Mật khẩu không hợp lệ.';
+                check = false;
             } else {
                 passwordError.textContent = '';
             }
 
+            // trim => skip space ' ' at start and end line
             if (username.trim() === '') {
-                usernameError.textContent = 'Tên không hợp lệ!';
-                return false;
+                usernameError.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Tên không hợp lệ.';
+                check = false;
             } else {
                 usernameError.textContent = '';
             }
@@ -76,11 +88,11 @@
             if (/^[0][0-9]{9}$/.test(phone)) {
                 phoneError.textContent = '';
             } else {
-                phoneError.textContent = 'Số điện thoại không hợp lệ!';
-                return false;
+                phoneError.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Số điện thoại không hợp lệ.';
+                check = false;
             }
-            
-            return true;
+
+            return check;
         }
     </script>
 

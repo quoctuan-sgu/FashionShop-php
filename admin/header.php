@@ -9,12 +9,13 @@
 
     <link href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" rel="stylesheet">
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
-    <!-- <link rel="stylesheet" type="text/css" href="/css/admin/style.css"> -->
     <link rel="stylesheet" type="text/css" href="../css/admin/style.css">
+    <link rel="stylesheet" type="text/css" href="../css/admin/management.css">
 </head>
 
 <body>
@@ -25,7 +26,7 @@
         <nav id="sidebar" class="sidebar-wrapper">
             <div class="sidebar-content">
                 <div class="sidebar-brand">
-                    <a href="#">
+                    <a href="index.php">
                         <i class="fas fa-user-cog"></i>
                         &nbsp; administrator
                     </a>
@@ -70,6 +71,14 @@
                 <!-- sidebar-search  -->
                 <div class="sidebar-menu">
                     <ul>
+                        <li>
+                            <a href="index.php">
+                                <i class="fas fa-home"></i>
+                                <span>Home</span>
+                                <span class="badge badge-pill badge-success">Pro</span>
+                            </a>
+                        </li>
+
                         <li class="header-menu">
                             <span>General</span>
                         </li>
@@ -78,33 +87,25 @@
                             <a href="#">
                                 <i class="fa fa-tachometer-alt"></i>
                                 <span>Dashboard</span>
-                                <span class="badge badge-pill badge-warning">New</span>
+                                <span class="badge badge-pill badge-primary">Beta</span>
                             </a>
 
                             <div class="sidebar-submenu">
                                 <ul>
                                     <li>
-                                        <a href="#">Dashboard 1
-                                            <span class="badge badge-pill badge-success">Pro</span>
-                                        </a>
+                                        <a href="index.php?ac=account">Accounts Management</a>
                                     </li>
+                                    
                                     <li>
-                                        <a href="#">Dashboard 2</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Dashboard 3</a>
-                                    </li>
-                                    <li>
-                                        <a href="index.php?ac=product">Product management</a>
+                                        <a href="index.php?ac=product">Product Management</a>
                                     </li>
                                 </ul>
                             </div>
                         </li>
-                        
 
                         <li class="sidebar-dropdown">
                             <a href="#">
-                                <i class="fa fa-tachometer-alt"></i>
+                                <i class="fas fa-chart-line"></i>
                                 <span>Statistical</span>
                                 <span class="badge badge-pill badge-warning">New</span>
                             </a>
@@ -112,52 +113,14 @@
                             <div class="sidebar-submenu">
                                 <ul>
                                     <li>
-                                        <a href="#">customer statistic
-                                            <span class="badge badge-pill badge-success">Pro</span>
-                                        </a>
+                                        <a href="#">Customer Statistic</a>
                                     </li>
+
                                     <li>
                                         <a href="index.php?ac=orderstatistic">Order Statistic</a>
                                     </li>
                                 </ul>
                             </div>
-                        </li>
-
-
-
-
-                        <li class="sidebar-dropdown">
-                            <a href="#">
-                                <i class="fa fa-shopping-cart"></i>
-                                <span>E-commerce</span>
-                                <span class="badge badge-pill badge-danger">3</span>
-                            </a>
-                            
-                            <div class="sidebar-submenu">
-                                <ul>
-                                    <li>
-                                        <a href="#">Products</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Orders</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Credit cart</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
-
-                        <li class="header-menu">
-                            <span>Extra</span>
-                        </li>
-
-                        <li>
-                            <a href="#">
-                                <i class="fa fa-book"></i>
-                                <span>Documentation</span>
-                                <span class="badge badge-pill badge-primary">Beta</span>
-                            </a>
                         </li>
                     </ul>
                 </div>
@@ -167,13 +130,13 @@
             <!-- sidebar-content -->
             <div class="sidebar-footer">
                 <a href="../index.php">
-                    Home &nbsp;
-                    <i class="fas fa-home"></i>
+                    <i class="fas fa-store"></i>
+                    &nbsp; Shop
                 </a>
 
                 <a href="index.php?ac=signout">
-                    Sign out &nbsp;
                     <i class="fas fa-sign-out-alt"></i>
+                    &nbsp; Sign out
                     <span class="badge-sonar"></span>
                 </a>
             </div>

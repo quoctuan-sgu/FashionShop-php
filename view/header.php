@@ -36,11 +36,11 @@
     <link rel="stylesheet" type="text/css" href="css/util.css">
     <link rel="stylesheet" type="text/css" href="css/main.css">
     <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="css/signin/style.css">
-    
+    <link rel="stylesheet" type="text/css" href="css/sign/style.css">
+
     <link href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" rel="stylesheet">
 
-    <?php if ($current_page == 'signup' || $current_page == 'signin') echo '<link rel="stylesheet" type="text/css" href="css/signin/background.css">'; ?>
+    <?php if ($current_page == 'signup' || $current_page == 'signin') echo '<link rel="stylesheet" type="text/css" href="css/sign/background.css">'; ?>
 
     <?php
     $titles = array(
@@ -71,8 +71,8 @@
             <div class="top-bar">
                 <div class="content-topbar flex-sb-m h-full container">
                     <div class="left-top-bar">
-                        Free ship &nbsp; 
-                        <i class="fas fa-shipping-fast"></i> 
+                        Free ship &nbsp;
+                        <i class="fas fa-shipping-fast"></i>
                         &nbsp; cho đơn hàng trên 500.000 đ
                     </div>
 
@@ -80,13 +80,19 @@
                     if (isset($_SESSION['user'])) {
                         extract($_SESSION['user']); ?>
 
+                    <div class="right-top-bar flex-w h-full ml-auto">
+                        <a href="index.php?ac=signout" class="flex-c-m trans-04 p-lr-25">
+                            Đăng xuất &nbsp;
+                            <i class="fas fa-sign-out-alt"></i>
+                        </a>
+                    </div>
+
                     <!-- check Role -> admin -->
                     <?php if ($role_id == 2) { ?>
 
-                    <div class="right-top-bar flex-w h-full ml-auto">
-                        <!-- <a href="/admin/index.php" class="flex-c-m trans-04 p-lr-25"> -->
+                    <div class="right-top-bar flex-w h-full">
                         <a href="admin/index.php" class="flex-c-m trans-04 p-lr-25">
-                            Admin &nbsp; 
+                            Admin &nbsp;
                             <i class="fas fa-user-shield"></i>
                         </a>
                     </div>
@@ -94,15 +100,8 @@
                     <?php } ?>
 
                     <div class="right-top-bar flex-w h-full">
-                        <a href="index.php?ac=signout" class="flex-c-m trans-04 p-lr-25">
-                            Đăng xuất &nbsp; 
-                            <i class="fas fa-sign-out-alt"></i>
-                        </a>
-                    </div>
-
-                    <div class="right-top-bar flex-w h-full">
                         <p href="#" class="flex-c-m trans-04 p-lr-25" style="color: pink;">
-                            <?= $user_name ?> &nbsp; 
+                            <?= $user_name ?> &nbsp;
                             <i class="fa fa-heart" style="color:red"></i>
                         </p>
                     </div>
@@ -111,8 +110,8 @@
 
                     <div class="right-top-bar flex-w h-full">
                         <a href="index.php?ac=signin" class="flex-c-m trans-04 p-lr-25">
-                            Đăng nhập &nbsp; 
-                        <i class="fa fa-power-off"></i> 
+                            Đăng nhập &nbsp;
+                            <i class="fa fa-power-off"></i>
                         </a>
                     </div>
 

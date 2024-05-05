@@ -1,9 +1,15 @@
+<style>
+    h4 {
+        text-align: center;
+    }
+</style>
+
 <!-- sidebar-wrapper  -->
 <main class="page-content">
     <div class="container-fluid">
-        <h2>Admin Page</h2>
+        <h2>Admin Home</h2>
         <hr>
-        
+
         <div class="row">
             <div class="form-group col-md-12">
                 <div class="alert alert-success" role="alert">
@@ -11,6 +17,7 @@
                 </div>
             </div>
         </div>
+
         <div class="row">
             <div class="form-group col-md-12">
                 <div class="alert alert-success" role="alert">
@@ -18,6 +25,7 @@
                 </div>
             </div>
         </div>
+
         <div class="row">
             <div class="form-group col-md-12">
                 <div class="alert alert-success" role="alert">
@@ -25,6 +33,7 @@
                 </div>
             </div>
         </div>
+
         <div class="row">
             <div class="form-group col-md-12">
                 <div class="alert alert-success" role="alert">
@@ -32,6 +41,7 @@
                 </div>
             </div>
         </div>
+
         <div class="row">
             <div class="form-group col-md-12">
                 <div class="alert alert-success" role="alert">

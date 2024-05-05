@@ -47,7 +47,7 @@ if (isset($_GET['ac']) && $_GET['ac'] != "") {
 					$_SESSION['user'] = $result;
 					header('Location: index.php');
 				} else {
-					$notice = "Đăng nhập thất bại!";
+					$notice = "Đăng nhập thất bại.";
 				}
 			}
 			include "view/account/signin.php";
@@ -67,8 +67,17 @@ if (isset($_GET['ac']) && $_GET['ac'] != "") {
 				$username = $_POST['username'];
 				$phone = $_POST['phone'];
 
-				insert_user($email, $password, $username, $phone);
-				$notice = "Đăng ký thành công!";
+				// check exits Email
+				$result = select_one_email($email);
+				$notice = "";
+				
+				// exits Email
+				if ($result && $result['email_count'] > 0) {
+					$notice = "Email đã được sử dụng.";
+				} else {
+					insert_user($email, $password, $username, $phone);
+					$notice = "Đăng ký thành công.";
+				}
 			}
 			include "view/account/signup.php";
 			break;
