@@ -156,6 +156,9 @@
 		if(isset($_GET['categoryid']) && !empty($_GET['categoryid'])){
 			$currentCategoryId=$_GET['categoryid'];
 			$advanceCategoryFilter[]=$currentCategoryId;
+			if(!isset($_SESSION['advanceCategoryFilter'])){
+				$_SESSION['advanceCategoryFilter']=$advanceCategoryFilter;
+			}
 			// if(str_contains($TEMP_URL,"categoryid")){
 			// 	str_replace(("categoryid=".$currentCategoryId),("categoryid=".$_GET['categoryid']),$TEMP_URL);
 				
