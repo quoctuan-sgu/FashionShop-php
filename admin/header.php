@@ -95,7 +95,7 @@
                                     <li>
                                         <a href="index.php?ac=account">Accounts Management</a>
                                     </li>
-                                    
+
                                     <li>
                                         <a href="index.php?ac=product">Product Management</a>
                                     </li>

@@ -1,6 +1,10 @@
 <?php 
-    $orders=getAllOrder();
-    $totalRevenue=totalRevenue();
+    if(isset($_GET['user_id'])){
+       $orders=getOrderByUserId($_GET['user_id']);
+       $totalRevenue=totalRevenueOfOrders($orders);
+    }
+    // $orders=getAllOrder();
+    // $totalRevenue=totalRevenue();
 ?>
 <main class="page-content">
     <div class="container-fluid">

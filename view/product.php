@@ -75,7 +75,11 @@
 			
 		}
 		
-
+		
+		if(isset($_GET['search']))
+		{
+			$searchKeyWord=$_GET['search'];
+		}
 		if(isset($_POST['searchProduct']) && !empty($_POST['searchProduct'])) {
 			$searchKeyWord=$_POST['searchProduct'];
 			$_SESSION['searchKeyWord'] = $searchKeyWord;
@@ -152,6 +156,9 @@
 		if(isset($_GET['categoryid']) && !empty($_GET['categoryid'])){
 			$currentCategoryId=$_GET['categoryid'];
 			$advanceCategoryFilter[]=$currentCategoryId;
+			if(!isset($_SESSION['advanceCategoryFilter'])){
+				$_SESSION['advanceCategoryFilter']=$advanceCategoryFilter;
+			}
 			// if(str_contains($TEMP_URL,"categoryid")){
 			// 	str_replace(("categoryid=".$currentCategoryId),("categoryid=".$_GET['categoryid']),$TEMP_URL);
 				
@@ -173,6 +180,9 @@
 		if(isset($_GET['minprice']) && !empty($_GET['minprice'])){
 			$minPrice=$_GET['minprice'];
 			$maxPrice=$_GET['maxprice'];	
+		}
+		if(isset($_GET['page']) && !empty($_GET['page'])){
+			$currentPageIdx=$_GET['page'];
 		}
 		if(isset($_POST['page']) && !empty($_POST['page'])){
 			$currentPageIdx=$_POST['page'];
@@ -849,13 +859,18 @@
 						// 		echo '<li class="page-item"><a class="page-link" value="'.$i.'" type="submit">'.$i.'</a></li>';
 						// 	}
 						// }
-						echo '<form method="POST" id="paginationForm" class="row m-l-5">';
+						echo '<div id="paginationForm" class="row m-l-5">';
 						if($totalPage > 1){
 							for($i = 1; $i <= $totalPage; $i++){
-								echo '<li class="page-item"><button class=" page-link" type="submit" name="page" value="'.$i.'">'.$i.'</button></li>';
+								if(($searchKeyWord)==""){
+                                    echo '<li class="page-item"><a href="index.php?ac=product&page='.$i.'" class=" page-link" name="page">'.$i.'</a></li>';
+                                }
+                                else{
+                                    echo '<li class="page-item"><a href="index.php?ac=product&page='.$i.'&search='.$searchKeyWord.'" class=" page-link" name="page">'.$i.'</a></li>';
+                                }
 							}
 						}
-						echo '</form>';
+						echo '</div>';
 					?>
     				<!-- <li class="page-item"><a class="page-link" href="#">Next</a></li> -->
   				</ul>

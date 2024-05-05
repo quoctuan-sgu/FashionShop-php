@@ -29,16 +29,16 @@ if(isset($_GET['id'])){
                     <td><?php echo $orderDetail['order_id']; ?></td>
                     <td><?php echo $orderDetail['order_detail_id']; ?></td>
                     <td><?php echo $product; ?></td>
-                    <td><img style="width:50px;height:50px" src="data:image/jpeg;base64,<?php echo base64_encode($productImage); ?>" alt="IMG-PRODUCT"></td>
+                    <td><img style="width:50px;height:50px" src="data:image/jpeg;base64,<?php echo base64_encode(strval($productImage)); ?>" alt="IMG-PRODUCT"></td>
                     <td><?php echo $productPrice; ?></td>
                     <td><?php echo $orderDetail['quantity']; ?></td>
-                    <td><?php echo $productPrice*$orderDetail['quantity']; ?></td>
+                    <td><?php echo intval($productPrice)*$orderDetail['quantity']; ?></td>
                 </tr>
                    <?php } ?>
             
             
         </table>
-        <a href="index.php?ac=orderstatistic">Back to order statictis</a>
+        <!-- <a href="index.php?ac=orderstatistic">Back to order statictis</a> -->
 
     </div>
 </main>
