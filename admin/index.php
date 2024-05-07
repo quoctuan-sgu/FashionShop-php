@@ -19,6 +19,7 @@ if (isset($_SESSION['user'])) {
 include "header.php";
 include "../model/pdo.php";
 include "../model/product.php";
+include "../model/account.php";
 include "statistical/tempmodel.php";
 
 
