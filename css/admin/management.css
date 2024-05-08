@@ -1,28 +1,21 @@
 .all-btn-management {
     margin-left: auto;
-    padding: 0.8%;
-
-    border: 1px solid rgb(255, 155, 255);
-    border-radius: 0.4rem;
-
-    text-decoration: none;
-}
-
-.all-btn-management:hover {
-    color: rgb(255, 205, 255);
-    text-decoration: none;
-    cursor: pointer;
 }
 
 .title-management {
     display: flex;
-    align-items: center;
+    align-items: end;
+    margin-bottom: 4%;
 }
 
-form {
+.title-management input {
+    font-size: small;
+}
+
+.form-management {
     padding: 4% 18% 2% 10%;
 }
 
-form button {
+.form-management button {
     margin-top: 4%;
 }

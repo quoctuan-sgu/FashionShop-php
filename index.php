@@ -41,7 +41,7 @@ if (isset($_GET['ac']) && $_GET['ac'] != "") {
 				$email = $_POST['email'];
 				$password = $_POST['password'];
 
-				$result = select_one_user($email, $password);
+				$result = check_user($email, $password);
 
 				if (is_array($result)) {
 					$_SESSION['user'] = $result;
@@ -75,7 +75,7 @@ if (isset($_GET['ac']) && $_GET['ac'] != "") {
 				if ($result && $result['email_count'] > 0) {
 					$notice = "Email đã được sử dụng.";
 				} else {
-					insert_user($email, $password, $username, $phone);
+					insert_user($email, $password, $username, $phone, 1);
 					$notice = "Đăng ký thành công.";
 				}
 			}
