@@ -99,6 +99,10 @@
                                     <li>
                                         <a href="index.php?ac=product">Product Management</a>
                                     </li>
+                                    <li>
+                                        <a href="index.php?ac=category">category Management</a>
+                                    </li>
+
                                 </ul>
                             </div>
                         </li>
@@ -113,12 +117,12 @@
                             <div class="sidebar-submenu">
                                 <ul>
                                     <li>
-                                        <a href="#">Customer Statistic</a>
+                                        <a href="index.php?ac=topcustomer">Customer Statistic</a>
                                     </li>
 
-                                    <li>
+                                    <!-- <li>
                                         <a href="index.php?ac=orderstatistic">Order Statistic</a>
-                                    </li>
+                                    </li> -->
                                 </ul>
                             </div>
                         </li>

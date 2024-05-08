@@ -29,7 +29,7 @@ if(isset($_POST['product_id'])){
 <main class="page-content">
     <div class="container-fluid">
         <h2>Edit product</h2>
-        <form method="post" action="#" enctype="multipart/form-data">
+        <form method="post" action="#" enctype="multipart/form-data" class="pb-0 pt-0 pl-0 pr-0">
             <div class="form-group">
                 <label for="product_id" hidden>Product ID</label>
                 <input type="text" class="form-control" id="product_id" name="product_id" value=<?php echo $product['product_id'] ?> hidden>
@@ -66,7 +66,7 @@ if(isset($_POST['product_id'])){
                 <label for="product_description">Product Description</label>
                 <textarea class="form-control" id="product_description" name="product_description" required><?php echo $product['product_description'] ?></textarea>
             </div>
-            <button type="submit" class="btn btn-primary">Edit</button>
+            <button type="submit" class="btn btn-primary mt-0">Edit</button>
             <a href="index.php?ac=product" class="btn btn-secondary">Go Back</a>
         </form>
 

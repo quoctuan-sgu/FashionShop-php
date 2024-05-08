@@ -29,11 +29,11 @@
             <a href="index.php?ac=product&act=add"> <i class="fa fa-plus mr-1"></i>Add new product</a>
         </div>
         <div class="form-group mt-1 ml-3">
-            <form method="POST" class="row m-l-5">
+            
+            <form method="POST" class="row m-l-5 pl-0 pt-0 pb-0 pr-0">
                 <input type="text" class="form-control col-2 mr-2" name="search" placeholder="Search">
-                <button type="submit" class="btn btn-primary col-2">Search by product name</button>
-            </form> 
-
+                <button type="submit" class="btn btn-primary col-2 mt-0">Search by product name</button>
+            </form>
         </div>
         <table class="table table-hover">
             <tr class="table-header">

@@ -155,10 +155,10 @@
 
 		if(isset($_GET['categoryid']) && !empty($_GET['categoryid'])){
 			$currentCategoryId=$_GET['categoryid'];
+			$advanceCategoryFilter=[];
 			$advanceCategoryFilter[]=$currentCategoryId;
-			if(!isset($_SESSION['advanceCategoryFilter'])){
-				$_SESSION['advanceCategoryFilter']=$advanceCategoryFilter;
-			}
+			$_SESSION['advanceCategoryFilter']=$advanceCategoryFilter;
+			
 			// if(str_contains($TEMP_URL,"categoryid")){
 			// 	str_replace(("categoryid=".$currentCategoryId),("categoryid=".$_GET['categoryid']),$TEMP_URL);
 				
@@ -167,14 +167,14 @@
 			// 	$currentCategoryId=$_GET['categoryid'];
 			// 	$TEMP_URL.='&categoryid='.$currentCategoryId;
 			// }
-			if (strpos($TEMP_URL, "&categoryid=") !== false) {
-				// Replace existing category ID with new_category_id
-				$TEMP_URL = preg_replace('/&categoryid=[^&]*/', '&categoryid=' . $currentCategoryId, $TEMP_URL);
-			}
-			else{
-				$TEMP_URL.='&categoryid='.$currentCategoryId;
-			}
-			echo "<script>console.log('zxczxc: " .$TEMP_URL . "' );</script>";
+			// if (strpos($TEMP_URL, "&categoryid=") !== false) {
+			// 	// Replace existing category ID with new_category_id
+			// 	$TEMP_URL = preg_replace('/&categoryid=[^&]*/', '&categoryid=' . $currentCategoryId, $TEMP_URL);
+			// }
+			// else{
+			// 	$TEMP_URL.='&categoryid='.$currentCategoryId;
+			// }
+			// echo "<script>console.log('zxczxc: " .$TEMP_URL . "' );</script>";
 		}
 		
 		if(isset($_GET['minprice']) && !empty($_GET['minprice'])){
@@ -357,28 +357,41 @@
 					foreach($listCategories as $category) {
 						extract($category);
 						
-						$categoryLink="";
-						if (strpos($TEMP_URL, "&categoryid=") !== false && empty($currentCategoryId)) {
-							// Replace existing category ID with new_category_id
-							$TEMP_URL = preg_replace('/&categoryid=[^&]*/', '&categoryid=' . $category_id, $TEMP_URL);
-							$categoryLink=$TEMP_URL;
-						}
-						else{
-							$categoryLink=$TEMP_URL."&categoryid=".$category_id;
-						}
-						echo "<script>console.log('categoryLink: " .$categoryLink . "' );</script>";
+						// $categoryLink="";
 						if($currentCategoryId==$category_id){
-							echo'
-								<a href="'.$categoryLink.'" class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 how-active1" data-filter=".'.$category_name.'">
-								'. $category_name.'
-								</a>';
+							echo '
+								<a href="'.$BASE_URL.'&categoryid='.$category_id.'" class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5  how-active1" data-filter=".'.$category_name.'">
+										'. $category_name.'
+										</a>
+							';
 						}
 						else{
-							echo'
-								<a href="'.$categoryLink.'" class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".'.$category_name.'">
-								'. $category_name.'
-								</a>';
+							echo '
+								<a href="'.$BASE_URL.'&categoryid='.$category_id.'" class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".'.$category_name.'">
+										'. $category_name.'
+										</a>';
 						}
+						// if (strpos($TEMP_URL, "&categoryid=") !== false && empty($currentCategoryId)) {
+						// 	// Replace existing category ID with new_category_id
+						// 	$TEMP_URL = preg_replace('/&categoryid=[^&]*/', '&categoryid=' . $category_id, $TEMP_URL);
+						// 	$categoryLink=$TEMP_URL;
+						// }
+						// else{
+						// 	$categoryLink=$TEMP_URL."&categoryid=".$category_id;
+						// }
+						// echo "<script>console.log('categoryLink: " .$categoryLink . "' );</script>";
+						// if($currentCategoryId==$category_id){
+						// 	echo'
+						// 		<a href="'.$categoryLink.'" class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 how-active1" data-filter=".'.$category_name.'">
+						// 		'. $category_name.'
+						// 		</a>';
+						// }
+						// else{
+						// 	echo'
+						// 		<a href="'.$categoryLink.'" class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".'.$category_name.'">
+						// 		'. $category_name.'
+						// 		</a>';
+						// }
 					}
 				?>
 			</div>
@@ -1033,4 +1046,3 @@
 		</div>
 	</div>
 </div>
-

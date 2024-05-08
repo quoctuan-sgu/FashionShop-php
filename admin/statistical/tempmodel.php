@@ -51,4 +51,12 @@
         $sql="SELECT * FROM product WHERE product_name LIKE '%".$name."%'";
         return pdo_query($sql);
     }
+    function deleteProductByProductId($id){
+        $sql="DELETE FROM product WHERE product_id=".$id;
+        return pdo_execute($sql);
+    }
+    function isProductExistedInOrderDetail($id){
+        $sql="SELECT * FROM orderdetail WHERE product_id=".$id;
+        return pdo_query($sql);
+    }
 ?>

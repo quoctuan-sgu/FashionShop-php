@@ -39,7 +39,7 @@
     <div class="container-fluid">
 
         <h2>Add new product</h2>
-        <form method="post"  action="#"  enctype="multipart/form-data">
+        <form method="post"  action="#"  enctype="multipart/form-data" class="pb-0 pt-0 pr-0 pl-0">
             <div class="form-group">
                 <label for="product_name">Product Name</label>
                 <input type="text" class="form-control" id="product_name" name="product_name" required>
@@ -71,7 +71,7 @@
                 <label for="product_description">Product Description</label>
                 <textarea class="form-control" id="product_description" name="product_description" required></textarea>
             </div>
-            <button type="submit" class="btn btn-primary">Add</button>
+            <button type="submit" class="btn btn-primary mt-0">Add</button>
             <a href="index.php?ac=product" class="btn btn-secondary">Go Back</a>
         </form>
     </div>
