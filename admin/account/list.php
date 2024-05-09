@@ -10,7 +10,7 @@ if (!isset($_GET['page'])) {
 if (isset($_POST["input"])) {
     $search = $_POST["input"];
     // Số lượng bản ghi trên mỗi trang
-    $records_per_page = 5;
+    $records_per_page = 6;
     // Tính tổng số bản ghi
     $total_records = count(select_all_user_search($search));
     // Tính tổng số trang
@@ -21,7 +21,7 @@ if (isset($_POST["input"])) {
     $result = select_all_user_search_paganation($start_from, $records_per_page, $search);
 } else {
     // Số lượng bản ghi trên mỗi trang
-    $records_per_page = 5;
+    $records_per_page = 6;
     // Tính tổng số bản ghi
     $total_records = count(select_all_user());
     // Tính tổng số trang

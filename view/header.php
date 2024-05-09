@@ -33,14 +33,14 @@
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="vendor/perfect-scrollbar/perfect-scrollbar.css">
     <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="css/util.css">
-    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <link rel="stylesheet" type="text/css" href="../css/util.css">
+    <link rel="stylesheet" type="text/css" href="../css/main.css">
     <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="css/sign/style.css">
+    <link rel="stylesheet" type="text/css" href="../css/sign/style.css">
 
     <link href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" rel="stylesheet">
 
-    <?php if ($current_page == 'signup' || $current_page == 'signin') echo '<link rel="stylesheet" type="text/css" href="css/sign/background.css">'; ?>
+    <?php if ($current_page == 'signup' || $current_page == 'signin') echo '<link rel="stylesheet" type="text/css" href="../css/sign/background.css">'; ?>
 
     <?php
     $titles = array(
@@ -87,18 +87,6 @@
                         </a>
                     </div>
 
-                    <!-- check Role -> admin -->
-                    <?php if ($role_id == 2) { ?>
-
-                    <div class="right-top-bar flex-w h-full">
-                        <a href="admin/index.php" class="flex-c-m trans-04 p-lr-25">
-                            Admin &nbsp;
-                            <i class="fas fa-user-shield"></i>
-                        </a>
-                    </div>
-
-                    <?php } ?>
-
                     <div class="right-top-bar flex-w h-full">
                         <p href="#" class="flex-c-m trans-04 p-lr-25" style="color: pink;">
                             <?= $user_name ?> &nbsp;
@@ -126,7 +114,7 @@
                 <nav class="limiter-menu-desktop container">
 
                     <!-- Logo desktop -->
-                    <a href="#" class="logo">
+                    <a href="index.php" class="logo">
                         <img src="images/icons/logo-01.png" alt="IMG-LOGO">
                     </a>
 

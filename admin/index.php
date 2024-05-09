@@ -3,14 +3,7 @@ ob_start();
 session_start();
 
 // check SESSION
-if (isset($_SESSION['user'])) {
-    extract($_SESSION['user']);
-
-    if ($role_id != 2) {
-        header("Location: ../index.php");
-        exit();
-    }
-} else {
+if (!isset($_SESSION['admin'])) {
     header("Location: ../index.php");
     exit();
 }
@@ -83,9 +76,8 @@ if (isset($_GET['ac']) && $_GET['ac'] != "") {
             break;
 
         case 'signout':
-            session_unset();
-            session_destroy();
-            header("Location: ../index.php");
+            unset($_SESSION['admin']); // Xóa session 'admin'
+            header("Location: ../index.php?ac=signin");
             exit();
             break;
 

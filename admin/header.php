@@ -42,9 +42,18 @@
                         <img class="img-responsive img-rounded" src="../images/tran-hao-nam.jpg" alt="User picture">
                     </div>
                     <div class="user-info">
+
+                        <?php if (isset($_SESSION['admin'])) {
+                            extract($_SESSION['admin']); ?>
+
                         <span class="user-name">
-                            <strong>Trần Hạo Nam</strong>
+                            <strong>
+                                <?= $user_name ?>&nbsp;
+                                <i class="fa fa-heart" style="color:red"></i>
+                            </strong>
                         </span>
+
+                        <?php } ?>
 
                         <span class="user-role">Admin</span>
 
@@ -134,11 +143,6 @@
 
             <!-- sidebar-content -->
             <div class="sidebar-footer">
-                <a href="../index.php">
-                    <i class="fas fa-store"></i>
-                    &nbsp; Shop
-                </a>
-
                 <a href="index.php?ac=signout">
                     <i class="fas fa-sign-out-alt"></i>
                     &nbsp; Sign out

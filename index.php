@@ -44,8 +44,15 @@ if (isset($_GET['ac']) && $_GET['ac'] != "") {
 				$result = check_user($email, $password);
 
 				if (is_array($result)) {
-					$_SESSION['user'] = $result;
-					header('Location: index.php');
+
+					if ($result['role_id'] == 2) {
+						$_SESSION['admin'] = $result;
+						header('Location: admin/index.php');
+					} else {
+						$_SESSION['user'] = $result;
+						header('Location: index.php');
+					}
+
 				} else {
 					$notice = "Đăng nhập thất bại.";
 				}
@@ -54,8 +61,7 @@ if (isset($_GET['ac']) && $_GET['ac'] != "") {
 			break;
 
 		case 'signout':
-			session_unset();
-			session_destroy();
+			unset($_SESSION['user']); // Xóa session 'user'
 			header("Location: index.php");
 			exit();
 			break;
@@ -70,7 +76,7 @@ if (isset($_GET['ac']) && $_GET['ac'] != "") {
 				// check exits Email
 				$result = select_one_email($email);
 				$notice = "";
-				
+
 				// exits Email
 				if ($result && $result['email_count'] > 0) {
 					$notice = "Email đã được sử dụng.";
