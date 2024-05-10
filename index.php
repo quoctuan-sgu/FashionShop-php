@@ -17,6 +17,15 @@ if (isset($_GET['ac']) && $_GET['ac'] != "") {
 	$ac = $_GET['ac'];
 
 	switch ($ac) {
+		case 'userdetail':
+			include "view/user/userDetail.php";
+			break;
+		case 'edituser':
+			include "view/user/editUser.php";
+			break;
+		case 'changepassword':
+			include "view/user/changepassword.php";
+			break;
 		case 'cart':
 			include "view/cart/cart.php";
 			break;
