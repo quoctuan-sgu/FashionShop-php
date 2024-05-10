@@ -1,9 +1,18 @@
 <?php 
+    $pageIndex=1;
+    $pageSize=3;
+    $searchTerm="";
     $categories=getAllCategory();
     if(isset($_POST['search'])){
         $search=$_POST['search'];
+        $searchTerm=$search;
         $categories=searchCategoryByName($search);
     }
+    if(isset($_GET['page'])){
+        $pageIndex=$_GET['page'];
+    }
+    $totalPage=ceil(count($categories)/$pageSize);
+    $categories=array_slice($categories,($pageIndex-1)*$pageSize,$pageSize);
 ?>
 <main class="page-content">
     <div class="container-fluid">
@@ -14,6 +23,7 @@
             <form method="POST" class="row m-l-5 pl-0 pt-0 pb-0 pr-0">
                 <input type="text" class="form-control col-2 mr-2" name="search" placeholder="Search">
                 <button type="submit" class="btn btn-primary col-2 mt-0">Search </button>
+                <a href="index.php?ac=category" class=" ml-1 btn btn-primary">reload</a>
             </form>
         </div>
         <table class="table table-hover">
@@ -34,6 +44,25 @@
                 </tr>
             <?php } ?>
         </table>
+        <div class="mt-5">
+            <ul class="pagination justify-content-center">
+                <?php
+                    echo '<div id="paginationForm" class="row m-l-5">';
+                        if($totalPage > 1){
+                            for($i = 1; $i <= $totalPage; $i++){
+                                if(($searchTerm)==""){
+                                    echo '<li class="page-item"><a href="index.php?ac=category&page='.$i.'" class=" page-link" name="page">'.$i.'</a></li>';
+                                }
+                                else{
+                                    echo '<li class="page-item"><a href="index.php?ac=category&page='.$i.'&search='.$searchTerm.'" class=" page-link" name="page">'.$i.'</a></li>';
+                                }
+                               
+                            }
+                        }
+                    echo '</div>';
+                ?>
+            </ul>
+        </div>
 
     </div>
 </main>
