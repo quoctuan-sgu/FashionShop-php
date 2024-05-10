@@ -15,6 +15,7 @@ include "model/bill.php";
 include "model/bill_detail.php";
 include "model/order.php";
 include "model/order_detail.php";
+include "model/status.php";
 ?>
 
 <?php
@@ -73,14 +74,14 @@ if (isset($_GET['ac']) && $_GET['ac'] != "") {
 					$id_cart = $cart_id;
 					// echo "<script> alert('". $id_cart ."'); </script>";
 					// nếu đã tồn tại thì xét sp đã có trong chi tiết cart chưa
-					$info_cartdetail = get_info_product_cart_detail($product_id_get);
+					$info_cartdetail = get_info_product_cart_detail($product_id_get, $id_cart);
 					if(is_array($info_cartdetail)){
 						// nếu tồn tại thì update số lượng theo cart id
 						extract($info_cartdetail);
 						$quantity_current = $quantity;
 						$quantity_new  = $quantity_current + $quantity_get;
 						// update số lượng
-						update_quantity($quantity_new, $product_id_get);
+						update_quantity($quantity_new, $product_id_get, $id_cart);
 
 						// lấy số lượng sản phẩm trong giỏ hàng rồi hiển thị ra
 						$sum_product_cart = get_quantity_product($_SESSION['user']['user_id']);
@@ -148,9 +149,42 @@ if (isset($_GET['ac']) && $_GET['ac'] != "") {
 
 			if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['btn_checkout']) && isset($_SESSION['user'])) {
 
+				$payment = $_POST['pay'];
+	
+				$id_province = $_POST['province'];
+				$id_district = $_POST['disrict'];
+				$id_ward = $_POST['ward'];
+				$post_code = $_POST['postcode'];
+
+				$province = get_province($id_province);
+				if(isset($province)){
+					extract($province);
+					$name_province = $name;
+				}
+
+				$district = get_district($id_district);
+				if(isset($district)){
+					extract($district);
+					$name_district = $name;
+				}
+				
+				$ward = get_ward($id_ward);
+				if(isset($ward)){
+					extract($ward);
+					$name_ward = $name;
+				}
+
+				$address = $post_code . ", " . $name_ward . ", " . $name_district . ", " . $name_province;
+
+				date_default_timezone_set('Asia/Ho_Chi_Minh');
+				$created_date = date('Y-m-d');
+
 				$list_detail_cart_1 = get_list_code_product($_SESSION['user']['user_id']);
 			
 				if(isset($_SESSION['user'])) {
+
+					// thêm vào bill
+					$id_bill = add_new_bill($_SESSION['user']['user_id'], $created_date, $address, $payment);
 
 					if(empty($list_detail_cart_1)) {
 						echo "<script> alert('Giỏ hàng rỗng'); 
@@ -165,12 +199,10 @@ if (isset($_GET['ac']) && $_GET['ac'] != "") {
 							$name_user = $user_name;
 							$phone = $user_phoneNumber;
 						}
+
+						
 	
-						date_default_timezone_set('Asia/Ho_Chi_Minh');
-						$created_date = date('Y-m-d');
-	
-						// thêm vào bill
-						$id_bill = add_new_bill($user_id, $created_date);
+						
 	
 						// add vào bill info: bill_detail_id	bill_id  product_id	quantity	price	total
 						// $list_detail_cart = get_list_code_product($_SESSION['user']['user_id']);
@@ -198,6 +230,8 @@ if (isset($_GET['ac']) && $_GET['ac'] != "") {
 								}
 							}
 						}
+
+						
 						
 						// thêm vào order
 						// order_id	user_id	status_id	order_created_date	estimate_ship_date	total
@@ -205,7 +239,7 @@ if (isset($_GET['ac']) && $_GET['ac'] != "") {
 						$ship_date = date('Y-m-d', strtotime($created_date . ' +3 days'));
 						//order_id	user_id	status_id	order_created_date	estimate_ship_date	total	
 
-						$idOrder = add_new_order($user_id, $created_date, $ship_date, $total_bill_success);
+						$idOrder = add_new_order($user_id, $created_date, $ship_date, $total_bill_success, $address, $payment);
 
 						$total_bill_cart_2 = 0;
 						// $list_detail_cart_2 = get_list_code_product($_SESSION['user']['user_id']);
@@ -229,32 +263,7 @@ if (isset($_GET['ac']) && $_GET['ac'] != "") {
 
 							}
 						}
-						$payment = $_POST['pay'];
-	
-						$id_province = $_POST['province'];
-						$id_district = $_POST['disrict'];
-						$id_ward = $_POST['ward'];
-						$post_code = $_POST['postcode'];
-	
-						$province = get_province($id_province);
-						if(isset($province)){
-							extract($province);
-							$name_province = $name;
-						}
-	
-						$district = get_district($id_district);
-						if(isset($district)){
-							extract($district);
-							$name_district = $name;
-						}
 						
-						$ward = get_ward($id_ward);
-						if(isset($ward)){
-							extract($ward);
-							$name_ward = $name;
-						}
-	
-						$address = $post_code . ", " . $name_ward . ", " . $name_district . ", " . $name_province;
 
 						// xóa chi tiết hóa đơn
 						$del_cart_detail = get_info_user_cart($user_id);
@@ -262,6 +271,7 @@ if (isset($_GET['ac']) && $_GET['ac'] != "") {
 							extract($del_cart_detail);
 							$id_card_delete = $cart_id;
 							delete_cart_detail($id_card_delete);
+							$_SESSION['sum_product_cart'] = 0;
 						}
 
 					}	
@@ -273,14 +283,37 @@ if (isset($_GET['ac']) && $_GET['ac'] != "") {
 				window.location.href = 'index.php?ac=signin';</script></script>";
 			}
 
+			$_SESSION['sum_product_cart'] = 0;
+
 		include "view/bill/bill_info.php";
 		break;
 
 
 		case 'to_bill':
-
+			$list_bill = get_all_bill();
+			
 			include "view/bill/list_bill.php";
 
+			break;
+		case 'view_info_bill':
+			if(isset($_GET['id']) && $_GET['id'] > 0) {
+				$bill_info = get_info_one_bill($_GET['id']);
+				$bill = get_bill_info($_GET['id'], $_SESSION['user']['user_id']);
+			}
+			include "view/bill/view_info_bill.php";
+			break;
+
+		case 'to_order':
+			$list_all_order = get_all_order();
+			include "view/order/list_order.php";
+			break;
+		
+		case 'info_order':
+			if(isset($_GET['id']) && $_GET['id'] > 0) {
+				$orderOne = get_one_order($_GET['id'], $_SESSION['user']['user_id']);
+				$detailOrder = get_order($_GET['id']);
+			}
+			include "view/order/order_info.php";
 			break;
 		case 'product':
 

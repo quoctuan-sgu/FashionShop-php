@@ -1,31 +1,24 @@
 <!-- Title page -->
 <section class="bg-img1 txt-center p-lr-15 p-tb-92" style="background-image: url('images/bg-01.jpg');">
 	<h2 class="ltext-105 cl0 txt-center">
-    THÔNG TIN CHI TIẾT ĐƠN HÀNG
+    CHI TIẾT HÓA ĐƠN
 	</h2>
 </section>
 
-<?php
-	if(!empty($detailOrder)) {
-		foreach($detailOrder as $item) {
-			extract($item);
-		}
-	}
-
-	if(!empty($orderOne)) {
-		extract($orderOne);
-	}
-
-	
-?>
-
-<div>Mã đơn hàng: <?= $order_id ?></div>
 <div>Tên người nhận: <?= $_SESSION['user']['user_name'] ?></div>
 <div>SĐT: <?= $_SESSION['user']['user_phoneNumber']?></div>
-<div>Địa chỉ: <?= $address_order ?></div>
-<div>Hình thức thanh toán: <?= $payment ?></div>
+<?php
+    if(!empty($bill)) {
+        foreach($bill as $item) {
+            extract($item);
+        }
+    }
+?>
+<div>Địa chỉ nhận hàng: <?= $address_order ?></div>
+<div>Phương thức thanh toán: <?= $payment ?></div>
+
 <table border="1">
-	<tr>
+    <tr>
         <th>Mã sản phẩm</th>
         <th>Tên sản phẩm</th>
         <th>Màu sắc</th>
@@ -34,10 +27,10 @@
         <th>Số lượng (cái)</th>
         <th>Thành tiền ($)</th>
     </tr>
-	<?php
-	$total_bill = 0;
-        if(!empty($detailOrder)) {
-            foreach($detailOrder as $item) {
+    <?php
+    $total_bill = 0;
+        if(!empty($bill_info)) {
+            foreach($bill_info as $item) {
                 extract($item);
                 $total_bill += $total;
 
@@ -60,4 +53,5 @@
     <tr>
         <td colspan="6">Tổng tiền ($)</td>
         <td><?= $total_bill ?></td>
+    </tr>
 </table>

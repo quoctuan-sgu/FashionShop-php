@@ -1,14 +1,14 @@
 <?php
 
     // lấy thông tin chi tiết hóa đơn theo mã sp
-    function get_info_product_cart_detail($product_id) {
-        $sql = "SELECT * FROM cartdetail WHERE product_id = $product_id";
+    function get_info_product_cart_detail($product_id, $id_cart) {
+        $sql = "SELECT * FROM cartdetail WHERE product_id = $product_id AND cart_id = $id_cart";
         return pdo_query_one($sql);
     }
 
     // update số lượng sản phẩm trong cart detail
-    function update_quantity($quantity, $product_id) {
-        $sql = "UPDATE cartdetail SET quantity = $quantity WHERE product_id = $product_id";
+    function update_quantity($quantity, $product_id, $id_cart) {
+        $sql = "UPDATE cartdetail SET quantity = $quantity WHERE product_id = $product_id AND cart_id = $id_cart";
         return pdo_execute($sql);
     }
 
