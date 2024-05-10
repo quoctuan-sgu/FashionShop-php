@@ -16,7 +16,3 @@ function getCategoryIdByProductId($id){
     $categoryid=pdo_query_value($sql);
     return $categoryid;
 }
-
-
-
-?>

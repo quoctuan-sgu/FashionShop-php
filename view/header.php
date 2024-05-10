@@ -40,6 +40,9 @@
 
     <link href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" rel="stylesheet">
 
+    <!-- Thêm thư viện jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
     <?php if ($current_page == 'signup' || $current_page == 'signin') echo '<link rel="stylesheet" type="text/css" href="css/sign/background.css">'; ?>
 
     <?php
@@ -58,7 +61,11 @@
     $title = isset($titles[$current_page]) ? $titles[$current_page] : '';
     ?>
 
+
+
+
     <title> <?php echo $title ?> </title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 
 <body class="animsition">
@@ -157,14 +164,29 @@
                             <li class=" <?php if ($current_page == 'contact') echo 'active-menu'; ?> ">
                                 <a href="index.php?ac=contact">Contact</a>
                             </li>
+
+                            <li class=" <?php if ($current_page == 'contact') echo 'active-menu'; ?> ">
+                                <a href="index.php?ac=to_order">Order</a>
+                            </li>
+
+                            <li class=" <?php if ($current_page == 'contact') echo 'active-menu'; ?> ">
+                                <a href="index.php?ac=to_bill">Bill</a>
+                            </li>
                         </ul>
                     </div>
 
                     <!-- Icon header -->
                     <div class="wrap-icon-header flex-w flex-r-m">
                         <div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart"
-                            data-notify="99">
+                            data-notify="<?php 
+                                if(isset($_SESSION['sum_product_cart'])) {
+                                    echo $_SESSION['sum_product_cart'];
+                                }
+                                else {
+                                    echo "0";
+                                } ?>">
                             <i class="zmdi zmdi-shopping-cart"></i>
+                            <!-- document.getElementById('cart-number').innerText = '".$total."'; -->
                         </div>
                     </div>
                 </nav>

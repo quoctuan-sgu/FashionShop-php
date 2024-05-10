@@ -221,4 +221,9 @@ function editProduct($product_id,$product_name,$product_price,$product_color,$pr
     echo '<script>console.log("'.$sql.'")</script>';
     pdo_execute($sql);
 }
+
+function get_info_product($product_id) {
+    $sql = "SELECT * FROM product WHERE product_id = $product_id";
+    return pdo_query_one($sql);
+}
 ?>

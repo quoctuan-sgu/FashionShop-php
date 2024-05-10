@@ -33,3 +33,8 @@ function select_one_email($user_email)
 
     return $rs;
 }
+
+function get_account($user_id) {
+    $sql = "SELECT * FROM user WHERE user_id = $user_id";
+    return pdo_query_one($sql);
+}
