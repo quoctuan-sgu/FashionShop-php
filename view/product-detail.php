@@ -1,18 +1,3 @@
-
-<?php 
-
-if(isset( $_GET['id'] ) && !empty($_GET['id'])){
-	
-	$currentProductDetailId=$_GET['id'];
-	$currentProduct=getProductByProductId( $currentProductDetailId );
-	// $listProductDetail=getProductDetailByProductId($currentProductDetailId);
-	$categoryId=getCategoryIdByProductId($currentProductDetailId);
-	$categoryName=getCategoryNameById($categoryId);
-}
-
-
-
-?>
 <!-- Cart -->
 <div class="wrap-header-cart js-panel-cart">
 	<div class="s-full js-hide-cart"></div>
@@ -198,82 +183,85 @@ if(isset( $_GET['id'] ) && !empty($_GET['id'])){
 					?>
 
 					<!--  -->
-					<div class="p-t-33">
-						<div class="flex-w flex-r-m p-b-10">
-							<div class="size-203 flex-c-m respon6">
-								Size
-							</div>
-
-							<div class="size-204 respon6-next">
-								<div class="rs1-select2 bor8 bg0">
-									<select class="js-select2" name="time" id="sizeselect">
-										<!-- <option>Choose an option</option> -->
-										 <?php
-										// foreach($listProductDetail as $productDetail){
-										// 	extract($productDetail);
-										// 	echo '<option>'. strtoupper($size).'</option>';
-										// }
-										echo '<option>Size '.$currentProduct['product_size'].'</option>';
-										?> 
-										<!-- <option>Size S</option>
-										<option>Size M</option>
-										<option>Size L</option>
-										<option>Size XL</option> -->
-									</select>
-								
-									<div class="dropDownSelect2"></div>	
+					<form action="index.php?ac=add_to_cart" method="post">
+						<input type="hidden" name="id_product" value="<?= $currentProduct['product_id'] ?>">
+						<div class="p-t-33">
+							<div class="flex-w flex-r-m p-b-10">
+								<div class="size-203 flex-c-m respon6">
+									Size
 								</div>
-							</div>
-						</div>
 
-						<div class="flex-w flex-r-m p-b-10">
-							<div class="size-203 flex-c-m respon6">
-								Color
-							</div>
-
-							<div class="size-204 respon6-next">
-								<div class="rs1-select2 bor8 bg0">
-								
-										<select class="js-select2" name="time">
+								<div class="size-204 respon6-next">
+									<div class="rs1-select2 bor8 bg0">
+										<select class="js-select2" name="time" id="sizeselect">
 											<!-- <option>Choose an option</option> -->
 											<?php
 											// foreach($listProductDetail as $productDetail){
-											// 		extract($productDetail);
-											// 		echo '<option>'. strtoupper($color).'</option>';
+											// 	extract($productDetail);
+											// 	echo '<option>'. strtoupper($size).'</option>';
 											// }
-												echo '<option>'.$currentProduct['product_color'].'</option>';
+											echo '<option>Size '.$currentProduct['product_size'].'</option>';
 											?>
+											<!-- <option>Size S</option>
+											<option>Size M</option>
+											<option>Size L</option>
+											<option>Size XL</option> -->
+										</select>
+
+										<div class="dropDownSelect2"></div>
+									</div>
+								</div>
+							</div>
+
+							<div class="flex-w flex-r-m p-b-10">
+								<div class="size-203 flex-c-m respon6">
+									Color
+								</div>
+
+								<div class="size-204 respon6-next">
+									<div class="rs1-select2 bor8 bg0">
+
+										<select class="js-select2" name="time">
+											<!-- <option>Choose an option</option> -->
+											<?php
+												// foreach($listProductDetail as $productDetail){
+												// 		extract($productDetail);
+												// 		echo '<option>'. strtoupper($color).'</option>';
+												// }
+													echo '<option>'.$currentProduct['product_color'].'</option>';
+												?>
 											<!-- <option>Red</option>
-											<option>Blue</option>
-											<option>White</option>
-											<option>Grey</option> -->
+												<option>Blue</option>
+												<option>White</option>
+												<option>Grey</option> -->
 										</select>
 										<div class="dropDownSelect2"></div>
-									
+
+									</div>
+								</div>
+							</div>
+
+							<div class="flex-w flex-r-m p-b-10">
+								<div class="size-204 flex-w flex-m respon6-next">
+									<div class="wrap-num-product flex-w m-r-20 m-tb-10">
+										<div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
+											<i class="fs-16 zmdi zmdi-minus"></i>
+										</div>
+
+										<input class="mtext-104 cl3 txt-center num-product" type="number" name="num-product" value="1">
+
+										<div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
+											<i class="fs-16 zmdi zmdi-plus"></i>
+										</div>
+									</div>
+
+									<button class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail" type="submit" name="btn_add_to_cart">
+										Add to cart
+									</button>
 								</div>
 							</div>
 						</div>
-
-						<div class="flex-w flex-r-m p-b-10">
-							<div class="size-204 flex-w flex-m respon6-next">
-								<div class="wrap-num-product flex-w m-r-20 m-tb-10">
-									<div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
-										<i class="fs-16 zmdi zmdi-minus"></i>
-									</div>
-
-									<input class="mtext-104 cl3 txt-center num-product" type="number" name="num-product" value="1">
-
-									<div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
-										<i class="fs-16 zmdi zmdi-plus"></i>
-									</div>
-								</div>
-
-								<button class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">
-									Add to cart
-								</button>
-							</div>
-						</div>
-					</div>
+					</form>
 
 					<!--  -->
 					<div class="flex-w flex-m p-l-100 p-t-40 respon7">

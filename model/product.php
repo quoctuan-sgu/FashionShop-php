@@ -221,4 +221,19 @@ function editProduct($product_id,$product_name,$product_price,$product_color,$pr
     echo '<script>console.log("'.$sql.'")</script>';
     pdo_execute($sql);
 }
+
+
+function get_info_product($product_id) {
+    $sql = "SELECT * FROM product WHERE product_id = $product_id";
+    return pdo_query_one($sql);
+}
+
+function edituser($user_id,$user_name,$user_email,$user_phoneNumber,$user_address){
+    $sql="update user set user_name='".$user_name."',user_email='".$user_email."',user_phoneNumber='".$user_phoneNumber."',user_address='".$user_address."' where user_id='".$user_id."'";
+    pdo_execute($sql);
+}
+function changePassword($user_id,$newPassword){
+    $sql="update user set user_password='".$newPassword."' where user_id='".$user_id."'";
+    pdo_execute($sql);
+}
 ?>

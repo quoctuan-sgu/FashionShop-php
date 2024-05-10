@@ -33,14 +33,20 @@
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="vendor/perfect-scrollbar/perfect-scrollbar.css">
     <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="../css/util.css">
-    <link rel="stylesheet" type="text/css" href="../css/main.css">
+    <link rel="stylesheet" type="text/css" href="css/util.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
     <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="../css/sign/style.css">
+    <link rel="stylesheet" type="text/css" href="css/sign/style.css">
 
     <link href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" rel="stylesheet">
 
-    <?php if ($current_page == 'signup' || $current_page == 'signin') echo '<link rel="stylesheet" type="text/css" href="../css/sign/background.css">'; ?>
+<!-- <<<<<<< HEAD -->
+    <!-- Thêm thư viện jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- ======= -->
+    <?php if ($current_page == 'signup' || $current_page == 'signin') echo '<link rel="stylesheet" type="text/css" href="css/sign/background.css">'; ?>
+<!-- >>>>>>> 8b0fb632772534f9909d9c7768db17a7c4fa24a9 -->
 
     <?php
     $titles = array(
@@ -58,7 +64,11 @@
     $title = isset($titles[$current_page]) ? $titles[$current_page] : '';
     ?>
 
+
+
+
     <title> <?php echo $title ?> </title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 
 <body class="animsition">
@@ -145,14 +155,29 @@
                             <li class=" <?php if ($current_page == 'contact') echo 'active-menu'; ?> ">
                                 <a href="index.php?ac=contact">Contact</a>
                             </li>
+
+                            <li class=" <?php if ($current_page == 'contact') echo 'active-menu'; ?> ">
+                                <a href="index.php?ac=to_order">Order</a>
+                            </li>
+
+                            <li class=" <?php if ($current_page == 'contact') echo 'active-menu'; ?> ">
+                                <a href="index.php?ac=to_bill">Bill</a>
+                            </li>
                         </ul>
                     </div>
 
                     <!-- Icon header -->
                     <div class="wrap-icon-header flex-w flex-r-m">
                         <div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart"
-                            data-notify="99">
+                            data-notify="<?php 
+                                if(isset($_SESSION['sum_product_cart'])) {
+                                    echo $_SESSION['sum_product_cart'];
+                                }
+                                else {
+                                    echo "0";
+                                } ?>">
                             <i class="zmdi zmdi-shopping-cart"></i>
+                            <!-- document.getElementById('cart-number').innerText = '".$total."'; -->
                         </div>
                     </div>
                 </nav>
@@ -169,7 +194,13 @@
             <!-- Icon header -->
             <div class="wrap-icon-header flex-w flex-r-m m-r-15">
                 <div class="icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti js-show-cart"
-                    data-notify="2">
+                data-notify="<?php 
+                                if(isset($_SESSION['sum_product_cart'])) {
+                                    echo $_SESSION['sum_product_cart'];
+                                }
+                                else {
+                                    echo "0";
+                                } ?>">
                     <i class="zmdi zmdi-shopping-cart"></i>
                 </div>
             </div>

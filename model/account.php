@@ -109,11 +109,11 @@ function update_user($user_email, $user_password, $user_name, $user_phoneNumber,
     pdo_execute($sql);
 }
 
-function delete_user($user_id)
-{
-    $sql = "UPDATE user 
-            SET user_account_status = 0
-            WHERE user_id = '$user_id';";
 
-    pdo_execute($sql);
+
+function get_account($user_id) {
+    $sql = "SELECT * FROM user WHERE user_id = $user_id";
+    return pdo_query_one($sql);
 }
+
+
