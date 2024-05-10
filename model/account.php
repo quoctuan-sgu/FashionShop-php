@@ -79,10 +79,10 @@ function select_one_user($user_id)
     return $rs;
 }
 
-function insert_user($user_email, $user_password, $user_name, $user_phoneNumber, $role)
+function insert_user($user_email, $user_password, $user_name, $user_phoneNumber, $role, $user_address)
 {
-    $sql = "INSERT INTO user (user_name, user_email, user_password, user_account_status, user_phoneNumber) 
-            SELECT '$user_name', '$user_email', '$user_password', 1, '$user_phoneNumber'
+    $sql = "INSERT INTO user (user_name, user_email, user_password, user_account_status, user_phoneNumber, user_address) 
+            SELECT '$user_name', '$user_email', '$user_password', 1, '$user_phoneNumber', '$user_address'
             WHERE NOT EXISTS (
                 SELECT 1 FROM user WHERE user_email = '$user_email'
             );
@@ -93,13 +93,14 @@ function insert_user($user_email, $user_password, $user_name, $user_phoneNumber,
     pdo_execute($sql);
 }
 
-function update_user($user_email, $user_password, $user_name, $user_phoneNumber, $user_id, $role_id)
+function update_user($user_email, $user_password, $user_name, $user_phoneNumber, $user_id, $role_id, $user_address)
 {
     $sql = "UPDATE user 
             SET user_name = '$user_name', 
                 user_email = '$user_email', 
                 user_password = '$user_password', 
-                user_phoneNumber = '$user_phoneNumber'
+                user_phoneNumber = '$user_phoneNumber',
+                user_address = '$user_address'
             WHERE user_id = '$user_id';
             
             UPDATE userrole
@@ -109,11 +110,25 @@ function update_user($user_email, $user_password, $user_name, $user_phoneNumber,
     pdo_execute($sql);
 }
 
+function lock_user($user_id)
+{
+    $sql = "UPDATE user 
+            SET user_account_status = 0
+            WHERE user_id = '$user_id';";
 
+    pdo_execute($sql);
+}
+
+function unlock_user($user_id)
+{
+    $sql = "UPDATE user 
+            SET user_account_status = 1
+            WHERE user_id = '$user_id';";
+
+    pdo_execute($sql);
+}
 
 function get_account($user_id) {
     $sql = "SELECT * FROM user WHERE user_id = $user_id";
     return pdo_query_one($sql);
 }
-
-

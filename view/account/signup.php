@@ -24,20 +24,31 @@
                     <div class="error-message" id="phone-error"></div>
                 </div>
 
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Address *" name="address" />
+                    <div class="error-message" id="address-error"></div>
+                </div>
+
                 <div class="row justify-content-center">
                     <input type="submit" class="btnSubmit" value="Signup" name="signup" />
                 </div>
             </form>
 
             <?php if (isset($notice)) {
+
                 if ($notice === "Đăng ký thành công.") { ?>
                     <h5 style="color: green">
-                        <i class="far fa-check-circle"></i> <?= $notice; ?>
+                        <i class="far fa-check-circle"></i>
+                        <?= $notice; ?>
                     </h5>
+
                 <?php } else { ?>
+
                     <h5 style="color: rgb(255, 55, 155);">
-                        <i class="far fa-times-circle"></i> <?= $notice; ?>
+                        <i class="far fa-times-circle"></i>
+                        <?= $notice; ?>
                     </h5>
+
             <?php }
             } ?>
 
@@ -54,11 +65,13 @@
             var password = document.querySelector('input[name="password"]').value;
             var username = document.querySelector('input[name="username"]').value;
             var phone = document.querySelector('input[name="phone"]').value;
+            var address = document.querySelector('input[name="address"]').value;
 
             var emailError = document.getElementById('email-error');
             var passwordError = document.getElementById('password-error');
             var usernameError = document.getElementById('username-error');
             var phoneError = document.getElementById('phone-error');
+            var addressError = document.getElementById('address-error');
 
             var check = true;
 
@@ -90,6 +103,13 @@
             } else {
                 phoneError.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Số điện thoại không hợp lệ.';
                 check = false;
+            }
+
+            if (address === '') {
+                addressError.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Địa chỉ không hợp lệ.';
+                check = false;
+            } else {
+                addressError.textContent = '';
             }
 
             return check;

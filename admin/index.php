@@ -44,6 +44,7 @@ if (isset($_GET['ac']) && $_GET['ac'] != "") {
         case 'orderdetail':
             include 'statistical/orderdetailstatictis.php';
             break;
+
         case 'topcustomer':
             include 'statistical/customerstatictis.php';
             break;
@@ -55,12 +56,13 @@ if (isset($_GET['ac']) && $_GET['ac'] != "") {
                 include 'account/add.php';
             } else if ($action == 'edit') {
                 include 'account/edit.php';
-            } else if ($action == 'delete') {
+            } else if ($action == 'lock' || $action == 'unlock') {
                 include 'account/delete.php';
             } else {
                 include 'account/list.php';
             }
             break;
+
         case 'category':
             $action = isset($_GET['act']) ? $_GET['act'] : 'list';
 

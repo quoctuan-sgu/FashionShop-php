@@ -315,11 +315,6 @@ if (isset($_GET['ac']) && $_GET['ac'] != "") {
 			
 
 				if (is_array($result)) {
-// <<<<<<< HEAD
-// 					$_SESSION['user'] = $result;
-// 					$_SESSION['sum_product_cart'] = get_quantity_product($_SESSION['user']['user_id']);
-// 					header('Location: index.php');
-// =======
 
 					if ($result['role_id'] == 2) {
 						$_SESSION['admin'] = $result;
@@ -330,7 +325,6 @@ if (isset($_GET['ac']) && $_GET['ac'] != "") {
 						header('Location: index.php');
 					}
 
-// >>>>>>> 8b0fb632772534f9909d9c7768db17a7c4fa24a9
 				} else {
 					$notice = "Đăng nhập thất bại.";
 				}
@@ -351,6 +345,7 @@ if (isset($_GET['ac']) && $_GET['ac'] != "") {
 				$password = $_POST['password'];
 				$username = $_POST['username'];
 				$phone = $_POST['phone'];
+				$address = $_POST['address'];
 
 				// check exits Email
 				$result = check_email($email);
@@ -360,7 +355,7 @@ if (isset($_GET['ac']) && $_GET['ac'] != "") {
 				if ($result && $result['email_count'] > 0) {
 					$notice = "Email đã được sử dụng.";
 				} else {
-					insert_user($email, $password, $username, $phone, 1);
+					insert_user($email, $password, $username, $phone, 1, $address);
 					$notice = "Đăng ký thành công.";
 				}
 			}
