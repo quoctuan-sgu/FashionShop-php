@@ -98,10 +98,10 @@
                     </div>
 
                     <div class="right-top-bar flex-w h-full">
-                        <p href="#" class="flex-c-m trans-04 p-lr-25" style="color: pink;">
+                        <a href="index.php?ac=userdetail" class="flex-c-m trans-04 p-lr-25" style="color: pink;">
                             <?= $user_name ?> &nbsp;
                             <i class="fa fa-heart" style="color:red"></i>
-                        </p>
+                        </a>
                     </div>
 
                     <?php } else { ?>

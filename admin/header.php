@@ -112,6 +112,9 @@
                                     <li>
                                         <a href="index.php?ac=category">category Management</a>
                                     </li>
+                                    <li>
+                                        <a href="index.php?ac=bill">bill Management</a>
+                                    </li>
 
                                 </ul>
                             </div>

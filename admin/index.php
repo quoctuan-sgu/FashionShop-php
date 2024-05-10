@@ -15,6 +15,7 @@ include "../model/product.php";
 include "../model/account.php";
 include "statistical/tempmodel.php";
 include "category/categoryTempModel.php";
+include "bill/billtempmodel.php";
 
 
 
@@ -23,6 +24,12 @@ if (isset($_GET['ac']) && $_GET['ac'] != "") {
     $ac = $_GET['ac'];
 
     switch ($ac) {
+        case 'billdetail':
+            include 'bill/detail.php';
+            break;
+        case 'bill':
+            include 'bill/list.php';
+            break;
         case 'product':
             $action = isset($_GET['act']) ? $_GET['act'] : 'list';
 
@@ -91,6 +98,6 @@ if (isset($_GET['ac']) && $_GET['ac'] != "") {
 }
 
 
-
+if($ac != 'billdetail')
 include "footer.php";
 ob_end_flush();
