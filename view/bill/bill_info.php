@@ -22,8 +22,8 @@
             <th>Thành tiền</th>
         </tr>
         <?php
-            if(isset($list_detail_cart)) {
-                foreach($list_detail_cart as $item) {
+            if(isset($list_detail_cart_1)) {
+                foreach($list_detail_cart_1 as $item) {
                     extract($item);
                     $pro_id = $product_id;
                     $pro_quantity = $quantity;
@@ -48,6 +48,6 @@
         ?>
     </table>
 
-    <div>Tổng tiền: <?= $total_bill_cart ?>$</div>
+    <div>Tổng tiền: <?= $total_bill_success ?>$</div>
 
 </div>

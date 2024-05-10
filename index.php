@@ -173,12 +173,12 @@ if (isset($_GET['ac']) && $_GET['ac'] != "") {
 						$id_bill = add_new_bill($user_id, $created_date);
 	
 						// add vào bill info: bill_detail_id	bill_id  product_id	quantity	price	total
-						$list_detail_cart = get_list_code_product($_SESSION['user']['user_id']);
+						// $list_detail_cart = get_list_code_product($_SESSION['user']['user_id']);
 	
 						$total_bill_cart = 0;
 						$total_bill_success= 0;
-						if(isset($list_detail_cart)){
-							foreach($list_detail_cart as $item) {
+						if(isset($list_detail_cart_1)){
+							foreach($list_detail_cart_1 as $item) {
 								extract($item);
 								
 	
@@ -208,9 +208,9 @@ if (isset($_GET['ac']) && $_GET['ac'] != "") {
 						$idOrder = add_new_order($user_id, $created_date, $ship_date, $total_bill_success);
 
 						$total_bill_cart_2 = 0;
-						$list_detail_cart_2 = get_list_code_product($_SESSION['user']['user_id']);
-						if(isset($list_detail_cart_2)){
-							foreach($list_detail_cart_2 as $item) {
+						// $list_detail_cart_2 = get_list_code_product($_SESSION['user']['user_id']);
+						if(isset($list_detail_cart_1)){
+							foreach($list_detail_cart_1 as $item) {
 								extract($item);
 
 								$id_pro_2 = $product_id;
@@ -256,18 +256,14 @@ if (isset($_GET['ac']) && $_GET['ac'] != "") {
 	
 						$address = $post_code . ", " . $name_ward . ", " . $name_district . ", " . $name_province;
 
-						// Xóa giỏ hàng và chi tiết giỏ hàng
-						$card_del = get_info_user_cart($_SESSION['user']['user_id']);
-						if(isset($card_del)) {
-							extract($card_del);
-							$id_card_del = $card_id;
-
+						// xóa chi tiết hóa đơn
+						$del_cart_detail = get_info_user_cart($user_id);
+						if(isset($del_cart_detail)) {
+							extract($del_cart_detail);
+							$id_card_delete = $cart_id;
+							delete_cart_detail($id_card_delete);
 						}
-						delete_cart_detail($_SESSION['user']['user_id']);
-						del_cart($id_card_del);
-						
-						
-						
+
 					}	
 				}
 				

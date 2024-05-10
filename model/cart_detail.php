@@ -30,7 +30,7 @@
         return pdo_query($sql);
     }
 
-    function delete_cart_detail($user_id) {
-        $sql = "DELETE FROM cartdetail WHERE cart_id = (SELECT cart_id FROM cart WHERE user_id = $user_id)";
+    function delete_cart_detail($card_id) {
+        $sql = "DELETE FROM cartdetail WHERE cart_id = $card_id";
         return pdo_execute($sql);
     }
