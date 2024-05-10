@@ -101,6 +101,7 @@ if (isset($_POST["input"])) {
                         <th scope="col">Password</th>
                         <th scope="col">Phone</th>
                         <th scope="col">Name</th>
+                        <th scope="col">Address</th>
                         <th scope="col">Role</th>
                         <th scope="col">Status</th>
                         <th scope="col">Option</th>
@@ -130,6 +131,10 @@ if (isset($_POST["input"])) {
 
                         <td>
                             <?= $row['user_name']; ?>
+                        </td>
+
+                        <td>
+                            <?= $row['user_address']; ?>
                         </td>
 
                         <td>
