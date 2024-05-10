@@ -12,6 +12,16 @@ function check_user($user_email, $user_password)
     return $rs;
 }
 
+function check_email($user_email)
+{
+    $sql = "SELECT COUNT(*) AS email_count, user_email
+            FROM user 
+            WHERE user_email = '$user_email';";
+    $rs = pdo_query_one($sql);
+
+    return $rs;
+}
+
 function select_all_user()
 {
     $sql = "SELECT ur.role_id, u.* 
@@ -64,16 +74,6 @@ function select_one_user($user_id)
     $sql = "SELECT ur.role_id, u.* 
             FROM user u INNER JOIN userrole ur ON u.user_id = ur.user_id
             WHERE u.user_id = '$user_id'";
-    $rs = pdo_query($sql);
-
-    return $rs;
-}
-
-function select_one_email($user_email)
-{
-    $sql = "SELECT COUNT(*) AS email_count 
-            FROM user 
-            WHERE user_email = '$user_email'; AND user_account_status = 1";
     $rs = pdo_query_one($sql);
 
     return $rs;

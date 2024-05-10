@@ -74,7 +74,7 @@ if (isset($_GET['ac']) && $_GET['ac'] != "") {
 				$phone = $_POST['phone'];
 
 				// check exits Email
-				$result = select_one_email($email);
+				$result = check_email($email);
 				$notice = "";
 
 				// exits Email

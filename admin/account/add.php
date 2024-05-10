@@ -9,7 +9,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $role = $_POST['inlineRadioOptions'];
 
     // check exits Email
-    $result = select_one_email($email);
+    $result = check_email($email);
     $notice = "";
 
     // if exits Email
@@ -32,11 +32,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <h5><i class="fa fa-angle-right"></i> &nbsp; Create new account</h5>
 
             <?php if (isset($notice)) { ?>
+
             <h5 style="color: rgb(255, 55, 155);"> &nbsp;
                 <i class="fa fa-angle-right"></i> &nbsp;
                 <i class="far fa-times-circle"></i> 
                 <?= $notice; ?>
             </h5>
+
             <?php } ?>
 
             <a href="index.php?ac=account" class="btn all-btn-management btn-secondary">

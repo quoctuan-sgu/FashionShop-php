@@ -53,7 +53,7 @@ if (isset($_POST["input"])) {
 
                     <div class="input-group-append">
                         <a class="btn btn-secondary input-group-text" href="index.php?ac=account">
-                        <i class="fas fa-sync-alt"></i>
+                            <i class="fas fa-sync-alt"></i>
                         </a>
                     </div>
                 </div>
@@ -141,15 +141,25 @@ if (isset($_POST["input"])) {
                         </td>
 
                         <td>
-                            <a href="index.php?ac=account&act=edit&id=<?= $row['user_id']; ?>"
+                            <a href="index.php?ac=account&act=edit&id= <?= $row['user_id']; ?>"
                                 class="btn btn-sm btn-outline-info">
                                 <i class="fa fa-pen"></i>&nbsp;Update
-                            </a>
-                            &nbsp;&nbsp;
-                            <a href="index.php?ac=account&act=delete&id=<?= $row['user_id']; ?>"
+                            </a>&nbsp;&nbsp;
+
+                            <a href="index.php?ac=account&act=lock&id= <?= $row['user_id']; ?>"
                                 class="btn btn-sm btn-outline-danger">
                                 <i class="fa fa-trash"></i>&nbsp;Delete
                             </a>
+
+                            <?php if ($row['user_account_status'] == 0) { ?>
+
+                            <a href="index.php?ac=account&act=unlock&id= <?= $row['user_id']; ?>"
+                                class="btn btn-sm btn-outline-secondary">
+                                <i class="fas fa-undo"></i>&nbsp;Cơ hội làm lại
+                            </a>
+
+                            <?php } ?>
+
                         </td>
                     </tr>
 
