@@ -57,23 +57,23 @@
 				}
 			}
 		
-			if ($allEmpty) {
-				echo'all empty';
-				// All fields are empty
-				// Reset the session filter here
-			} else {
-				echo' At least one field is not empty';
-				// Process the form data here
-			}
+			// if ($allEmpty) {
+			// 	echo'all empty';
+			// 	// All fields are empty
+			// 	// Reset the session filter here
+			// } else {
+			// 	echo' At least one field is not empty';
+			// 	// Process the form data here
+			// }
 		}
 		
-		if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-			// Print out the contents of the $_POST array
-			echo '<pre>';
-			print_r($_SESSION);
-			echo '</pre>';
+		// if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+		// 	// Print out the contents of the $_POST array
+		// 	echo '<pre>';
+		// 	print_r($_SESSION);
+		// 	echo '</pre>';
 			
-		}
+		// }
 		
 		
 		if(isset($_GET['search']))
@@ -397,11 +397,11 @@
 			</div>
 
 			<div class="flex-w flex-c-m m-tb-10">
-				<div class="flex-c-m stext-106 cl6 size-104 bor4 pointer hov-btn3 trans-04 m-r-8 m-tb-4 js-show-filter">
+				<!-- <div class="flex-c-m stext-106 cl6 size-104 bor4 pointer hov-btn3 trans-04 m-r-8 m-tb-4 js-show-filter">
 					<i class="icon-filter cl2 m-r-6 fs-15 trans-04 zmdi zmdi-filter-list"></i>
 					<i class="icon-close-filter cl2 m-r-6 fs-15 trans-04 zmdi zmdi-close dis-none"></i>
 					Filter
-				</div>
+				</div> -->
 
 				<div class="flex-c-m stext-106 cl6 size-105 bor4 pointer hov-btn3 trans-04 m-tb-4 js-show-search">
 					<i class="icon-search cl2 m-r-6 fs-15 trans-04 zmdi zmdi-search"></i>
@@ -412,7 +412,7 @@
 
 			<!-- Search product -->
 			<div class="dis-none panel-search w-full p-t-10 p-b-15">
-				<form method="post" action="#">
+				<form method="post" action="index.php?ac=product">
 					<div class="bor8 dis-flex p-l-15">
 						<button type="submit" class="size-113 flex-c-m fs-16 cl2 hov-cl1 trans-04">
 							<i class="zmdi zmdi-search"></i>
@@ -526,6 +526,7 @@
 								<button class="flex-c-m stext-101 cl0 size-103 bg1 bor1  p-lr-15 trans-04" type="submit">
                             		Search
                         		</button>
+								<a href="index.php?ac=product&all_product=true"  class="flex-c-m stext-101 cl0 size-103 w-50 bg1 bor1 trans-04 mt-2">Reset filter</a>
 							</div>
 							
 						</div>

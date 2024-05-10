@@ -46,7 +46,7 @@
             </div>
             <div class="form-group">
                 <label for="product_price">Product Price</label>
-                <input type="number" class="form-control" id="product_price" name="product_price" required>
+                <input type="number" class="form-control" id="product_price" name="product_price" min=0 required >
             </div>
             <div class="form-group">
                 <label for="product_color">Product Color</label>
@@ -54,7 +54,14 @@
             </div>
             <div class="form-group">
                 <label for="product_size">Product Size</label>
-                <input type="text" class="form-control" id="product_size" name="product_size" required>
+                <!-- <input type="text" class="form-control" id="product_size" name="product_size" required> -->
+                <select class="form-control" id="product_size" name="product_size" required>
+                    <option value="S">S</option>
+                    <option value="M">M</option>
+                    <option value="L">L</option>
+                    <option value="XL">XL</option>
+                    <option value="XXL">XXL</option>
+                </select>
             </div>
             <div class="form-group">
                 <label for="product_category">Product Category</label>
@@ -65,8 +72,20 @@
             </div>
             <div class="form-group">
                 <label for="product_image">Product Image</label>
-                <input type="file" class="form-control" id="product_image" name="product_image" required>
+                <input type="file" class="form-control" id="product_image" name="product_image" onchange="previewImage(event)" required>
+                <img id="preview" src="" alt="Image preview" style="max-width:200px; max-height:200px;">
             </div>
+            <script>
+            function previewImage(event) {
+                var reader = new FileReader();
+                reader.onload = function(){
+                    var output = document.getElementById('preview');
+                    output.src = reader.result;
+                }
+                reader.readAsDataURL(event.target.files[0]);
+            }
+            </script>
+
             <div class="form-group">
                 <label for="product_description">Product Description</label>
                 <textarea class="form-control" id="product_description" name="product_description" required></textarea>

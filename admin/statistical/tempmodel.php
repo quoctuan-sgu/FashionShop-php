@@ -59,4 +59,11 @@
         $sql="SELECT * FROM orderdetail WHERE product_id=".$id;
         return pdo_query($sql);
     }
+    function isProductExistedInOrderDetailAndCartDetail($id){
+        $sql="SELECT * FROM orderdetail WHERE product_id=".$id;
+        $sql2="SELECT * FROM cartdetail WHERE product_id=".$id;
+        $result1=pdo_query($sql);
+        $result2=pdo_query($sql2);
+        return array_merge($result1,$result2);
+    }
 ?>

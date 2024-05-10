@@ -12,7 +12,7 @@
     return pdo_query($sql);
 }
 function loadSanPham_OrderByProductId(){
-    $sql="select * from product where hidden=0 order by product_id";
+    $sql="select * from product order by product_id";
     return pdo_query($sql);
 }
 function addProduct($product_name,$product_price,$product_color,$product_category,$product_image,$product_description,$product_size){
@@ -216,8 +216,8 @@ function hideProduct($id){
     $sql = "UPDATE product SET hidden = 1 WHERE product_id = $id";
     pdo_execute($sql);
 }
-function editProduct($product_id,$product_name,$product_price,$product_color,$product_category,$product_image,$product_description,$product_size){
-    $sql="update product set category_id='".$product_category."', product_name='".$product_name."',product_size='".$product_size."',product_price='".$product_price."',product_description='".$product_description."',product_color='".$product_color."' ,product_image='".$product_image."' where product_id='".$product_id."'";
+function editProduct($product_id,$product_name,$product_price,$product_color,$product_category,$product_image,$product_description,$product_size,$product_status){
+    $sql="update product set category_id='".$product_category."', product_name='".$product_name."',product_size='".$product_size."',product_price='".$product_price."',product_description='".$product_description."',product_color='".$product_color."' ,product_image='".$product_image."' , hidden=".$product_status." where product_id='".$product_id."'";
     echo '<script>console.log("'.$sql.'")</script>';
     pdo_execute($sql);
 }
