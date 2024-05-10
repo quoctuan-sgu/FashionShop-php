@@ -13,6 +13,7 @@
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
     <link rel="stylesheet" type="text/css" href="../css/admin/style.css">
     <link rel="stylesheet" type="text/css" href="../css/admin/management.css">
@@ -41,9 +42,18 @@
                         <img class="img-responsive img-rounded" src="../images/tran-hao-nam.jpg" alt="User picture">
                     </div>
                     <div class="user-info">
+
+                        <?php if (isset($_SESSION['admin'])) {
+                            extract($_SESSION['admin']); ?>
+
                         <span class="user-name">
-                            <strong>Trần Hạo Nam</strong>
+                            <strong>
+                                <?= $user_name ?>&nbsp;
+                                <i class="fa fa-heart" style="color:red"></i>
+                            </strong>
                         </span>
+
+                        <?php } ?>
 
                         <span class="user-role">Admin</span>
 
@@ -99,6 +109,10 @@
                                     <li>
                                         <a href="index.php?ac=product">Product Management</a>
                                     </li>
+                                    <li>
+                                        <a href="index.php?ac=category">category Management</a>
+                                    </li>
+
                                 </ul>
                             </div>
                         </li>
@@ -113,12 +127,12 @@
                             <div class="sidebar-submenu">
                                 <ul>
                                     <li>
-                                        <a href="#">Customer Statistic</a>
+                                        <a href="index.php?ac=topcustomer">Customer Statistic</a>
                                     </li>
 
-                                    <li>
+                                    <!-- <li>
                                         <a href="index.php?ac=orderstatistic">Order Statistic</a>
-                                    </li>
+                                    </li> -->
                                 </ul>
                             </div>
                         </li>
@@ -129,11 +143,6 @@
 
             <!-- sidebar-content -->
             <div class="sidebar-footer">
-                <a href="../index.php">
-                    <i class="fas fa-store"></i>
-                    &nbsp; Shop
-                </a>
-
                 <a href="index.php?ac=signout">
                     <i class="fas fa-sign-out-alt"></i>
                     &nbsp; Sign out

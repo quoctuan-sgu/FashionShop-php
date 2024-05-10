@@ -40,10 +40,13 @@
 
     <link href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" rel="stylesheet">
 
+<!-- <<<<<<< HEAD -->
     <!-- Thêm thư viện jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
+<!-- ======= -->
     <?php if ($current_page == 'signup' || $current_page == 'signin') echo '<link rel="stylesheet" type="text/css" href="css/sign/background.css">'; ?>
+<!-- >>>>>>> 8b0fb632772534f9909d9c7768db17a7c4fa24a9 -->
 
     <?php
     $titles = array(
@@ -94,18 +97,6 @@
                         </a>
                     </div>
 
-                    <!-- check Role -> admin -->
-                    <?php if ($role_id == 2) { ?>
-
-                    <div class="right-top-bar flex-w h-full">
-                        <a href="admin/index.php" class="flex-c-m trans-04 p-lr-25">
-                            Admin &nbsp;
-                            <i class="fas fa-user-shield"></i>
-                        </a>
-                    </div>
-
-                    <?php } ?>
-
                     <div class="right-top-bar flex-w h-full">
                         <p href="#" class="flex-c-m trans-04 p-lr-25" style="color: pink;">
                             <?= $user_name ?> &nbsp;
@@ -133,7 +124,7 @@
                 <nav class="limiter-menu-desktop container">
 
                     <!-- Logo desktop -->
-                    <a href="#" class="logo">
+                    <a href="index.php" class="logo">
                         <img src="images/icons/logo-01.png" alt="IMG-LOGO">
                     </a>
 
@@ -203,7 +194,13 @@
             <!-- Icon header -->
             <div class="wrap-icon-header flex-w flex-r-m m-r-15">
                 <div class="icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti js-show-cart"
-                    data-notify="2">
+                data-notify="<?php 
+                                if(isset($_SESSION['sum_product_cart'])) {
+                                    echo $_SESSION['sum_product_cart'];
+                                }
+                                else {
+                                    echo "0";
+                                } ?>">
                     <i class="zmdi zmdi-shopping-cart"></i>
                 </div>
             </div>

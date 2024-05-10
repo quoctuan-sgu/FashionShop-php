@@ -39,14 +39,14 @@
     <div class="container-fluid">
 
         <h2>Add new product</h2>
-        <form method="post"  action="#"  enctype="multipart/form-data">
+        <form method="post"  action="#"  enctype="multipart/form-data" class="pb-0 pt-0 pr-0 pl-0">
             <div class="form-group">
                 <label for="product_name">Product Name</label>
                 <input type="text" class="form-control" id="product_name" name="product_name" required>
             </div>
             <div class="form-group">
                 <label for="product_price">Product Price</label>
-                <input type="number" class="form-control" id="product_price" name="product_price" required>
+                <input type="number" class="form-control" id="product_price" name="product_price" min=0 required >
             </div>
             <div class="form-group">
                 <label for="product_color">Product Color</label>
@@ -54,7 +54,14 @@
             </div>
             <div class="form-group">
                 <label for="product_size">Product Size</label>
-                <input type="text" class="form-control" id="product_size" name="product_size" required>
+                <!-- <input type="text" class="form-control" id="product_size" name="product_size" required> -->
+                <select class="form-control" id="product_size" name="product_size" required>
+                    <option value="S">S</option>
+                    <option value="M">M</option>
+                    <option value="L">L</option>
+                    <option value="XL">XL</option>
+                    <option value="XXL">XXL</option>
+                </select>
             </div>
             <div class="form-group">
                 <label for="product_category">Product Category</label>
@@ -65,13 +72,25 @@
             </div>
             <div class="form-group">
                 <label for="product_image">Product Image</label>
-                <input type="file" class="form-control" id="product_image" name="product_image" required>
+                <input type="file" class="form-control" id="product_image" name="product_image" onchange="previewImage(event)" required>
+                <img id="preview" src="" alt="Image preview" style="max-width:200px; max-height:200px;">
             </div>
+            <script>
+            function previewImage(event) {
+                var reader = new FileReader();
+                reader.onload = function(){
+                    var output = document.getElementById('preview');
+                    output.src = reader.result;
+                }
+                reader.readAsDataURL(event.target.files[0]);
+            }
+            </script>
+
             <div class="form-group">
                 <label for="product_description">Product Description</label>
                 <textarea class="form-control" id="product_description" name="product_description" required></textarea>
             </div>
-            <button type="submit" class="btn btn-primary">Add</button>
+            <button type="submit" class="btn btn-primary mt-0">Add</button>
             <a href="index.php?ac=product" class="btn btn-secondary">Go Back</a>
         </form>
     </div>

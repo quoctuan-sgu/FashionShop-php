@@ -8,6 +8,7 @@
 ?>
 <main class="page-content">
     <div class="container-fluid">
+    <a href="index.php?ac=topcustomer">Back</a>
         <div>
             <h2>Order statictis</h2>
             <h3>Total revenue: <?php echo $totalRevenue ?>$</h3>
@@ -40,6 +41,8 @@
                 </tr>
             <?php } ?>
         </table>
+        
+
     </div>
 
 </main>

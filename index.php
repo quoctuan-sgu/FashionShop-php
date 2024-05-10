@@ -32,6 +32,15 @@ if (isset($_GET['ac']) && $_GET['ac'] != "") {
 	$ac = $_GET['ac'];
 
 	switch ($ac) {
+		case 'userdetail':
+			include "view/user/userDetail.php";
+			break;
+		case 'edituser':
+			include "view/user/editUser.php";
+			break;
+		case 'changepassword':
+			include "view/user/changepassword.php";
+			break;
 		case 'cart':
 			// kiểm tra user đã login hay chưa
 			if(isset($_SESSION['user'])) { // đã login
@@ -62,7 +71,7 @@ if (isset($_GET['ac']) && $_GET['ac'] != "") {
 				if(is_array($user_cart_info)) { 
 					extract($user_cart_info);
 					$id_cart = $cart_id;
-					echo "<script> alert('". $id_cart ."'); </script>";
+					// echo "<script> alert('". $id_cart ."'); </script>";
 					// nếu đã tồn tại thì xét sp đã có trong chi tiết cart chưa
 					$info_cartdetail = get_info_product_cart_detail($product_id_get);
 					if(is_array($info_cartdetail)){
@@ -76,7 +85,7 @@ if (isset($_GET['ac']) && $_GET['ac'] != "") {
 						// lấy số lượng sản phẩm trong giỏ hàng rồi hiển thị ra
 						$sum_product_cart = get_quantity_product($_SESSION['user']['user_id']);
 						$_SESSION['sum_product_cart'] = $sum_product_cart;
-						echo "<script>
+						echo "<script> alert('Đã thêm');
 						window.location.href = 'index.php?ac=productDetail&id=". $product_id_get ."';</script>";
 					}
 					else {
@@ -84,7 +93,7 @@ if (isset($_GET['ac']) && $_GET['ac'] != "") {
 						insert_cartdetail($id_cart, $product_id_get, $quantity_get);
 						$sum_product_cart = get_quantity_product($_SESSION['user']['user_id']);
 						$_SESSION['sum_product_cart'] = $sum_product_cart;
-						echo "<script>
+						echo "<script> alert('Đã thêm');
 						window.location.href = 'index.php?ac=productDetail&id=". $product_id_get ."';</script>";
 					}
 				}
@@ -98,7 +107,7 @@ if (isset($_GET['ac']) && $_GET['ac'] != "") {
 
 					$sum_product_cart = get_quantity_product($_SESSION['user']['user_id']);
 					$_SESSION['sum_product_cart'] = $sum_product_cart;
-					echo "<script>
+					echo "<script> alert('Đã thêm');
 					window.location.href = 'index.php?ac=productDetail&id=". $product_id_get ."';</script>";
 				}
 			}
@@ -220,10 +229,6 @@ if (isset($_GET['ac']) && $_GET['ac'] != "") {
 
 							}
 						}
-
-						
-						
-	
 						$payment = $_POST['pay'];
 	
 						$id_province = $_POST['province'];
@@ -251,8 +256,18 @@ if (isset($_GET['ac']) && $_GET['ac'] != "") {
 	
 						$address = $post_code . ", " . $name_ward . ", " . $name_district . ", " . $name_province;
 
-						delete_cart_detail($user_id);
-						del_cart($user_id);
+						// Xóa giỏ hàng và chi tiết giỏ hàng
+						$card_del = get_info_user_cart($_SESSION['user']['user_id']);
+						if(isset($card_del)) {
+							extract($card_del);
+							$id_card_del = $card_id;
+
+						}
+						delete_cart_detail($_SESSION['user']['user_id']);
+						del_cart($id_card_del);
+						
+						
+						
 					}	
 				}
 				
@@ -300,12 +315,26 @@ if (isset($_GET['ac']) && $_GET['ac'] != "") {
 				$email = $_POST['email'];
 				$password = $_POST['password'];
 
-				$result = select_one_user($email, $password);
+				$result = check_user($email, $password);
+			
 
 				if (is_array($result)) {
-					$_SESSION['user'] = $result;
-					$_SESSION['sum_product_cart'] = get_quantity_product($_SESSION['user']['user_id']);
-					header('Location: index.php');
+// <<<<<<< HEAD
+// 					$_SESSION['user'] = $result;
+// 					$_SESSION['sum_product_cart'] = get_quantity_product($_SESSION['user']['user_id']);
+// 					header('Location: index.php');
+// =======
+
+					if ($result['role_id'] == 2) {
+						$_SESSION['admin'] = $result;
+						header('Location: admin/index.php');
+					} else {
+						$_SESSION['user'] = $result;
+						$_SESSION['sum_product_cart'] = get_quantity_product($_SESSION['user']['user_id']);
+						header('Location: index.php');
+					}
+
+// >>>>>>> 8b0fb632772534f9909d9c7768db17a7c4fa24a9
 				} else {
 					$notice = "Đăng nhập thất bại.";
 				}
@@ -314,8 +343,8 @@ if (isset($_GET['ac']) && $_GET['ac'] != "") {
 			break;
 
 		case 'signout':
-			session_unset();
-			session_destroy();
+			unset($_SESSION['user']); // Xóa session 'user'
+			unset($_SESSION['sum_product_cart']);
 			header("Location: index.php");
 			exit();
 			break;
@@ -328,14 +357,14 @@ if (isset($_GET['ac']) && $_GET['ac'] != "") {
 				$phone = $_POST['phone'];
 
 				// check exits Email
-				$result = select_one_email($email);
+				$result = check_email($email);
 				$notice = "";
-				
+
 				// exits Email
 				if ($result && $result['email_count'] > 0) {
 					$notice = "Email đã được sử dụng.";
 				} else {
-					insert_user($email, $password, $username, $phone);
+					insert_user($email, $password, $username, $phone, 1);
 					$notice = "Đăng ký thành công.";
 				}
 			}

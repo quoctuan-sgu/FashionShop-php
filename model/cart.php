@@ -44,7 +44,7 @@
         return pdo_query_one($sql);
     }
 
-    function del_cart($user_id) {
-        $sql = "DELETE FROM cart WHERE user_id = $user_id";
+    function del_cart($card_id) {
+        $sql = "DELETE FROM cart WHERE card_id = $card_id";
         return pdo_execute($sql);
     }

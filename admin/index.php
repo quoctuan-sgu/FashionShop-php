@@ -3,14 +3,7 @@ ob_start();
 session_start();
 
 // check SESSION
-if (isset($_SESSION['user'])) {
-    extract($_SESSION['user']);
-
-    if ($role_id != 2) {
-        header("Location: ../index.php");
-        exit();
-    }
-} else {
+if (!isset($_SESSION['admin'])) {
     header("Location: ../index.php");
     exit();
 }
@@ -19,7 +12,9 @@ if (isset($_SESSION['user'])) {
 include "header.php";
 include "../model/pdo.php";
 include "../model/product.php";
+include "../model/account.php";
 include "statistical/tempmodel.php";
+include "category/categoryTempModel.php";
 
 
 
@@ -66,11 +61,23 @@ if (isset($_GET['ac']) && $_GET['ac'] != "") {
                 include 'account/list.php';
             }
             break;
+        case 'category':
+            $action = isset($_GET['act']) ? $_GET['act'] : 'list';
+
+            if ($action == 'add') {
+                include 'category/add.php';
+            } else if ($action == 'edit') {
+                include 'category/edit.php';
+            } else if ($action == 'delete') {
+                include 'category/delete.php';
+            } else {
+                include 'category/list.php';
+            }
+            break;
 
         case 'signout':
-            session_unset();
-            session_destroy();
-            header("Location: ../index.php");
+            unset($_SESSION['admin']); // Xóa session 'admin'
+            header("Location: ../index.php?ac=signin");
             exit();
             break;
 

@@ -4,8 +4,8 @@
 ----Làm cái trên = cách ẩn order statictis đi, truyền user id vào chỉ lọc order có user id đó thôi.Là done.
 ----Bỏ statistic này vào dashboard vì nó chỉ có 1 option. -->
 <?php 
-$fromDate = $_GET['fromDate'] ?? date('Y-m-d', strtotime('-1 month'));
-$toDate = $_GET['toDate'] ?? date('Y-m-d');
+$fromDate = $_POST['fromDate'] ?? date('Y-m-d', strtotime('-1 month'));
+$toDate = $_POST['toDate'] ?? date('Y-m-d');
 $topUser= top5MostProfitUserFromdateToDate($fromDate,$toDate);
 
 ?>
@@ -13,8 +13,11 @@ $topUser= top5MostProfitUserFromdateToDate($fromDate,$toDate);
     <div class="container-fluid">
         <h2>Customer statictis</h2>
         <div class="row ml-1 mt-3">
-            <h4 class="mr-1">From date</h4> <input class="datepicker mr-3" type="date" id="fromDate" value="<?php echo date('Y-m-d',strtotime('-1 month')); ?>">
-            <h4 class="mr-1">To date</h4> <input type="date" id="toDate" value="<?php echo date('Y-m-d'); ?>">
+            <form class="row ml-1" method="post">
+                <h4 class="mr-1">From date</h4> <input class="datepicker mr-3" type="date" id="fromDate" name="fromDate" value=<?php echo $fromDate?> >
+                <h4 class="mr-1">To date</h4> <input type="date" id="toDate" name="toDate" value=<?php echo $toDate?>>
+                <button type="submit" class="btn btn-primary ml-3">Filter</button>
+            </form>
         </div>
         <div class="row mt-3">
             <table class="table table-bordered">
