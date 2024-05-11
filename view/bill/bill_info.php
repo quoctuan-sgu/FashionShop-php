@@ -17,8 +17,8 @@
             <div>Tên người mua: <?= $name_user ?></div>
             <div>SĐT: <?= $phone ?></div>
         
-            <table border='1'>
-                <tr>
+            <table class='table table-hover' border='1'>
+                <tr class='table-header'>
                     <th>Mã SP</th>
                     <th>Tên SP</th>
                     <th>Số lượng</th>
@@ -40,7 +40,7 @@
                             }
                             echo '<tr>
                                     <td>". $pro_id ."</td>
-                                    <td>". $product_name ."</td>
+                                    <td><a href='index.php?ac=productdetail&id=".$pro_id."'>". $product_name ."</a></td>
                                     <td>". $quantity ."</td>
                                     <td>". $pro_price."$</td>
                                     <td>". $price_quantity."$</td>

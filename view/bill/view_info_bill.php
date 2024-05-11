@@ -17,8 +17,8 @@
 <div>Địa chỉ nhận hàng: <?= $address_order ?></div>
 <div>Phương thức thanh toán: <?= $payment ?></div>
 
-<table border="1">
-    <tr>
+<table  class="table table-hover">
+    <tr class="table-header">
         <th>Mã sản phẩm</th>
         <th>Tên sản phẩm</th>
         <th>Màu sắc</th>
@@ -39,7 +39,7 @@
 
                 echo "<tr>
                         <td>".$product_id."</td>
-                        <td>".$product_name."</td>
+                        <td><a href='index.php?ac=productdetail&id=".$product_id."'>".$product_name."</a></td>
                         <td>".$product_color."</td>
                         <td>".$product_size."</td>
                         <td>".$product_price."</td>

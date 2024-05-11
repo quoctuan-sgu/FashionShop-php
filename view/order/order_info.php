@@ -24,8 +24,8 @@
 <div>SĐT: <?= $_SESSION['user']['user_phoneNumber']?></div>
 <div>Địa chỉ: <?= $address_order ?></div>
 <div>Hình thức thanh toán: <?= $payment ?></div>
-<table border="1">
-	<tr>
+<table class="table table-hover" border="1">
+	<tr class="table-header">
         <th>Mã sản phẩm</th>
         <th>Tên sản phẩm</th>
         <th>Màu sắc</th>
