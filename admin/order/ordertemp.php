@@ -26,5 +26,9 @@
         $sql = "UPDATE `order` SET status_id = 5 WHERE order_id = $orderId";
         pdo_execute($sql);
     }
+    function getAllStatus() {
+        $sql = "SELECT * FROM status";
+        return pdo_query($sql);
+    }
 
 ?>

@@ -7,6 +7,9 @@ if(isset($_GET['id'])){
 <main class="page-content">
     <div class="container-fluid">
         <h2>Order detail</h2>
+        <button type="submit" onclick="window.location.href='index.php?ac=order' " class="btn btn-info btn-lg mx-auto d-block float-left mb-2">
+            Back to order
+        </button>
         <table class="table table-hover">
             <tr class="table-header">
                 <th>Product ID</th>
