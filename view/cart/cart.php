@@ -116,6 +116,7 @@
 								<th class="column-3">Price</th>
 								<th class="column-4">Quantity</th>
 								<th class="column-5">Total</th>
+								<th class="column-2"></th>
 							</tr>
 							<?php
 							$total = 0;
@@ -154,6 +155,7 @@
 												</div>
 											</td>
 											<td class='column-5'>$ ". $total ."</td>
+											<td class='column-2'>$ ". $total ."</td>
 										</tr>";
 								}
 							}		

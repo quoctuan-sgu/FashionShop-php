@@ -290,7 +290,7 @@ if (isset($_GET['ac']) && $_GET['ac'] != "") {
 
 
 		case 'to_bill':
-			$list_bill = get_all_bill();
+			$list_bill = get_all_bill($_SESSION['user']['user_id']);
 			
 			include "view/bill/list_bill.php";
 

@@ -9,8 +9,8 @@
         return pdo_query_one($sql);
     }
 
-    function get_all_bill() {
-        $sql = "SELECT * FROM bill ORDER BY bill_id DESC";
+    function get_all_bill($user_id) {
+        $sql = "SELECT * FROM bill WHERE user_id = $user_id ORDER BY bill_id DESC";
         return pdo_query($sql);
     }
 
