@@ -48,3 +48,5 @@
         $sql = "DELETE FROM cart WHERE card_id = $card_id";
         return pdo_execute($sql);
     }
+
+    // xóa

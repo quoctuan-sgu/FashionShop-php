@@ -20,6 +20,7 @@ include "model/status.php";
 
 <?php
 
+
 ?>
 
 
@@ -43,6 +44,7 @@ if (isset($_GET['ac']) && $_GET['ac'] != "") {
 			include "view/user/changepassword.php";
 			break;
 		case 'cart':
+			
 			// kiểm tra user đã login hay chưa
 			if(isset($_SESSION['user'])) { // đã login
 				// show cart
@@ -314,6 +316,28 @@ if (isset($_GET['ac']) && $_GET['ac'] != "") {
 				$detailOrder = get_order($_GET['id']);
 			}
 			include "view/order/order_info.php";
+			break;
+		case 'delete_product':
+			if(isset($_GET['id']) && $_GET['id'] > 0) {
+				$product_id = $_GET['id'];
+
+				delete_item_cart($_SESSION['user']['user_id'], $product_id);
+
+				$list_id_product = get_list_code_product($_SESSION['user']['user_id']);
+
+				$sum_product_cart = get_quantity_product($_SESSION['user']['user_id']);
+				$_SESSION['sum_product_cart'] = $sum_product_cart;
+
+			echo "<script> alert('Đã xóa');
+						window.location.href = 'index.php?ac=cart';</script>";
+
+				
+			}
+
+			
+
+
+			include "view/cart/cart.php";
 			break;
 		case 'product':
 

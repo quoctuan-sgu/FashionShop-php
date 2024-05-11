@@ -155,7 +155,7 @@
 												</div>
 											</td>
 											<td class='column-5'>$ ". $total ."</td>
-											<td class='column-2'>$ ". $total ."</td>
+											<td class='column-2'><a href='index.php?ac=delete_product&id=".$id_product."'>Xóa</a></td>
 										</tr>";
 								}
 							}		

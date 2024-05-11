@@ -34,3 +34,8 @@
         $sql = "DELETE FROM cartdetail WHERE cart_id = $card_id";
         return pdo_execute($sql);
     }
+
+    function delete_item_cart($user_id, $product_id) {
+        $sql = "DELETE FROM cartdetail WHERE cart_id = (SELECT cart_id FROM cart WHERE user_id = $user_id) AND product_id = $product_id";
+        return pdo_execute($sql);
+    }
