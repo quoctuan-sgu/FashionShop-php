@@ -16,6 +16,7 @@ include "../model/account.php";
 include "statistical/tempmodel.php";
 include "category/categoryTempModel.php";
 include "bill/billtempmodel.php";
+include "order/ordertemp.php";
 
 
 
@@ -29,6 +30,12 @@ if (isset($_GET['ac']) && $_GET['ac'] != "") {
             break;
         case 'bill':
             include 'bill/list.php';
+            break;
+        case 'order':
+            include 'order/list.php';
+            break;
+        case 'orderdetail':
+            include 'order/detail.php';
             break;
         case 'product':
             $action = isset($_GET['act']) ? $_GET['act'] : 'list';

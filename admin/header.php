@@ -115,6 +115,9 @@
                                     <li>
                                         <a href="index.php?ac=bill">bill Management</a>
                                     </li>
+                                    <li>
+                                        <a href="index.php?ac=order">order Management</a>
+                                    </li>
 
                                 </ul>
                             </div>
