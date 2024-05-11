@@ -7,6 +7,7 @@ include "model/pdo.php";
 include "model/account.php";
 include "model/product.php";
 include "model/productdetail.php";
+include "admin/order/ordertemp.php";
 
 // Nguyen Van Dung
 include "model/cart.php";
@@ -176,7 +177,17 @@ if (isset($_GET['ac']) && $_GET['ac'] != "") {
 					$name_ward = $name;
 				}
 
+				// $_diachi = $_POST['add'];
+				
+				// if($_diachi == 1) {
+				// 	$address = $post_code . ", " . $name_ward . ", " . $name_district . ", " . $name_province;
+				// }
+				// else if($_diachi == 2) {
+				// 	$address = $_SESSION['user']['user_address'];
+				// }
+
 				$address = $post_code . ", " . $name_ward . ", " . $name_district . ", " . $name_province;
+				$_SESSION['add'] = $address;
 
 				date_default_timezone_set('Asia/Ho_Chi_Minh');
 				$created_date = date('Y-m-d');
@@ -339,6 +350,17 @@ if (isset($_GET['ac']) && $_GET['ac'] != "") {
 
 			include "view/cart/cart.php";
 			break;
+		case 'cancel_order':
+			if(isset($_GET['id']) && $_GET['id'] > 0) {
+				$order_id = $_GET['id'];
+
+				huydon($order_id);
+
+			}
+			$list_all_order = get_all_order();
+			include "view/order/list_order.php";
+			break;
+
 		case 'product':
 
 			include "view/product.php";

@@ -15,7 +15,7 @@
 			<th>Tổng tiền</th>
 			<th>Địa chỉ</th>
 			<th>Thanh toán</th>
-			<th colspan='3'>Hành động</th>
+			<th colspan='2'>Hành động</th>
 		</tr>";
 		
 			if(!empty($list_all_order)) {
@@ -32,14 +32,14 @@
 							<td>".$address_order."</td>
 							<td>".$payment."</td>
 							<td><a href='index.php?ac=info_order&id=".$order_id."'>Xem chi tiết</a></td>
-							<td><a href='index.php?ac=info_order&id=".$order_id."'>Xác nhận đã nhận</a></td>
-							<td><a href='index.php?ac=info_order&id=".$order_id."'>Hủy đơn</a></td>
+					
+							<td><a href='index.php?ac=cancel_order&id=".$order_id."'>Hủy đơn</a></td>
 						</tr>";
 				}
 			}
 			else {
 				echo "<tr>
-							<td colspan='9'> Không có danh sách đơn hàng!</td>
+							<td colspan='8'> Không có danh sách đơn hàng!</td>
 						</tr>";
 			}
 	

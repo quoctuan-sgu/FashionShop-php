@@ -10,12 +10,12 @@
     <?php
         if(isset($_SESSION['user'])) {
             echo "<div>
-            <div>Mã hóa đơn: <?= $id_bill ?></div>
-            <div>Ngày tạo hóa đơn: <?= $created_date ?></div>
-            <div>Phương thức thanh toán: <?= $payment ?></div>
-            <div>Địa chỉ nhận hàng: <?= $address ?></div>
-            <div>Tên người mua: <?= $name_user ?></div>
-            <div>SĐT: <?= $phone ?></div>
+            <div>Mã hóa đơn: ".$id_bill ."</div>
+            <div>Ngày tạo hóa đơn: ".$created_date ."</div>
+            <div>Phương thức thanh toán:".$payment ."</div>
+            <div>Địa chỉ nhận hàng:".$address ."</div>
+            <div>Tên người mua:".$name_user ."</div>
+            <div>SĐT:".$phone ."</div>
         
             <table class='table table-hover' border='1'>
                 <tr class='table-header'>
@@ -24,8 +24,8 @@
                     <th>Số lượng</th>
                     <th>Giá</th>
                     <th>Thành tiền</th>
-                </tr>
-                <?php
+                </tr>";
+                
                     if(isset($list_detail_cart_1)) {
                         foreach($list_detail_cart_1 as $item) {
                             extract($item);
@@ -38,23 +38,23 @@
                                 $pro_price = $product_price;
                                 $price_quantity = $pro_quantity * $pro_price;
                             }
-                            echo '<tr>
+                            echo "<tr>
                                     <td>". $pro_id ."</td>
                                     <td><a href='index.php?ac=productdetail&id=".$pro_id."'>". $product_name ."</a></td>
                                     <td>". $quantity ."</td>
                                     <td>". $pro_price."$</td>
                                     <td>". $price_quantity."$</td>
-                                </tr>';
+                                </tr>";
             
                         }
                     }
-                    
-                ?>
-            </table>
+            
+                    echo " </table>
         
-            <div>Tổng tiền: <?= $total_bill_success ?>$</div>
-        
-        </div>";
+                    <div>Tổng tiền: <?= $total_bill_success ?>$</div>
+                
+                </div>";
+            
         }
         else {
             echo "Vui lòng đăng nhập!";
