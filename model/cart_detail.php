@@ -39,3 +39,9 @@
         $sql = "DELETE FROM cartdetail WHERE cart_id = (SELECT cart_id FROM cart WHERE user_id = $user_id) AND product_id = $product_id";
         return pdo_execute($sql);
     }
+
+    // update 
+    function update_item_cart($product_id, $cart_id, $quantity) {
+        $sql = "UPDATE cartdetail SET quantity = $quantity WHERE product_id = $product_id AND cart_id = $cart_id";
+        return pdo_execute($sql);
+    }

@@ -51,7 +51,7 @@
             
                     echo " </table>
         
-                    <div>Tổng tiền: <?= $total_bill_success ?>$</div>
+                    <div>Tổng tiền: ". $total_bill_success ."$</div>
                 
                 </div>";
             

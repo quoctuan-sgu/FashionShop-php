@@ -53,6 +53,9 @@ if (isset($_GET['ac']) && $_GET['ac'] != "") {
 				//1. lấy danh sách id sản phẩm
 				
 				$list_id_product = get_list_code_product($_SESSION['user']['user_id']);
+
+				$sum_product_cart = get_quantity_product($_SESSION['user']['user_id']);
+				$_SESSION['sum_product_cart'] = $sum_product_cart;
 				
 			}
 			else { //chưa login
@@ -153,42 +156,46 @@ if (isset($_GET['ac']) && $_GET['ac'] != "") {
 			if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['btn_checkout']) && isset($_SESSION['user'])) {
 
 				$payment = $_POST['pay'];
-	
-				$id_province = $_POST['province'];
-				$id_district = $_POST['disrict'];
-				$id_ward = $_POST['ward'];
-				$post_code = $_POST['postcode'];
 
-				$province = get_province($id_province);
-				if(isset($province)){
-					extract($province);
-					$name_province = $name;
+				if (isset($_POST['addHaoNam'])) {
+					$diachi = intval($_POST['addHaoNam']);
+
+					
+					
+					if($_POST['addHaoNam'] == 1) {
+						$id_province = $_POST['province'];
+						$id_district = $_POST['disrict'];
+						$id_ward = $_POST['ward'];
+						$post_code = $_POST['postcode'];
+
+						$province = get_province($id_province);
+						if(isset($province)){
+							extract($province);
+							$name_province = $name;
+						}
+
+						$district = get_district($id_district);
+						if(isset($district)){
+							extract($district);
+							$name_district = $name;
+						}
+						
+						$ward = get_ward($id_ward);
+						if(isset($ward)){
+							extract($ward);
+							$name_ward = $name;
+						}
+						$address = $post_code . ", " . $name_ward . ", " . $name_district . ", " . $name_province;
+					}
+					else if($_POST['addHaoNam'] == 2) {
+						$address = $_SESSION['user']['user_address'];
+					}
 				}
 
-				$district = get_district($id_district);
-				if(isset($district)){
-					extract($district);
-					$name_district = $name;
-				}
+
+
+				// $address = $post_code . ", " . $name_ward . ", " . $name_district . ", " . $name_province;
 				
-				$ward = get_ward($id_ward);
-				if(isset($ward)){
-					extract($ward);
-					$name_ward = $name;
-				}
-
-				// $_diachi = $_POST['add'];
-				
-				// if($_diachi == 1) {
-				// 	$address = $post_code . ", " . $name_ward . ", " . $name_district . ", " . $name_province;
-				// }
-				// else if($_diachi == 2) {
-				// 	$address = $_SESSION['user']['user_address'];
-				// }
-
-				$address = $post_code . ", " . $name_ward . ", " . $name_district . ", " . $name_province;
-				$_SESSION['add'] = $address;
-
 				date_default_timezone_set('Asia/Ho_Chi_Minh');
 				$created_date = date('Y-m-d');
 
@@ -327,6 +334,33 @@ if (isset($_GET['ac']) && $_GET['ac'] != "") {
 				$detailOrder = get_order($_GET['id']);
 			}
 			include "view/order/order_info.php";
+			break;
+		case 'plus':
+			
+			$user_cart_info = get_info_user_cart($_SESSION['user']['user_id']);
+				if(is_array($user_cart_info)) { 
+					extract($user_cart_info);
+					$id_cart = $cart_id;
+					// echo "<script> alert('". $id_cart ."'); </script>";
+					// nếu đã tồn tại thì xét sp đã có trong chi tiết cart chưa
+					$info_cartdetail = get_info_product_cart_detail($product_id_get, $id_cart);
+					if(is_array($info_cartdetail)){
+						// nếu tồn tại thì update số lượng theo cart id
+						extract($info_cartdetail);
+						$quantity_current = $quantity;
+						$quantity_new  = $quantity_current + $quantity_get;
+						// update số lượng
+						update_quantity($quantity_new, $product_id_get, $id_cart);
+
+						// lấy số lượng sản phẩm trong giỏ hàng rồi hiển thị ra
+						$sum_product_cart = get_quantity_product($_SESSION['user']['user_id']);
+						$_SESSION['sum_product_cart'] = $sum_product_cart;
+						echo "<script> alert('Đã thêm');
+						window.location.href = 'index.php?ac=cart';</script>";
+					}
+				}
+			
+			
 			break;
 		case 'delete_product':
 			if(isset($_GET['id']) && $_GET['id'] > 0) {

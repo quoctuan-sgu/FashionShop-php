@@ -1,5 +1,10 @@
 
 <!-- Cart -->
+<?php 
+	if(isset($_GET['id'])){
+		
+	}
+?>
 <div class="wrap-header-cart js-panel-cart">
 	<div class="s-full js-hide-cart"></div>
 
@@ -107,6 +112,7 @@
 			<div class="col-lg-10 col-xl-7 m-lr-auto m-b-50">
 				<div class="m-l-25 m-r--38 m-lr-0-xl">
 					<div class="wrap-table-shopping-cart">
+				
 						<table class="table-shopping-cart">
 							<tr class="table_head">
 								<th class="column-1">Product</th>
@@ -117,6 +123,8 @@
 								<th class="column-4">Quantity</th>
 								<th class="column-5">Total</th>
 								<th class="column-2"></th>
+								
+
 							</tr>
 							<?php
 							$total = 0;
@@ -150,7 +158,10 @@
 													<input class='mtext-104 cl3 txt-center num-product' type='number' name='num-product1' value='".$quantity."'>
 	
 													<div class='btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m'>
-														<i class='fs-16 zmdi zmdi-plus'></i>
+														<a href='index.php?ac=cart&id=".$id_product."&quan=".$quantity."'><i class='fs-16 zmdi zmdi-plus'></i></a>
+														
+														
+														
 													</div>
 												</div>
 											</td>
@@ -227,9 +238,11 @@
 						</div>
 
 						<div class="flex-c-m stext-101 cl2 size-119 bg8 bor13 hov-btn3 p-lr-15 trans-04 pointer m-tb-10">
-							Update Cart
+							<button type="submit" name="btn_update_cart">Update Cart</button>
 						</div>
 					</div>
+
+
 				</div>
 			</div>
 
@@ -260,23 +273,27 @@
 								Shipping:
 							</span>
 						</div>
-
-						<div class="size-209 p-r-18 p-r-0-sm w-full-ssm">
+						<?php 
+						$radiocheck=1;
+						?>
+					
+						<div class="size-209 p-r-18 p-r-0-sm w-full-ssm" id="tpm">
+							ĐỊA CHỈ MỚI
 								<div class="rs1-select2 rs2-select2 bor8 bg0 m-b-12 m-t-9">
-									<select class="js-select2" name="province" id="provinceSelect">
+									<select class="js-select2" name="province" id="provinceSelect" required>
 										<option value="">Chọn tỉnh/thành phố</option>
 									</select>
 									<div class="dropDownSelect2"></div>
 								</div>
 
 								<div class="rs1-select2 rs2-select2 bor8 bg0 m-b-12 m-t-9">
-									<select class="js-select2" name="disrict" id="districtSelect">
+									<select class="js-select2" name="disrict" id="districtSelect" required>
 										<option value="">Chọn quận/huyện</option>
 									</select>
 									<div class="dropDownSelect2"></div>
 								</div>
 
-								<div class="rs1-select2 rs2-select2 bor8 bg0 m-b-12 m-t-9">
+								<div class="rs1-select2 rs2-select2 bor8 bg0 m-b-12 m-t-9" required>
 									<select class="js-select2" name="ward" id="wardSelect">
 										<option value="">Chọn xã/thị trấn</option>
 									</select>
@@ -284,7 +301,7 @@
 								</div>
 								
 								<div class="bor8 bg0 m-b-22">
-									<input class="stext-111 cl8 plh3 size-111 p-lr-15" type="text" name="postcode" placeholder="số nhà, tên đường" required>
+									<input class="stext-111 cl8 plh3 size-111 p-lr-15" type="text" name="postcode"id="sn" placeholder="số nhà, tên đường" required>
 								</div>
 
 								<div class="flex-w">
@@ -294,6 +311,48 @@
 								</div>
 						</div>
 					</div>
+
+					<div>
+						<input type="radio" name="addHaoNam" id="radioid" value="1" onChange="test()" checked><span>Địa chỉ mới</span>
+						<input type="radio" name="addHaoNam" id="radioid" value="2" onChange="test()"><span>Địa chỉ mặc định:</span>
+						<br><span><?= $_SESSION['user']['user_address'] ?></span>
+					</div>
+					<script>
+						function test(){
+							
+							var options = document.getElementsByName('addHaoNam');
+							var selectedOption;
+
+							for (var i = 0; i < options.length; i++) {
+								if (options[i].checked) {
+									selectedOption = options[i].value;
+									break;
+								}
+							}
+							console.log(selectedOption);
+							if(selectedOption==2){
+								<?php
+									$radiocheck=2;
+									?>
+								document.getElementById('provinceSelect').disabled=true;
+								document.getElementById('districtSelect').disabled=true;
+								document.getElementById('wardSelect').disabled=true;
+								document.getElementById('sn').readOnly=true;
+								
+							}
+							else{
+								document.getElementById('provinceSelect').disabled=false;
+								document.getElementById('districtSelect').disabled=false;
+								document.getElementById('wardSelect').disabled=false;
+								document.getElementById('sn').readOnly=false;
+
+								
+							}
+
+						}
+					</script>
+
+					<hr>
 
 					<div class="flex-w flex-t p-t-27 p-b-33">
 						<div class="size-208">
