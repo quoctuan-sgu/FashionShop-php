@@ -21,6 +21,21 @@ include "model/status.php";
 
 <?php
 
+	function sum_session_cart() {
+		$sum_quantity = 0;
+		if(!empty($_SESSION['cart_no_login'])) {
+			// tính tổng số lượng sản phẩm trong cart
+			foreach($_SESSION['cart_no_login'] as $item) {
+				$sum_quantity += $item[1];
+			}
+			$_SESSION['sum_quantity_no_login'] = $sum_quantity;
+		}
+		else {
+			$_SESSION['sum_quantity_no_login'] = 0;
+		}
+
+	}
+
 
 ?>
 
@@ -59,7 +74,11 @@ if (isset($_GET['ac']) && $_GET['ac'] != "") {
 				
 			}
 			else { //chưa login
-				// show cart 
+				// show cart chưa login
+				// $_SESSION['cart_no_login']
+
+				sum_session_cart();
+
 			}
 			
 			include "view/cart/cart.php";
@@ -129,6 +148,9 @@ if (isset($_GET['ac']) && $_GET['ac'] != "") {
 					// tạo 1 mảng: id, quantity
 					$cart_product = [$product_id_get, $quantity_get];
 					array_push($_SESSION['cart_no_login'], $cart_product);
+
+					sum_session_cart();
+					
 				}
 				else {
 					$find = false;
@@ -136,18 +158,32 @@ if (isset($_GET['ac']) && $_GET['ac'] != "") {
 						if($item[0] == $product_id_get) {
 							$_SESSION['cart_no_login'][$key][1] += $quantity_get;
 							$find = true;
+							sum_session_cart();
 							break;
 						}
+						
 					}
+
+					
+					
 					if($find == false) {
 						// tạo 1 mảng: id, quantity
 						$cart_product = [$product_id_get, $quantity_get];
 						array_push($_SESSION['cart_no_login'], $cart_product);
+						sum_session_cart();
+
+						
 					}
 				}
 
+				
+				
+
+				echo "<script> alert('Đã thêm');
+						window.location.href = 'index.php?ac=productDetail&id=". $product_id_get ."';</script>";
+
 			}
-			include "view/product-detail.php";
+			
 			break;
 
 
@@ -365,16 +401,49 @@ if (isset($_GET['ac']) && $_GET['ac'] != "") {
 		case 'delete_product':
 			if(isset($_GET['id']) && $_GET['id'] > 0) {
 				$product_id = $_GET['id'];
+				if(isset($_SESSION['user'])) {
+					
 
-				delete_item_cart($_SESSION['user']['user_id'], $product_id);
+					delete_item_cart($_SESSION['user']['user_id'], $product_id);
 
-				$list_id_product = get_list_code_product($_SESSION['user']['user_id']);
+					$list_id_product = get_list_code_product($_SESSION['user']['user_id']);
 
-				$sum_product_cart = get_quantity_product($_SESSION['user']['user_id']);
-				$_SESSION['sum_product_cart'] = $sum_product_cart;
+					$sum_product_cart = get_quantity_product($_SESSION['user']['user_id']);
+					$_SESSION['sum_product_cart'] = $sum_product_cart;
 
-			echo "<script> alert('Đã xóa');
-						window.location.href = 'index.php?ac=cart';</script>";
+					echo "<script> alert('Đã xóa');
+								window.location.href = 'index.php?ac=cart';</script>";
+				}
+				else {
+					// Xóa sản phẩm khỏi giỏ hàng
+					foreach ($_SESSION['cart_no_login'] as $key => $item) {
+						if ($item[0] == $product_id) {
+							unset($_SESSION['cart_no_login'][$key]);
+							break;
+						}
+					}
+
+					// Sắp xếp lại mảng để tránh lỗ hổng key
+					$_SESSION['cart_no_login'] = array_values($_SESSION['cart_no_login']);
+
+
+					sum_session_cart();
+
+					// $sum_quantity = 0;
+					// if(!empty($_SESSION['cart_no_login'])) {
+					// 	// tính tổng số lượng sản phẩm trong cart
+					// 	foreach($_SESSION['cart_no_login'] as $item) {
+					// 		$sum_quantity += $item[1];
+					// 	}
+					// 	$_SESSION['sum_quantity_no_login'] = $sum_quantity;
+					// }
+					// else {
+					// 	$_SESSION['sum_quantity_no_login'] = 0;
+					// }
+
+					echo "<script> alert('Đã xóa');
+								window.location.href = 'index.php?ac=cart';</script>";
+				}
 
 				
 			}
@@ -400,12 +469,17 @@ if (isset($_GET['ac']) && $_GET['ac'] != "") {
 			include "view/product.php";
 			break;
 		case 'productDetail':
-			if(isset( $_GET['id'] ) && !empty($_GET['id'])){
+
+			
+			
+			if(isset( $_GET['id'] ) && $_GET['id'] >0){
 				$currentProductDetailId=$_GET['id'];
 				$currentProduct=getProductByProductId( $currentProductDetailId );
 				// $listProductDetail=getProductDetailByProductId($currentProductDetailId);
 				$categoryId=getCategoryIdByProductId($currentProductDetailId);
 				$categoryName=getCategoryNameById($categoryId);
+
+				
 			}
 			include "view/product-detail.php";
 			break;
@@ -435,6 +509,53 @@ if (isset($_GET['ac']) && $_GET['ac'] != "") {
 					} else {
 						$_SESSION['user'] = $result;
 						$_SESSION['sum_product_cart'] = get_quantity_product($_SESSION['user']['user_id']);
+
+						// Kiểm tra giỏ hàng có chưa
+						// có thì lấy session ghi đè
+						// chưa thì đổ vào cart
+
+						$list_id_product = get_list_code_product($_SESSION['user']['user_id']);
+						if(!empty($list_id_product) && !empty($_SESSION['cart_no_login'])){
+
+							
+							// xóa sạch cart detail theo id
+							$cart_info = get_info_user_cart($_SESSION['user']['user_id']);
+							extract($cart_info);
+
+							delete_cart_detail($cart_id);
+						
+							// đổ session cart dô theo card id
+							foreach($_SESSION['cart_no_login'] as $i) {
+								insert_cartdetail($cart_id, $i[0], $i[1]);
+							}
+
+							$_SESSION['cart_no_login'] = [];
+							$_SESSION['sum_product_cart'] = $_SESSION['sum_quantity_no_login'];
+							$_SESSION['sum_quantity_no_login'] = 0;
+						}
+
+						if(empty($list_id_product) && !empty($_SESSION['cart_no_login'])){
+
+							
+							// xóa sạch cart detail theo id
+							$cart_info = get_info_user_cart($_SESSION['user']['user_id']);
+							extract($cart_info);
+
+							delete_cart_detail($cart_id);
+						
+							// đổ session cart dô theo card id
+							foreach($_SESSION['cart_no_login'] as $i) {
+								insert_cartdetail($cart_id, $i[0], $i[1]);
+							}
+
+							$_SESSION['cart_no_login'] = [];
+							$_SESSION['sum_product_cart'] = $_SESSION['sum_quantity_no_login'];
+							$_SESSION['sum_quantity_no_login'] = 0;
+
+
+						}
+						
+
 						header('Location: index.php');
 					}
 

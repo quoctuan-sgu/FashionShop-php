@@ -127,80 +127,105 @@
 
 							</tr>
 							<?php
-							$total = 0;
-							$total_all = 0;
-							if(isset($list_id_product)) {
-								foreach($list_id_product as $item) {
-									extract($item);
-									$id_product = $product_id;
-	
-									$item_product = get_info_product($id_product);
-									extract($item_product);
-	
-									$total = $quantity * $product_price;
-									$total_all += $total;
-									echo "	<tr class='table_row'>
-											<td class='column-1'>
-												<div class='how-itemcart1'>
-													<img src='data:image/jpeg;base64,".base64_encode($product_image)."' alt='IMG-PRODUCT'>
-												</div>
-											</td>
-											<td class='column-2'><a href='index.php?ac=productDetail&id=". $id_product ."'>". $product_name ."</a></td>
-											<td >". $product_size ."</td>
-											<td class='column-2'>". $product_color ."</td>
-											<td class='column-3'>$ ". $product_price ."</td>
-											<td class='column-4'>
-												<div class='wrap-num-product flex-w m-l-auto m-r-0'>
-													<div class='btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m'>
-														<i class='fs-16 zmdi zmdi-minus'></i>
+							if(isset($_SESSION['user'])) {
+								$total = 0;
+								$total_all = 0;
+								if(isset($list_id_product)) {
+									foreach($list_id_product as $item) {
+										extract($item);
+										$id_product = $product_id;
+		
+										$item_product = get_info_product($id_product);
+										extract($item_product);
+		
+										$total = $quantity * $product_price;
+										$total_all += $total;
+										echo "	<tr class='table_row'>
+												<td class='column-1'>
+													<div class='how-itemcart1'>
+														<img src='data:image/jpeg;base64,".base64_encode($product_image)."' alt='IMG-PRODUCT'>
 													</div>
-	
-													<input class='mtext-104 cl3 txt-center num-product' type='number' name='num-product1' value='".$quantity."'>
-	
-													<div class='btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m'>
-														<a href='index.php?ac=cart&id=".$id_product."&quan=".$quantity."'><i class='fs-16 zmdi zmdi-plus'></i></a>
-														
-														
-														
+												</td>
+												<td class='column-2'><a href='index.php?ac=productDetail&id=". $id_product ."'>". $product_name ."</a></td>
+												<td >". $product_size ."</td>
+												<td class='column-2'>". $product_color ."</td>
+												<td class='column-3'>$ ". $product_price ."</td>
+												<td class='column-4'>
+													<div class='wrap-num-product flex-w m-l-auto m-r-0'>
+														<div class='btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m'>
+															<i class='fs-16 zmdi zmdi-minus'></i>
+														</div>
+		
+														<input class='mtext-104 cl3 txt-center num-product' type='number' name='num-product1' value='".$quantity."'>
+		
+														<div class='btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m'>
+															<a href='index.php?ac=cart&id=".$id_product."&quan=".$quantity."'><i class='fs-16 zmdi zmdi-plus'></i></a>
+															
+															
+															
+														</div>
 													</div>
-												</div>
-											</td>
-											<td class='column-5'>$ ". $total ."</td>
-											<td class='column-2'><a href='index.php?ac=delete_product&id=".$id_product."'>Xóa</a></td>
-										</tr>";
+												</td>
+												<td class='column-5'>$ ". $total ."</td>
+												<td class='column-2'><a href='index.php?ac=delete_product&id=".$id_product."'>Xóa</a></td>
+											</tr>";
+									}
+								}		
+								if(empty($list_id_product)) {
+									echo "<tr>
+											<td colspan='7'>GIỎ HÀNG TRỐNG!</td>
+										</tr>";			
+								}	
+							}
+							else {
+								$total = 0;
+								$total_all = 0;
+								if(!empty($_SESSION['cart_no_login'])) {
+									foreach($_SESSION['cart_no_login'] as $item) {
+										$item_product = get_info_product($item[0]);
+										extract($item_product);
+		
+										$total = $item[1] * $product_price;
+										$total_all += $total;
+										echo "	<tr class='table_row'>
+												<td class='column-1'>
+													<div class='how-itemcart1'>
+														<img src='data:image/jpeg;base64,".base64_encode($product_image)."' alt='IMG-PRODUCT'>
+													</div>
+												</td>
+												<td class='column-2'><a href='index.php?ac=productDetail&id=". $item[0] ."'>". $product_name ."</a></td>
+												<td >". $product_size ."</td>
+												<td class='column-2'>". $product_color ."</td>
+												<td class='column-3'>$ ". $product_price ."</td>
+												<td class='column-4'>
+													<div class='wrap-num-product flex-w m-l-auto m-r-0'>
+														<div class='btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m'>
+															<i class='fs-16 zmdi zmdi-minus'></i>
+														</div>
+		
+														<input class='mtext-104 cl3 txt-center num-product' type='number' name='num-product1' value='".$item[1]."'>
+		
+														<div class='btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m'>
+															<a href='index.php?ac=cart&id=".$item[0]."&quan=".$item[1]."'><i class='fs-16 zmdi zmdi-plus'></i></a>
+															
+															
+															
+														</div>
+													</div>
+												</td>
+												<td class='column-5'>$ ". $total ."</td>
+												<td class='column-2'><a href='index.php?ac=delete_product&id=".$item[0]."'>Xóa</a></td>
+											</tr>";
+									}
 								}
-							}		
-							if(empty($list_id_product)) {
-								echo "<tr>
-										<td colspan='7'>GIỎ HÀNG TRỐNG!</td>
-									</tr>";			
-							}					
+								else {
+									echo "<tr>
+											<td colspan='7'>GIỎ HÀNG TRỐNG!</td>
+										</tr>";		
+								}
+							}
+				
 							?>
-
-
-							<!-- <tr class="table_row">
-								<td class="column-1">
-									<div class="how-itemcart1">
-										<img src="images/item-cart-04.jpg" alt="IMG">
-									</div>
-								</td>
-								<td class="column-2">Fresh Strawberries</td>
-								<td class="column-3">$ 36.00</td>
-								<td class="column-4">
-									<div class="wrap-num-product flex-w m-l-auto m-r-0">
-										<div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
-											<i class="fs-16 zmdi zmdi-minus"></i>
-										</div>
-
-										<input class="mtext-104 cl3 txt-center num-product" type="number" name="num-product1" value="1">
-
-										<div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
-											<i class="fs-16 zmdi zmdi-plus"></i>
-										</div>
-									</div>
-								</td>
-								<td class="column-5">$ 36.00</td>
-							</tr> -->
 
 							<!-- <tr class="table_row">
 								<td class="column-1">
@@ -315,7 +340,16 @@
 					<div>
 						<input type="radio" name="addHaoNam" id="radioid" value="1" onChange="test()" checked><span>Địa chỉ mới</span>
 						<input type="radio" name="addHaoNam" id="radioid" value="2" onChange="test()"><span>Địa chỉ mặc định:</span>
-						<br><span><?= $_SESSION['user']['user_address'] ?></span>
+						<br><span>
+							<?php
+								if(isset($_SESSION['user'])) {
+									echo  $_SESSION['user']['user_address'];
+								}
+								else {
+									echo "Chưa đăng nhập tài khoản!";
+								}
+							?>
+						</span>
 					</div>
 					<script>
 						function test(){

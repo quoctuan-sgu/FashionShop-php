@@ -39,7 +39,7 @@
 
                 echo "<tr>
                         <td>".$product_id."</td>
-                        <td><a href='index.php?ac=productdetail&id=".$product_id."'>".$product_name."</a></td>
+                        <td><a href='index.php?ac=productDetail&id=".$product_id."'>".$product_name."</a></td>
                         <td>".$product_color."</td>
                         <td>".$product_size."</td>
                         <td>".$product_price."</td>

@@ -40,7 +40,7 @@
                             }
                             echo "<tr>
                                     <td>". $pro_id ."</td>
-                                    <td><a href='index.php?ac=productdetail&id=".$pro_id."'>". $product_name ."</a></td>
+                                    <td><a href='index.php?ac=productDetail&id=".$pro_id."'>". $product_name ."</a></td>
                                     <td>". $quantity ."</td>
                                     <td>". $pro_price."$</td>
                                     <td>". $price_quantity."$</td>
