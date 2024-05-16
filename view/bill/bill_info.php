@@ -12,15 +12,16 @@
             echo "<div>
             <div>Mã hóa đơn: ".$id_bill ."</div>
             <div>Ngày tạo hóa đơn: ".$created_date ."</div>
-            <div>Phương thức thanh toán:".$payment ."</div>
-            <div>Địa chỉ nhận hàng:".$address ."</div>
-            <div>Tên người mua:".$name_user ."</div>
-            <div>SĐT:".$phone ."</div>
+            <div>Phương thức thanh toán: ".$payment ."</div>
+            <div>Địa chỉ nhận hàng: ".$address ."</div>
+            <div>Tên người mua: ".$name_user ."</div>
+            <div>SĐT: ".$phone ."</div>
         
             <table class='table table-hover' border='1'>
                 <tr class='table-header'>
-                    <th>Mã SP</th>
-                    <th>Tên SP</th>
+                    <th>Mã sản phẩm</th>
+                    <th>Ảnh sản phẩm</th>
+                    <th>Tên sản phẩm</th>
                     <th>Số lượng</th>
                     <th>Giá</th>
                     <th>Thành tiền</th>
@@ -40,6 +41,7 @@
                             }
                             echo "<tr>
                                     <td>". $pro_id ."</td>
+                                    <td><img src='data:image/jpeg;base64,".base64_encode($product_image)."' alt='IMG-PRODUCT'></td>
                                     <td><a href='index.php?ac=productDetail&id=".$pro_id."'>". $product_name ."</a></td>
                                     <td>". $quantity ."</td>
                                     <td>". $pro_price."$</td>

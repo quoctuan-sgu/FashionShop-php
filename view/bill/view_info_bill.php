@@ -20,6 +20,7 @@
 <table  class="table table-hover">
     <tr class="table-header">
         <th>Mã sản phẩm</th>
+        <th>Ảnh sản phẩm</th>
         <th>Tên sản phẩm</th>
         <th>Màu sắc</th>
         <th>Kích thước</th>
@@ -39,6 +40,7 @@
 
                 echo "<tr>
                         <td>".$product_id."</td>
+                        <td><img src='data:image/jpeg;base64,".base64_encode($product_image)."' alt='IMG-PRODUCT'></td>
                         <td><a href='index.php?ac=productDetail&id=".$product_id."'>".$product_name."</a></td>
                         <td>".$product_color."</td>
                         <td>".$product_size."</td>
@@ -51,7 +53,7 @@
     ?>
     
     <tr>
-        <td colspan="6">Tổng tiền ($)</td>
+        <td colspan="7">Tổng tiền ($)</td>
         <td><?= $total_bill ?></td>
     </tr>
 </table>

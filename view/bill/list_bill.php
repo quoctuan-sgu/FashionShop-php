@@ -7,6 +7,7 @@
 
 <?php
     if(isset($_SESSION['user'])) {
+        $list_bill = get_all_bill($_SESSION['user']['user_id']);
         echo "<table border='1' class='table table-hover'>
         <tr class='table-header'>
             <th>Mã hóa đơn</th>

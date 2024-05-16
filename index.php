@@ -150,7 +150,6 @@ if (isset($_GET['ac']) && $_GET['ac'] != "") {
 					array_push($_SESSION['cart_no_login'], $cart_product);
 
 					sum_session_cart();
-					
 				}
 				else {
 					$find = false;
@@ -163,25 +162,15 @@ if (isset($_GET['ac']) && $_GET['ac'] != "") {
 						}
 						
 					}
-
-					
-					
 					if($find == false) {
 						// tạo 1 mảng: id, quantity
 						$cart_product = [$product_id_get, $quantity_get];
 						array_push($_SESSION['cart_no_login'], $cart_product);
 						sum_session_cart();
-
-						
 					}
 				}
-
-				
-				
-
 				echo "<script> alert('Đã thêm');
 						window.location.href = 'index.php?ac=productDetail&id=". $product_id_get ."';</script>";
-
 			}
 			
 			break;
@@ -346,7 +335,7 @@ if (isset($_GET['ac']) && $_GET['ac'] != "") {
 
 
 		case 'to_bill':
-			$list_bill = get_all_bill($_SESSION['user']['user_id']);
+			
 			
 			include "view/bill/list_bill.php";
 
@@ -366,8 +355,14 @@ if (isset($_GET['ac']) && $_GET['ac'] != "") {
 		
 		case 'info_order':
 			if(isset($_GET['id']) && $_GET['id'] > 0) {
-				$orderOne = get_one_order($_GET['id'], $_SESSION['user']['user_id']);
+				
 				$detailOrder = get_order($_GET['id']);
+
+				$orderOne = get_one_order($_GET['id'], $_SESSION['user']['user_id']);
+
+				if(!empty($orderOne)) {
+					extract($orderOne);
+				}
 			}
 			include "view/order/order_info.php";
 			break;
@@ -388,6 +383,22 @@ if (isset($_GET['ac']) && $_GET['ac'] != "") {
 					}
 					$sum_product_cart = get_quantity_product($_SESSION['user']['user_id']);
 					$_SESSION['sum_product_cart'] = $sum_product_cart;
+
+					header("Location: index.php?ac=cart");
+				}
+				else {
+					if(!empty($_SESSION['cart_no_login'])) {
+						foreach ($_SESSION['cart_no_login'] as $key => $item) {
+							if ($item[0] == $id_product) {
+								$_SESSION['cart_no_login'][$key][1] += 1;
+								
+            					break;
+							}
+						}
+					}
+					$_SESSION['cart_no_login'] = array_values($_SESSION['cart_no_login']);
+
+					sum_session_cart();
 
 					header("Location: index.php?ac=cart");
 				}
@@ -413,6 +424,25 @@ if (isset($_GET['ac']) && $_GET['ac'] != "") {
 					$_SESSION['sum_product_cart'] = $sum_product_cart;
 
 					header("Location: index.php?ac=cart");
+				}
+				else {
+					if(!empty($_SESSION['cart_no_login'])) {
+						foreach ($_SESSION['cart_no_login'] as $key => $item) {
+							if ($item[0] == $id_product) {
+								if($_SESSION['cart_no_login'][$key][1] > 1) {
+									$_SESSION['cart_no_login'][$key][1] -= 1;
+								}
+            					break;
+							}
+						}
+					}
+					$_SESSION['cart_no_login'] = array_values($_SESSION['cart_no_login']);
+
+					sum_session_cart();
+
+					header("Location: index.php?ac=cart");
+
+
 				}
 			}
 			break;
