@@ -372,31 +372,49 @@ if (isset($_GET['ac']) && $_GET['ac'] != "") {
 			include "view/order/order_info.php";
 			break;
 		case 'plus':
-			
-			$user_cart_info = get_info_user_cart($_SESSION['user']['user_id']);
-				if(is_array($user_cart_info)) { 
-					extract($user_cart_info);
-					$id_cart = $cart_id;
-					// echo "<script> alert('". $id_cart ."'); </script>";
-					// nếu đã tồn tại thì xét sp đã có trong chi tiết cart chưa
-					$info_cartdetail = get_info_product_cart_detail($product_id_get, $id_cart);
-					if(is_array($info_cartdetail)){
-						// nếu tồn tại thì update số lượng theo cart id
-						extract($info_cartdetail);
-						$quantity_current = $quantity;
-						$quantity_new  = $quantity_current + $quantity_get;
-						// update số lượng
-						update_quantity($quantity_new, $product_id_get, $id_cart);
+			if (isset($_GET['ac']) && isset($_GET['id'])) {
+				$id_product = $_GET['id'];
+				// Muốn cập nhập: cart_id, product_id, quantity + 1
 
-						// lấy số lượng sản phẩm trong giỏ hàng rồi hiển thị ra
-						$sum_product_cart = get_quantity_product($_SESSION['user']['user_id']);
-						$_SESSION['sum_product_cart'] = $sum_product_cart;
-						echo "<script> alert('Đã thêm');
-						window.location.href = 'index.php?ac=cart';</script>";
+				if(isset($_SESSION['user'])) {
+					$item_cart = get_item_cartdetail($_SESSION['user']['user_id'], $id_product);
+					if(isset($item_cart)){
+						extract($item_cart);
+						$id_cart = $cart_id;
+						$new_quantity = $quantity + 1;
+
+						update_item_cart($id_product, $id_cart, $new_quantity);
+
 					}
+					$sum_product_cart = get_quantity_product($_SESSION['user']['user_id']);
+					$_SESSION['sum_product_cart'] = $sum_product_cart;
+
+					header("Location: index.php?ac=cart");
 				}
+			}
 			
-			
+			break;
+		case 'minus':
+			if (isset($_GET['ac']) && isset($_GET['id'])) {
+				$id_product = $_GET['id'];
+
+				if(isset($_SESSION['user'])) {
+					$item_cart = get_item_cartdetail($_SESSION['user']['user_id'], $id_product);
+					if(isset($item_cart)){
+						extract($item_cart);
+						$id_cart = $cart_id;
+
+						if($quantity > 1) {
+							$new_quantity = $quantity - 1;
+							update_item_cart($id_product, $id_cart, $new_quantity);
+						}
+					}
+					$sum_product_cart = get_quantity_product($_SESSION['user']['user_id']);
+					$_SESSION['sum_product_cart'] = $sum_product_cart;
+
+					header("Location: index.php?ac=cart");
+				}
+			}
 			break;
 		case 'delete_product':
 			if(isset($_GET['id']) && $_GET['id'] > 0) {

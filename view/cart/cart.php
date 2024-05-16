@@ -152,18 +152,18 @@
 												<td class='column-3'>$ ". $product_price ."</td>
 												<td class='column-4'>
 													<div class='wrap-num-product flex-w m-l-auto m-r-0'>
-														<div class='btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m'>
-															<i class='fs-16 zmdi zmdi-minus'></i>
-														</div>
+														<a href='index.php?ac=minus&id=".$id_product."'>
+															<div class='btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m'>
+																<i class='fs-16 zmdi zmdi-minus'></i>
+															</div>
+														</a>
 		
 														<input class='mtext-104 cl3 txt-center num-product' type='number' name='num-product1' value='".$quantity."'>
-		
-														<div class='btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m'>
-															<a href='index.php?ac=cart&id=".$id_product."&quan=".$quantity."'><i class='fs-16 zmdi zmdi-plus'></i></a>
-															
-															
-															
-														</div>
+														<a href='index.php?ac=plus&id=".$id_product."'>
+															<div class='btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m'>
+																<i class='fs-16 zmdi zmdi-plus'></i>
+															</div>
+														</a>
 													</div>
 												</td>
 												<td class='column-5'>$ ". $total ."</td>
@@ -206,10 +206,7 @@
 														<input class='mtext-104 cl3 txt-center num-product' type='number' name='num-product1' value='".$item[1]."'>
 		
 														<div class='btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m'>
-															<a href='index.php?ac=cart&id=".$item[0]."&quan=".$item[1]."'><i class='fs-16 zmdi zmdi-plus'></i></a>
-															
-															
-															
+															<a href='index.php?ac=plus&id=2'><i class='fs-16 zmdi zmdi-plus'></i></a>
 														</div>
 													</div>
 												</td>
@@ -447,6 +444,15 @@
         });
     });
 	});
+</script>
+
+<script>
+    function sendPlusRequest(element) {
+        var id = element.getAttribute('data-id');
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", "index.php?ac=plus&id=" + id, true);
+        xhr.send();
+    }
 </script>
 
 

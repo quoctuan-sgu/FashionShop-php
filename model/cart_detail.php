@@ -30,6 +30,11 @@
         return pdo_query($sql);
     }
 
+    function get_item_cartdetail($user_id, $product_id) {
+        $sql = "SELECT * FROM cartdetail WHERE cart_id = (SELECT cart_id FROM cart WHERE user_id = $user_id) AND product_id = $product_id";
+        return pdo_query_one($sql);
+    }
+
     function delete_cart_detail($card_id) {
         $sql = "DELETE FROM cartdetail WHERE cart_id = $card_id";
         return pdo_execute($sql);
