@@ -19,13 +19,31 @@ if(isset($_GET['fromdate']) && isset($_GET['todate'])){
     $fromDate = $_GET['fromdate'];
     $toDate = $_GET['todate'];
 }
+if(isset($_SESSION['statusName'])) {
+    $statusName = $_SESSION['statusName'];
+}
+else{
+    $statusName = "All";
+}
 $orders=getOrderFromDateToDate($fromDate,$toDate);
 if(isset($_POST['orderStatus'])) {
-    $statusId = $_POST['orderStatus'];
-    $orders = getOrderFromDateToDate($fromDate,$toDate);
-    $orders = array_filter($orders, function($order) use ($statusId) {
-        return $order['status_id'] == $statusId;
-    });
+    if($_POST['orderStatus']!=0){
+        $statusName=getStatusNameByStatusId($_POST['orderStatus']);
+    }
+    else{
+        $statusName="All";
+    }
+    $_SESSION['statusName'] = $statusName;
+    if($_POST['orderStatus'] == 0) {
+        $orders = getOrderFromDateToDate($fromDate,$toDate);
+    }
+    else{
+        $statusId = $_POST['orderStatus'];
+        $orders = getOrderFromDateToDate($fromDate,$toDate);
+        $orders = array_filter($orders, function($order) use ($statusId) {
+            return $order['status_id'] == $statusId;
+        });
+    }
 }
 
 $pageIndex = 1;
@@ -43,25 +61,21 @@ $orders=array_slice($orders,($pageIndex-1)*$pageSize,$pageSize);
         <h2>Order management</h2>
         <div class="row ml-1 mt-3">
                 <form class="row ml-1" method="post">
-                    <h4 class="mr-1">From date</h4> <input class="datepicker mr-3" type="date" id="fromDate" name="fromDate" value=<?php echo $fromDate?> >
+                    <h4 class="mr-1">Order Date filter From date</h4> <input class="datepicker mr-3" type="date" id="fromDate" name="fromDate" value=<?php echo $fromDate?> >
                     <h4 class="mr-1">To date</h4> <input type="date" id="toDate" name="toDate" value=<?php echo $toDate?>>
+                    <h4 class="col-12 pl-0">Order status</h4>
+                    <select class="form-control col-4" id="orderStatus" name="orderStatus" >
+                        <option value="0">All</option>
+                        <?php foreach($status as $st) { 
+                            $selected = ($st['status_name'] == $statusName) ? 'selected' : '';
+                            ?>
+                            <option value="<?php echo $st['status_id']; ?>" <?php echo $selected; ?>><?php echo $st['status_name']; ?></option>
+                        <?php } ?>
+                    </select>
                     <button type="submit" class="btn btn-primary ml-3">Filter</button>
                 </form>
         </div>
-        <div class="row ml-1 mt-3">
-            <form method="post">
-
-                <div class="form-group">
-                    <label for="orderStatus">Order Status:</label>
-                    <select class="form-control" id="orderStatus" name="orderStatus">
-                        <?php foreach($status as $st) { ?>
-                            <option value="<?php echo $st['status_id']; ?>"><?php echo $st['status_name']; ?></option>
-                        <?php } ?>
-                    </select>
-                </div>
-                <button type="submit" class="btn btn-primary">Filter</button>
-            </form>
-        </div>
+        
 
             <table class="table table-hover">
                 <tr class="table-header">
