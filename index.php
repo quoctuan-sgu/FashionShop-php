@@ -182,6 +182,7 @@ if (isset($_GET['ac']) && $_GET['ac'] != "") {
 
 
 		case 'bill_info':
+			
 
 			if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['btn_checkout']) && isset($_SESSION['user'])) {
 
@@ -581,17 +582,39 @@ if (isset($_GET['ac']) && $_GET['ac'] != "") {
 							// $cart_info = get_info_user_cart($_SESSION['user']['user_id']);
 							// extract($cart_info);
 
-							// delete_cart_detail($cart_id);
-							$id_cart = insert_cart($_SESSION['user']['user_id']);
+							// kiểm tra user đã có id cart chưa
+							$info_cart = get_info_user_cart($_SESSION['user']['user_id']);
+							if($info_cart) {
+
+								extract($info_cart);
 						
-							// đổ session cart dô theo card id
-							foreach($_SESSION['cart_no_login'] as $i) {
-								insert_cartdetail($id_cart, $i[0], $i[1]);
+								// đổ session cart dô theo card id
+								foreach($_SESSION['cart_no_login'] as $i) {
+									insert_cartdetail($cart_id, $i[0], $i[1]);
+								}
+
+								$_SESSION['cart_no_login'] = [];
+								$_SESSION['sum_product_cart'] = $_SESSION['sum_quantity_no_login'];
+								$_SESSION['sum_quantity_no_login'] = 0;
+
+							}
+							else {
+								$id_cart = insert_cart($_SESSION['user']['user_id']);
+						
+								// đổ session cart dô theo card id
+								foreach($_SESSION['cart_no_login'] as $i) {
+									insert_cartdetail($id_cart, $i[0], $i[1]);
+								}
+
+								$_SESSION['cart_no_login'] = [];
+								$_SESSION['sum_product_cart'] = $_SESSION['sum_quantity_no_login'];
+								$_SESSION['sum_quantity_no_login'] = 0;
+
 							}
 
-							$_SESSION['cart_no_login'] = [];
-							$_SESSION['sum_product_cart'] = $_SESSION['sum_quantity_no_login'];
-							$_SESSION['sum_quantity_no_login'] = 0;
+
+							
+							
 
 
 						}

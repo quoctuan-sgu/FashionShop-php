@@ -46,7 +46,7 @@
                 echo "<tr>
                         <td>".$product_id."</td>
                         <td><img src='data:image/jpeg;base64,".base64_encode($product_image)."' alt='IMG-PRODUCT'></td>
-                        <td>".$product_name."</td>
+                        <td><a href='index.php?ac=productDetail&id=".$product_id."'>". $product_name ."</a></td>
                         <td>".$product_color."</td>
                         <td>".$product_size."</td>
                         <td>".$product_price."</td>
