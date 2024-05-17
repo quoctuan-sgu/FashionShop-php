@@ -1,6 +1,6 @@
 <div class="container-fluid sign-container">
     <div class="row justify-content-center">
-        <div class="col-md-4 sign-form" style="margin: 8% 4% 10% 4%;">
+        <div class="col-md-4 sign-form" style="margin: 10% 4% 10% 4%;">
             <h2>SIGNIN</h2>
 
             <form action="index.php?ac=signin" method="POST" onsubmit="return validateForm()">

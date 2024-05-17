@@ -1,11 +1,10 @@
-
 <!-- Cart -->
 <?php 
 	if(isset($_GET['id'])){
 		
 	}
 ?>
-<div class="wrap-header-cart js-panel-cart">
+<!-- <div class="wrap-header-cart js-panel-cart">
 	<div class="s-full js-hide-cart"></div>
 
 	<div class="header-cart flex-col-l p-l-65 p-r-25">
@@ -87,46 +86,46 @@
 			</div>
 		</div>
 	</div>
-</div>
+</div> -->
 
 
 <!-- breadcrumb -->
 <div class="container">
-	<div class="bread-crumb flex-w p-l-25 p-r-15 p-t-30 p-lr-0-lg">
-		<a href="index.php" class="stext-109 cl8 hov-cl1 trans-04">
-			Home
-			<i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
-		</a>
+    <div class="bread-crumb flex-w p-l-25 p-r-15 p-t-30 p-lr-0-lg">
+        <a href="index.php" class="stext-109 cl8 hov-cl1 trans-04">
+            Home
+            <i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
+        </a>
 
-		<span class="stext-109 cl4">
-			Shoping Cart
-		</span>
-	</div>
+        <span class="stext-109 cl4">
+            Shoping Cart
+        </span>
+    </div>
 </div>
 
 
 <!-- Shoping Cart -->
 <form class="bg0 p-t-75 p-b-85" method="POST" action="index.php?ac=bill_info">
-	<div class="container">
-		<div class="row">
-			<div class="col-lg-10 col-xl-7 m-lr-auto m-b-50">
-				<div class="m-l-25 m-r--38 m-lr-0-xl">
-					<div class="wrap-table-shopping-cart">
-				
-						<table class="table-shopping-cart">
-							<tr class="table_head">
-								<th class="column-1">Product</th>
-								<th class="column-2">Name</th>
-								<th class="column-2">Size</th>
-								<th class="column-2">Color</th>
-								<th class="column-3">Price</th>
-								<th class="column-4">Quantity</th>
-								<th class="column-5">Total</th>
-								<th class="column-2"></th>
-								
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-10 col-xl-7 m-lr-auto m-b-50">
+                <div class="m-l-25 m-r--38 m-lr-0-xl">
+                    <div class="wrap-table-shopping-cart">
 
-							</tr>
-							<?php
+                        <table class="table-shopping-cart">
+                            <tr class="table_head">
+                                <th class="column-1">Product</th>
+                                <th class="column-2">Name</th>
+                                <th class="column-2">Size</th>
+                                <th class="column-2">Color</th>
+                                <th class="column-3">Price</th>
+                                <th class="column-4">Quantity</th>
+                                <th class="column-5">Total</th>
+                                <th class="column-2"></th>
+
+
+                            </tr>
+                            <?php
 							if(isset($_SESSION['user'])) {
 								$total = 0;
 								$total_all = 0;
@@ -173,8 +172,8 @@
 								}		
 								if(empty($list_id_product)) {
 									echo "<tr>
-											<td colspan='7'>GIỎ HÀNG TRỐNG!</td>
-										</tr>";			
+											<td colspan='7' class='text-center p-4'>EMPTY CART</td>
+										</tr>";
 								}	
 							}
 							else {
@@ -220,14 +219,14 @@
 								}
 								else {
 									echo "<tr>
-											<td colspan='7'>GIỎ HÀNG TRỐNG!</td>
+											<td colspan='7' class='text-center p-4'>GIỎ HÀNG TRỐNG!</td>
 										</tr>";		
 								}
 							}
 				
 							?>
 
-							<!-- <tr class="table_row">
+                            <!-- <tr class="table_row">
 								<td class="column-1">
 									<div class="how-itemcart1">
 										<img src="images/item-cart-05.jpg" alt="IMG">
@@ -250,10 +249,10 @@
 								</td>
 								<td class="column-5">$ 16.00</td>
 							</tr> -->
-						</table>
-					</div>
+                        </table>
+                    </div>
 
-					<!-- <div class="flex-w flex-sb-m bor15 p-t-18 p-b-15 p-lr-40 p-lr-15-sm">
+                    <!-- <div class="flex-w flex-sb-m bor15 p-t-18 p-b-15 p-lr-40 p-lr-15-sm">
 						<div class="flex-w flex-m m-r-20 m-tb-5">
 							<input class="stext-104 cl2 plh4 size-117 bor13 p-lr-20 m-r-10 m-tb-5" type="text" name="coupon" placeholder="Coupon Code">
 
@@ -268,80 +267,98 @@
 					</div> -->
 
 
-				</div>
-			</div>
+                </div>
+            </div>
 
-			<div class="col-sm-10 col-lg-7 col-xl-5 m-lr-auto m-b-50">
-				<div class="bor10 p-lr-40 p-t-30 p-b-40 m-l-63 m-r-40 m-lr-0-xl p-lr-15-sm">
-					<h4 class="mtext-109 cl2 p-b-30">
-						Cart Totals
-					</h4>
+            <div class="col-sm-10 col-lg-7 col-xl-5 m-lr-auto m-b-50">
+                <div class="bor10 p-lr-40 p-t-30 p-b-40 m-l-63 m-r-40 m-lr-0-xl p-lr-15-sm">
+                    <h4 class="mtext-109 cl2 p-b-30">
+                        Cart Totals
+                    </h4>
 
-					<div class="flex-w flex-t bor12 p-b-13">
-						<div class="size-208">
-							<span class="stext-110 cl2">
-								Hình thức thanh toán: 
-							</span>
-						</div>
+                    <div class="flex-w flex-t bor12 p-b-13">
+                        <div class="size-208">
+                            <span class="stext-110 cl2">Payment:&nbsp;</span>
+                        </div>
 
-						<div class="size-209">
-							<span class="mtext-110 cl2">
-								<input type="radio" name="pay" id="" value="Chuyển khoản" checked> Chuyển khoản
-								<input type="radio" name="pay" id="" value="Tiền mặt"> Tiền mặt
-							</span>
-						</div>
-					</div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="pay" id="atmBanking" value="Chuyển khoản"
+                                checked>
+                            <label class="form-check-label" for="atmBanking">ATM Banking</label>
 
-					<div class="flex-w flex-t bor12 p-t-15 p-b-30">
-						<div class="size-208 w-full-ssm">
-							<span class="stext-110 cl2">
-								Shipping:
-							</span>
-						</div>
-						<?php 
+                            <input class="form-check-input" type="radio" name="pay" id="atmBanking" value="Tiền mặt">
+                            <label class="form-check-label" for="atmBanking">Ship COD</label>
+                        </div>
+                    </div>
+
+                    <div class="flex-w flex-t bor12 p-t-15 p-b-30">
+                        <div class="size-208 w-full-ssm">
+                            <span class="stext-110 cl2">
+                                Shipping:
+                            </span>
+                        </div>
+                        <?php 
 						$radiocheck=1;
 						?>
-					
-						<div class="size-209 p-r-18 p-r-0-sm w-full-ssm" id="tpm">
-							ĐỊA CHỈ MỚI
-								<div class="rs1-select2 rs2-select2 bor8 bg0 m-b-12 m-t-9">
-									<select class="js-select2" name="province" id="provinceSelect" required>
-										<option value="">Chọn tỉnh/thành phố</option>
-									</select>
-									<div class="dropDownSelect2"></div>
-								</div>
 
-								<div class="rs1-select2 rs2-select2 bor8 bg0 m-b-12 m-t-9">
-									<select class="js-select2" name="disrict" id="districtSelect" required>
-										<option value="">Chọn quận/huyện</option>
-									</select>
-									<div class="dropDownSelect2"></div>
-								</div>
+                        <div class="size-209 p-r-18 p-r-0-sm w-full-ssm" id="tpm">
+                            <div class="rs1-select2 rs2-select2 bor8 bg0 m-b-12 m-t-9">
+                                <select class="js-select2" name="province" id="provinceSelect" required>
+                                    <option value="">City</option>
+                                </select>
+                                <div class="dropDownSelect2"></div>
+                            </div>
 
-								<div class="rs1-select2 rs2-select2 bor8 bg0 m-b-12 m-t-9" required>
-									<select class="js-select2" name="ward" id="wardSelect">
-										<option value="">Chọn xã/thị trấn</option>
-									</select>
-									<div class="dropDownSelect2"></div>
-								</div>
-								
-								<div class="bor8 bg0 m-b-22">
-									<input class="stext-111 cl8 plh3 size-111 p-lr-15" type="text" name="postcode"id="sn" placeholder="số nhà, tên đường" required>
-								</div>
+                            <div class="rs1-select2 rs2-select2 bor8 bg0 m-b-12 m-t-9">
+                                <select class="js-select2" name="disrict" id="districtSelect" required>
+                                    <option value="">District</option>
+                                </select>
+                                <div class="dropDownSelect2"></div>
+                            </div>
 
-								<div class="flex-w">
+                            <div class="rs1-select2 rs2-select2 bor8 bg0 m-b-12 m-t-9" required>
+                                <select class="js-select2" name="ward" id="wardSelect">
+                                    <option value="">Ward</option>
+                                </select>
+                                <div class="dropDownSelect2"></div>
+                            </div>
+
+                            <div class="bor8 bg0 m-b-22">
+                                <input class="stext-111 cl8 plh3 size-111 p-lr-15" type="text" name="postcode" id="sn"
+                                    placeholder="Address" required>
+                            </div>
+
+                            <!-- <div class="flex-w">
 									<div class="flex-c-m stext-101 cl2 size-115 bg8 bor13 hov-btn3 p-lr-15 trans-04 pointer">
 										Update Totals
 									</div>
-								</div>
-						</div>
-					</div>
+								</div> -->
+                        </div>
+                    </div>
 
-					<div>
-						<input type="radio" name="addHaoNam" id="radioid" value="1" onChange="test()" checked><span>Địa chỉ mới</span>
-						<input type="radio" name="addHaoNam" id="radioid" value="2" onChange="test()"><span>Địa chỉ mặc định:</span>
-						<br><span>
-							<?php
+                    <!-- <div class="form-check form-check-inline">
+							<input class="form-check-input" type="radio" name="pay" id="atmBanking" value="Chuyển khoản" checked>
+							<label class="form-check-label" for="atmBanking">ATM Banking</label>
+
+							<input class="form-check-input" type="radio" name="pay" id="atmBanking" value="Tiền mặt">
+							<label class="form-check-label" for="atmBanking">Ship COD</label>
+						</div> -->
+                    <div class="flex-w flex-t bor12 p-b-13">
+                        <div class="size-208">
+                            <span class="stext-110 cl2">Payment:&nbsp;</span>
+                        </div>
+
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="addHaoNam" id="radioid" value="1"
+                                onChange="test()" checked>
+                            <label class="form-check-label">New address</label>
+
+                            <input class="form-check-input" type="radio" name="addHaoNam" id="radioid" value="2"
+                                onChange="test()">
+                            <label class="form-check-label">Default address</label>
+
+                            <span>
+                                <?php
 								if(isset($_SESSION['user'])) {
 									echo  $_SESSION['user']['user_address'];
 								}
@@ -349,113 +366,117 @@
 									echo "Chưa đăng nhập tài khoản!";
 								}
 							?>
-						</span>
-					</div>
-					<script>
-						function test(){
-							
-							var options = document.getElementsByName('addHaoNam');
-							var selectedOption;
+                            </span>
+                        </div>
+                    </div>
 
-							for (var i = 0; i < options.length; i++) {
-								if (options[i].checked) {
-									selectedOption = options[i].value;
-									break;
-								}
-							}
-							console.log(selectedOption);
-							if(selectedOption==2){
-								<?php
+                    <script>
+                    function test() {
+
+                        var options = document.getElementsByName('addHaoNam');
+                        var selectedOption;
+
+                        for (var i = 0; i < options.length; i++) {
+                            if (options[i].checked) {
+                                selectedOption = options[i].value;
+                                break;
+                            }
+                        }
+                        console.log(selectedOption);
+                        if (selectedOption == 2) {
+                            <?php
 									$radiocheck=2;
 									?>
-								document.getElementById('provinceSelect').disabled=true;
-								document.getElementById('districtSelect').disabled=true;
-								document.getElementById('wardSelect').disabled=true;
-								document.getElementById('sn').readOnly=true;
-								
-							}
-							else{
-								document.getElementById('provinceSelect').disabled=false;
-								document.getElementById('districtSelect').disabled=false;
-								document.getElementById('wardSelect').disabled=false;
-								document.getElementById('sn').readOnly=false;
+                            document.getElementById('provinceSelect').disabled = true;
+                            document.getElementById('districtSelect').disabled = true;
+                            document.getElementById('wardSelect').disabled = true;
+                            document.getElementById('sn').readOnly = true;
 
-								
-							}
+                        } else {
+                            document.getElementById('provinceSelect').disabled = false;
+                            document.getElementById('districtSelect').disabled = false;
+                            document.getElementById('wardSelect').disabled = false;
+                            document.getElementById('sn').readOnly = false;
 
-						}
-					</script>
 
-					<hr>
+                        }
 
-					<div class="flex-w flex-t p-t-27 p-b-33">
-						<div class="size-208">
-							<span class="mtext-101 cl2">
-								Total:
-							</span>
-						</div>
+                    }
+                    </script>
 
-						<div class="size-209 p-t-1">
-							<span class="mtext-110 cl2">
-								<?= $total_all ?>$
-							</span>
-						</div>
-					</div>
+                    <hr>
 
-					<button class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer" type="submit" name="btn_checkout">
-						Checkout
-					</button>
-				</div>
-			</div>
-		</div>
-	</div>
+                    <div class="flex-w flex-t p-t-27 p-b-33">
+                        <div class="size-208">
+                            <span class="mtext-101 cl2">
+                                Total:
+                            </span>
+                        </div>
+
+                        <div class="size-209 p-t-1">
+                            <span class="mtext-110 cl2">
+                                <?= $total_all ?>$
+                            </span>
+                        </div>
+                    </div>
+
+                    <button class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer"
+                        type="submit" name="btn_checkout">
+                        Checkout
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 </form>
 
 
 <!-- Nguyễn Văn Dũng -->
 <script>
-	$(document).ready(function() {
-		$.ajax({
-			url: 'view/cart/province.php',
-			method: 'GET',
-			success: function(data){
-				$('#provinceSelect').html(data);
-			}
-		});
+$(document).ready(function() {
+    $.ajax({
+        url: 'view/cart/province.php',
+        method: 'GET',
+        success: function(data) {
+            $('#provinceSelect').html(data);
+        }
+    });
 
-		$('#provinceSelect').change(function() {
-			var provinceId = $(this).val();
-			$.ajax({
-				url: 'view/cart/district.php',
-				method: 'POST',
-				data: {province_id: provinceId},
-				success:function(data) {
-					$('#districtSelect').html(data);
-				}
-			});
-		});
+    $('#provinceSelect').change(function() {
+        var provinceId = $(this).val();
+        $.ajax({
+            url: 'view/cart/district.php',
+            method: 'POST',
+            data: {
+                province_id: provinceId
+            },
+            success: function(data) {
+                $('#districtSelect').html(data);
+            }
+        });
+    });
 
-		$('#districtSelect').change(function(){
+    $('#districtSelect').change(function() {
         var districtId = $(this).val();
         $.ajax({
             url: 'view/cart/ward.php',
             method: 'POST',
-            data: {district_id: districtId},
-            success: function(data){
+            data: {
+                district_id: districtId
+            },
+            success: function(data) {
                 $('#wardSelect').html(data);
             }
         });
     });
-	});
+});
 </script>
 
 <script>
-    function sendPlusRequest(element) {
-        var id = element.getAttribute('data-id');
-        var xhr = new XMLHttpRequest();
-        xhr.open("GET", "index.php?ac=plus&id=" + id, true);
-        xhr.send();
-    }
+function sendPlusRequest(element) {
+    var id = element.getAttribute('data-id');
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", "index.php?ac=plus&id=" + id, true);
+    xhr.send();
+}
 </script>
-
-

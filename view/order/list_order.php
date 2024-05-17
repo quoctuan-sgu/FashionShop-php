@@ -1,7 +1,7 @@
 <!-- Title page -->
 <section class="bg-img1 txt-center p-lr-15 p-tb-92" style="background-image: url('images/bg-01.jpg');">
 	<h2 class="ltext-105 cl0 txt-center">
-    DANH SÁCH ĐƠN HÀNG
+    	Order
 	</h2>
 </section>
 
@@ -50,7 +50,7 @@
 			}
 			else {
 				echo "<tr>
-							<td colspan='8'> Không có danh sách đơn hàng!</td>
+							<td colspan='8' class='text-center p-4'> Không có danh sách đơn hàng!</td>
 						</tr>";
 			}
 	
