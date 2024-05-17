@@ -105,6 +105,11 @@ if (isset($_GET['ac']) && $_GET['ac'] != "") {
 }
 
 
-if($ac != 'billdetail')
+if(isset($_GET['ac']) && $_GET['ac'] !== 'billdetail'){
 include "footer.php";
+}
+if(!isset($_GET['ac'])){
+    include "footer.php";
+}
 ob_end_flush();
+?>
