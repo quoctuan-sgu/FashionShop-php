@@ -822,7 +822,7 @@
 								<!-- Block2 -->
 								<div class="block2">
 									<div class="block2-pic hov-img0">
-										<img src="data:image/jpeg;base64,'.base64_encode($product_image).'" alt="IMG-PRODUCT">
+										<img style="width: 315px; height: 390.06px;" src="data:image/jpeg;base64,'.base64_encode($product_image).'" alt="IMG-PRODUCT">
 									</div>
 					
 									<div class="block2-txt flex-w flex-t p-t-14">
