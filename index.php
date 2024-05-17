@@ -340,7 +340,7 @@ if (isset($_GET['ac']) && $_GET['ac'] != "") {
 			include "view/bill/view_info_bill.php";
 			break;
 		case 'to_order':
-			$list_all_order = get_all_order($_SESSION['user']['user_id']);
+			
 			include "view/order/list_order.php";
 			break;
 		

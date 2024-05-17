@@ -49,10 +49,6 @@
                     <td colspan='4'> Không có danh sách hóa đơn</td>
                 </tr>";
         }
-    
-        
-        
-        
     echo "</table>";
     }
     else {
@@ -63,12 +59,15 @@
 <div class="mt-5">
 	<ul class="pagination justify-content-center">
 		<?php
-			echo "<div id='paginationForm' class='row m-l-5'>";
-			for($i = 1; $i <= $totalPage; $i++){
-					echo "<li class='page-item'><a href='index.php?ac=to_bill&page=".$i."' class='page-link' name='page'>".$i."</a></li>";                           
-			}
+            if(isset($list_bill)) {
+                echo "<div id='paginationForm' class='row m-l-5'>";
+                for($i = 1; $i <= $totalPage; $i++){
+                        echo "<li class='page-item'><a href='index.php?ac=to_bill&page=".$i."' class='page-link' name='page'>".$i."</a></li>";                           
+                }
+                
+                echo '</div>';
+            }
 			
-			echo '</div>';
 		?>
 	</ul>
 </div>

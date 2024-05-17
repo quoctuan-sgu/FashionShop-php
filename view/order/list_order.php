@@ -5,19 +5,20 @@
 	</h2>
 </section>
 
-<?php
-	$pageIndex = 1;
-	$pageSize = 5;
-	if(isset($_GET['page'])) {
-		$pageIndex = $_GET['page'];
-	}
-
-	$totalPage = ceil(count($list_all_order)/$pageSize);
-	$list_all_order = array_slice($list_all_order, ($pageIndex-1)*$pageSize, $pageSize);
-?>
 
 <?php
 	if(isset($_SESSION['user'])) {
+		$list_all_order = get_all_order($_SESSION['user']['user_id']);
+		if(isset($list_all_order)) {
+			$pageIndex = 1;
+			$pageSize = 5;
+			if(isset($_GET['page'])) {
+				$pageIndex = $_GET['page'];
+			}
+		
+			$totalPage = ceil(count($list_all_order)/$pageSize);
+			$list_all_order = array_slice($list_all_order, ($pageIndex-1)*$pageSize, $pageSize);
+		}
 		echo "<table border='1'class='table table-hover'>
 		<tr class='table-header'>
 			<th>Mã đơn hàng</th>
@@ -52,14 +53,7 @@
 				echo "<tr>
 							<td colspan='8'> Không có danh sách đơn hàng!</td>
 						</tr>";
-			}
-	
-			
-
-		
-	
-		
-	
+			}	
 	echo "</table>";
 	}
 	else {
@@ -70,12 +64,15 @@
 <div class="mt-5">
 	<ul class="pagination justify-content-center">
 		<?php
-			echo "<div id='paginationForm' class='row m-l-5'>";
-			for($i = 1; $i <= $totalPage; $i++){
-					echo "<li class='page-item'><a href='index.php?ac=to_order&page=".$i."' class='page-link' name='page'>".$i."</a></li>";                           
+			if(isset($list_all_order)) {
+				echo "<div id='paginationForm' class='row m-l-5'>";
+				for($i = 1; $i <= $totalPage; $i++){
+						echo "<li class='page-item'><a href='index.php?ac=to_order&page=".$i."' class='page-link' name='page'>".$i."</a></li>";                           
+				}
+				
+				echo '</div>';
 			}
 			
-			echo '</div>';
 		?>
 	</ul>
 </div>
