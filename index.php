@@ -2,7 +2,12 @@
 <?php
 ob_start();
 session_start();
-include "view/header.php";
+if(isset($_GET['ac']) && $_GET['ac'] !== 'signup' && $_GET['ac'] !== 'signin'){
+	include "view/header.php";
+}
+
+
+
 include "model/pdo.php";
 include "model/account.php";
 include "model/product.php";
@@ -650,15 +655,17 @@ if (isset($_GET['ac']) && $_GET['ac'] != "") {
 			include "view/home.php";
 	}
 } else {
+	include "view/header.php";
 	include "view/slider.php";
 	include "view/home.php";
+	include "view/footer.php";
 }
-?>
+
+if(isset($_GET['ac']) && $_GET['ac'] !== 'signup' && $_GET['ac'] !== 'signin'){
+    include "view/footer.php";
+}
 
 
 
-<!-- Footer -->
-<?php
-include "view/footer.php";
 ob_end_flush();
 ?>
