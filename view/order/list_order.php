@@ -6,6 +6,17 @@
 </section>
 
 <?php
+	$pageIndex = 1;
+	$pageSize = 5;
+	if(isset($_GET['page'])) {
+		$pageIndex = $_GET['page'];
+	}
+
+	$totalPage = ceil(count($list_all_order)/$pageSize);
+	$list_all_order = array_slice($list_all_order, ($pageIndex-1)*$pageSize, $pageSize);
+?>
+
+<?php
 	if(isset($_SESSION['user'])) {
 		echo "<table border='1'class='table table-hover'>
 		<tr class='table-header'>
@@ -55,4 +66,17 @@
 		echo "Vui lòng đăng nhập";
 	}
 ?>
+
+<div class="mt-5">
+	<ul class="pagination justify-content-center">
+		<?php
+			echo "<div id='paginationForm' class='row m-l-5'>";
+			for($i = 1; $i <= $totalPage; $i++){
+					echo "<li class='page-item'><a href='index.php?ac=to_order&page=".$i."' class='page-link' name='page'>".$i."</a></li>";                           
+			}
+			
+			echo '</div>';
+		?>
+	</ul>
+</div>
 

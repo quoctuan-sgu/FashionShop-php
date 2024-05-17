@@ -271,13 +271,9 @@ if (isset($_GET['ac']) && $_GET['ac'] != "") {
 									$total_bill_success += $total_bill_cart;
 	
 									add_new_bill_detail($id_bill, $id_pro, $quantity_pro, $price_pro, $total_bill_cart);
-	
 								}
 							}
 						}
-
-						
-						
 						// thêm vào order
 						// order_id	user_id	status_id	order_created_date	estimate_ship_date	total
 
@@ -305,11 +301,8 @@ if (isset($_GET['ac']) && $_GET['ac'] != "") {
 									//order_detail_id	order_id	product_id	quantity	price	total
 									add_new_order_detail($idOrder, $id_pro_2, $quantity_pro_2, $price_pro_2, $total_bill_cart_2);
 								}
-
 							}
 						}
-						
-
 						// xóa chi tiết hóa đơn
 						$del_cart_detail = get_info_user_cart($user_id);
 						if(isset($del_cart_detail)) {
@@ -318,7 +311,6 @@ if (isset($_GET['ac']) && $_GET['ac'] != "") {
 							delete_cart_detail($id_card_delete);
 							$_SESSION['sum_product_cart'] = 0;
 						}
-
 					}	
 				}
 				
@@ -332,11 +324,7 @@ if (isset($_GET['ac']) && $_GET['ac'] != "") {
 
 		include "view/bill/bill_info.php";
 		break;
-
-
 		case 'to_bill':
-			
-			
 			include "view/bill/list_bill.php";
 
 			break;
@@ -347,9 +335,8 @@ if (isset($_GET['ac']) && $_GET['ac'] != "") {
 			}
 			include "view/bill/view_info_bill.php";
 			break;
-
 		case 'to_order':
-			$list_all_order = get_all_order();
+			$list_all_order = get_all_order($_SESSION['user']['user_id']);
 			include "view/order/list_order.php";
 			break;
 		
@@ -508,7 +495,7 @@ if (isset($_GET['ac']) && $_GET['ac'] != "") {
 				huydon($order_id);
 
 			}
-			$list_all_order = get_all_order();
+			$list_all_order = get_all_order($_SESSION['user']['user_id']);
 			include "view/order/list_order.php";
 			break;
 

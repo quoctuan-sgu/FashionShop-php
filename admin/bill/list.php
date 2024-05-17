@@ -7,7 +7,7 @@ if(isset($_GET['fromdate']) && isset($_GET['todate'])){
 }
 $bills=billFromDateToDate($fromDate,$toDate);
 $pageIndex = 1;
-$pageSize=1;
+$pageSize=5;
 if(isset($_GET['page'])){
     $pageIndex=$_GET['page'];
 }

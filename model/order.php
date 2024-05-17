@@ -6,8 +6,8 @@
 
 
 
-    function get_all_order() {
-        $sql = "SELECT * FROM `order` ORDER BY order_id DESC";
+    function get_all_order($user_id) {
+        $sql = "SELECT * FROM `order` WHERE user_id = $user_id ORDER BY order_id DESC";
         return pdo_query($sql);
     }
 
