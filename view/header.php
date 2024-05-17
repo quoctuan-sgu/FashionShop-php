@@ -68,7 +68,7 @@
 <body class="animsition">
     <!-- Header -->
     <header
-        class=" <?php if ($current_page == 'product' || $current_page == 'cart' || $current_page == 'signup' || $current_page == 'signin' || $current_page == 'productDetail') echo 'header-v4'; ?> ">
+        class=" <?php if ($current_page == 'product' || $current_page == 'cart' || $current_page == 'productDetail') echo 'header-v4'; ?> ">
         <!-- Header desktop -->
         <div class="container-menu-desktop">
             <!-- Topbar -->
@@ -86,7 +86,7 @@
 
                     <div class="right-top-bar flex-w h-full ml-auto">
                         <a href="index.php?ac=signout" class="flex-c-m trans-04 p-lr-25">
-                            Đăng xuất &nbsp;
+                        Signout &nbsp;
                             <i class="fas fa-sign-out-alt"></i>
                         </a>
                     </div>
@@ -102,7 +102,7 @@
 
                     <div class="right-top-bar flex-w h-full">
                         <a href="index.php?ac=signin" class="flex-c-m trans-04 p-lr-25">
-                            Đăng nhập &nbsp;
+                            Signin &nbsp;
                             <i class="fa fa-power-off"></i>
                         </a>
                     </div>
@@ -114,7 +114,7 @@
 
             <!-- Navbar -->
             <div
-                class="wrap-menu-desktop <?php if ($current_page == 'product' || $current_page == 'cart' || $current_page == 'signup' || $current_page == 'signin' || $current_page == 'productDetail') echo 'how-shadow1'; ?> ">
+                class="wrap-menu-desktop <?php if ($current_page == 'product' || $current_page == 'cart' || $current_page == 'productDetail') echo 'how-shadow1'; ?> ">
                 <nav class="limiter-menu-desktop container">
 
                     <!-- Logo desktop -->
@@ -150,11 +150,11 @@
                                 <a href="index.php?ac=contact">Contact</a>
                             </li>
 
-                            <li class=" <?php if ($current_page == 'contact') echo 'active-menu'; ?> ">
+                            <li class=" <?php if ($current_page == 'to_order') echo 'active-menu'; ?> ">
                                 <a href="index.php?ac=to_order">Order</a>
                             </li>
 
-                            <li class=" <?php if ($current_page == 'contact') echo 'active-menu'; ?> ">
+                            <li class=" <?php if ($current_page == 'to_bill') echo 'active-menu'; ?> ">
                                 <a href="index.php?ac=to_bill">Bill</a>
                             </li>
                         </ul>

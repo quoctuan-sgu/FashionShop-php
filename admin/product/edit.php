@@ -40,7 +40,7 @@ if(isset($_POST['product_id'])){
             </div>
             <div class="form-group">
                 <label for="product_price">Product Price($)</label>
-                <input type="number" class="form-control" id="product_price" name="product_price" value=<?php echo $product['product_price'] ?> min=0 required>
+                <input type="number" class="form-control" id="product_price" name="product_price" value=<?php echo $product['product_price'] ?> min=0 step="0.01" required>
             </div>
             <div class="form-group">
                 <label for="product_color">Product Color</label>
