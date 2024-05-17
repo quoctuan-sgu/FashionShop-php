@@ -29,7 +29,7 @@ if(isset($_POST['orderStatus'])) {
 }
 
 $pageIndex = 1;
-$pageSize=1;
+$pageSize=5;
 if(isset($_GET['page'])){
     $pageIndex=$_GET['page'];
 }

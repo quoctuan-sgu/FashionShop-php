@@ -8,6 +8,14 @@
 <?php
     if(isset($_SESSION['user'])) {
         $list_bill = get_all_bill($_SESSION['user']['user_id']);
+        $pageIndex = 1;
+        $pageSize = 5;
+        if(isset($_GET['page'])) {
+            $pageIndex = $_GET['page'];
+        }
+
+        $totalPage = ceil(count($list_bill)/$pageSize);
+        $list_bill = array_slice($list_bill, ($pageIndex-1)*$pageSize, $pageSize);
         echo "<table border='1' class='table table-hover'>
         <tr class='table-header'>
             <th>Mã hóa đơn</th>
@@ -52,3 +60,15 @@
     }
 ?>
 
+<div class="mt-5">
+	<ul class="pagination justify-content-center">
+		<?php
+			echo "<div id='paginationForm' class='row m-l-5'>";
+			for($i = 1; $i <= $totalPage; $i++){
+					echo "<li class='page-item'><a href='index.php?ac=to_bill&page=".$i."' class='page-link' name='page'>".$i."</a></li>";                           
+			}
+			
+			echo '</div>';
+		?>
+	</ul>
+</div>
