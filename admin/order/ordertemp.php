@@ -22,6 +22,13 @@
         $sql = "UPDATE `order` SET status_id = $statusId WHERE order_id = $orderId";
         pdo_execute($sql);
     }
+    function getOrderStatusAndMinusByOne($orderId) {
+        $sql = "SELECT status_id FROM `order` WHERE order_id = $orderId";
+        $statusId = pdo_query_value($sql);
+        $statusId = intval($statusId) - 1;
+        $sql = "UPDATE `order` SET status_id = $statusId WHERE order_id = $orderId";
+        pdo_execute($sql);
+    }
     function huydon($orderId) {
         $sql = "UPDATE `order` SET status_id = 5 WHERE order_id = $orderId";
         pdo_execute($sql);

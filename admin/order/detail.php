@@ -3,6 +3,13 @@ if(isset($_GET['id'])){
     $id = $_GET['id'];
     $orderDetails = pdo_query("SELECT * FROM orderdetail WHERE order_id = $id");
 }
+$pageIndex=1;
+if(isset($_GET['page'])){
+    $pageIndex=$_GET['page'];
+}
+$pageSize=1;
+$totalPage=ceil(count($orderDetails)/$pageSize);
+$orderDetails=array_slice($orderDetails,($pageIndex-1)*$pageSize,$pageSize);
 ?>
 <main class="page-content">
     <div class="container-fluid">
@@ -28,6 +35,19 @@ if(isset($_GET['id'])){
             </tr>
             <?php } ?>
         </table>
+        <div class="mt-5">
+            <ul class="pagination justify-content-center">
+                <?php
+                    echo '<div id="paginationForm" class="row m-l-5">';
+                            for($i = 1; $i <= $totalPage; $i++){
+                                echo '<li class="page-item"><a href="index.php?ac=orderdetail&id='.$_GET['id'].'&page='.$i.'" class=" page-link" name="page">'.$i.'</a></li>';
+                               
+                            }
+                        
+                    echo '</div>';
+                ?>
+            </ul>
+        </div>
 
     </div>
 </main>

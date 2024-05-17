@@ -47,11 +47,11 @@ $bills=array_slice($bills,($pageIndex-1)*$pageSize,$pageSize);
             <ul class="pagination justify-content-center">
                 <?php
                     echo '<div id="paginationForm" class="row m-l-5">';
-                        if($totalPage > 1){
+                       
                             for($i = 1; $i <= $totalPage; $i++){
                                     echo '<li class="page-item"><a href="index.php?ac=bill&page='.$i.'&fromdate='.$fromDate.'&todate='.$toDate.'" class=" page-link" name="page">'.$i.'</a></li>';                           
                             }
-                        }
+                    
                     echo '</div>';
                 ?>
             </ul>

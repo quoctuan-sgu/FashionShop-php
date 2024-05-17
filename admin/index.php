@@ -55,7 +55,7 @@ if (isset($_GET['ac']) && $_GET['ac'] != "") {
             include 'statistical/orderstatictis.php';
             break;
 
-        case 'orderdetail':
+        case 'orderdetailstatistic':
             include 'statistical/orderdetailstatictis.php';
             break;
 

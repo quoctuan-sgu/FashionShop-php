@@ -11,7 +11,7 @@ $topUser= top5MostProfitUserFromdateToDate($fromDate,$toDate);
 ?>
 <main class="page-content">
     <div class="container-fluid">
-        <h2>Customer statictis</h2>
+        <h2>Top 5 most buy customer</h2>
         <div class="row ml-1 mt-3">
             <form class="row ml-1" method="post">
                 <h4 class="mr-1">From date</h4> <input class="datepicker mr-3" type="date" id="fromDate" name="fromDate" value=<?php echo $fromDate?> >

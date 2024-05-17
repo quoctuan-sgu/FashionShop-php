@@ -2,6 +2,13 @@
 if(isset($_GET['id'])){
     $orderDetails=getOrderDetailByOrderId($_GET['id']);
 }
+$pageIndex=1;
+if(isset($_GET['page'])){
+    $pageIndex=$_GET['page'];
+}
+$pageSize=1;
+$totalPage=ceil(count($orderDetails)/$pageSize);
+$orderDetails=array_slice($orderDetails,($pageIndex-1)*$pageSize,$pageSize);
 
 ?>
 <main class="page-content">
@@ -16,7 +23,6 @@ if(isset($_GET['id'])){
                 <th>Product Price</th>
                 <th>Product Quantity</th>
                 <th>Total</th>
-                <th>Action</th>
             </tr>
             
                 <?php 
@@ -39,6 +45,19 @@ if(isset($_GET['id'])){
             
             
         </table>
+        <div class="mt-5">
+            <ul class="pagination justify-content-center">
+                <?php
+                    echo '<div id="paginationForm" class="row m-l-5">';
+                            for($i = 1; $i <= $totalPage; $i++){
+                                echo '<li class="page-item"><a href="index.php?ac=orderdetailstatistic&id='.$_GET['id'].'&page='.$i.'" class=" page-link" name="page">'.$i.'</a></li>';
+                               
+                            }
+                        
+                    echo '</div>';
+                ?>
+            </ul>
+        </div>
         <!-- <a href="index.php?ac=orderstatistic">Back to order statictis</a> -->
 
     </div>
