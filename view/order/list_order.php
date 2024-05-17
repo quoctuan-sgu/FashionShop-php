@@ -57,7 +57,7 @@
 	echo "</table>";
 	}
 	else {
-		echo "Vui lòng đăng nhập";
+		echo "Vui lòng đăng nhập!";
 	}
 ?>
 
