@@ -102,14 +102,13 @@ if (isset($_GET['ac']) && $_GET['ac'] != "") {
     }
 } else {
     include "home.php";
-}
-
-
-if(isset($_GET['ac']) && $_GET['ac'] !== 'billdetail'){
-include "footer.php";
-}
-if(!isset($_GET['ac'])){
     include "footer.php";
 }
+
+if(isset($_GET['ac']) && $_GET['ac'] !== 'billdetail'){
+    include "footer.php";
+}
+
+
 ob_end_flush();
 ?>

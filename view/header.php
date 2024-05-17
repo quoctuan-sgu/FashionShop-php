@@ -40,13 +40,11 @@
 
     <link href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" rel="stylesheet">
 
-<!-- <<<<<<< HEAD -->
     <!-- Thêm thư viện jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-<!-- ======= -->
     <?php if ($current_page == 'signup' || $current_page == 'signin') echo '<link rel="stylesheet" type="text/css" href="css/sign/background.css">'; ?>
-<!-- >>>>>>> 8b0fb632772534f9909d9c7768db17a7c4fa24a9 -->
 
     <?php
     $titles = array(
@@ -63,12 +61,8 @@
 
     $title = isset($titles[$current_page]) ? $titles[$current_page] : '';
     ?>
-
-
-
-
+    
     <title> <?php echo $title ?> </title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 
 <body class="animsition">

@@ -41,6 +41,7 @@
                     <div class="user-pic">
                         <img class="img-responsive img-rounded" src="../images/tran-hao-nam.jpg" alt="User picture">
                     </div>
+                    
                     <div class="user-info">
 
                         <?php if (isset($_SESSION['admin'])) {
@@ -85,7 +86,6 @@
                             <a href="index.php">
                                 <i class="fas fa-home"></i>
                                 <span>Home</span>
-                                <span class="badge badge-pill badge-success">Pro</span>
                             </a>
                         </li>
 
@@ -97,7 +97,7 @@
                             <a href="#">
                                 <i class="fa fa-tachometer-alt"></i>
                                 <span>Dashboard</span>
-                                <span class="badge badge-pill badge-primary">Beta</span>
+                                <span class="badge badge-pill badge-warning">New</span>
                             </a>
 
                             <div class="sidebar-submenu">
@@ -110,13 +110,13 @@
                                         <a href="index.php?ac=product">Product Management</a>
                                     </li>
                                     <li>
-                                        <a href="index.php?ac=category">category Management</a>
+                                        <a href="index.php?ac=category">Category Management</a>
                                     </li>
                                     <li>
-                                        <a href="index.php?ac=bill">bill Management</a>
+                                        <a href="index.php?ac=bill">Bill Management</a>
                                     </li>
                                     <li>
-                                        <a href="index.php?ac=order">order Management</a>
+                                        <a href="index.php?ac=order">Order Management</a>
                                     </li>
 
                                 </ul>
@@ -127,7 +127,7 @@
                             <a href="#">
                                 <i class="fas fa-chart-line"></i>
                                 <span>Statistical</span>
-                                <span class="badge badge-pill badge-warning">New</span>
+                                <span class="badge badge-pill badge-primary">Beta</span>
                             </a>
 
                             <div class="sidebar-submenu">
@@ -135,10 +135,6 @@
                                     <li>
                                         <a href="index.php?ac=topcustomer">Customer Statistic</a>
                                     </li>
-
-                                    <!-- <li>
-                                        <a href="index.php?ac=orderstatistic">Order Statistic</a>
-                                    </li> -->
                                 </ul>
                             </div>
                         </li>

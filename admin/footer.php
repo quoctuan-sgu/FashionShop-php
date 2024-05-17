@@ -1,4 +1,3 @@
-<hr>
 <footer class="text-center">
     <div class="p-t-40">
         <div class="flex-c-m flex-w p-b-18" style="padding: 1%;">
