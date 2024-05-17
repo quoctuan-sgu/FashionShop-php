@@ -572,15 +572,16 @@ if (isset($_GET['ac']) && $_GET['ac'] != "") {
 						if(empty($list_id_product) && !empty($_SESSION['cart_no_login'])){
 
 							
-							// xóa sạch cart detail theo id
-							$cart_info = get_info_user_cart($_SESSION['user']['user_id']);
-							extract($cart_info);
+							// // xóa sạch cart detail theo id
+							// $cart_info = get_info_user_cart($_SESSION['user']['user_id']);
+							// extract($cart_info);
 
-							delete_cart_detail($cart_id);
+							// delete_cart_detail($cart_id);
+							$id_cart = insert_cart($_SESSION['user']['user_id']);
 						
 							// đổ session cart dô theo card id
 							foreach($_SESSION['cart_no_login'] as $i) {
-								insert_cartdetail($cart_id, $i[0], $i[1]);
+								insert_cartdetail($id_cart, $i[0], $i[1]);
 							}
 
 							$_SESSION['cart_no_login'] = [];
