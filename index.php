@@ -248,11 +248,6 @@ if (isset($_GET['ac']) && $_GET['ac'] != "") {
 							$name_user = $user_name;
 							$phone = $user_phoneNumber;
 						}
-
-						
-	
-						
-	
 						// add vào bill info: bill_detail_id	bill_id  product_id	quantity	price	total
 						// $list_detail_cart = get_list_code_product($_SESSION['user']['user_id']);
 	
@@ -262,7 +257,6 @@ if (isset($_GET['ac']) && $_GET['ac'] != "") {
 							foreach($list_detail_cart_1 as $item) {
 								extract($item);
 								
-	
 								$id_pro = $product_id;
 								$quantity_pro = $quantity;
 	
@@ -314,6 +308,8 @@ if (isset($_GET['ac']) && $_GET['ac'] != "") {
 							$id_card_delete = $cart_id;
 							delete_cart_detail($id_card_delete);
 							$_SESSION['sum_product_cart'] = 0;
+							header("Location: index.php?ac=view_info_bill&id=$id_bill");
+							exit();
 						}
 					}	
 				}

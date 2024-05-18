@@ -41,7 +41,7 @@
                             }
                             echo "<tr>
                                     <td>". $pro_id ."</td>
-                                    <td><img src='data:image/jpeg;base64,".base64_encode($product_image)."' alt='IMG-PRODUCT'></td>
+                                    <td><img style='width:100px;height:130px' src='data:image/jpeg;base64,".base64_encode($product_image)."' alt='IMG-PRODUCT'></td>
                                     <td><a href='index.php?ac=productDetail&id=".$pro_id."'>". $product_name ."</a></td>
                                     <td>". $quantity ."</td>
                                     <td>". $pro_price."$</td>
